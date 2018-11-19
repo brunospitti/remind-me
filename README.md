@@ -1,3 +1,3 @@
-React + Redux Boilerplate 2.0
+Remind me app
 
 Using react, redux, emotion, jest and loadable
