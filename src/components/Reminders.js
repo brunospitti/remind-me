@@ -32,8 +32,9 @@ export default class Reminders extends React.Component {
           ))}
         </ul>
         <Button
+          danger
           text="Increment number"
-          clickBehaviour={() => console.log("a")}
+          clickBehavior={() => console.log("a")}
         />
       </React.Fragment>
     );

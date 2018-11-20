@@ -5,6 +5,7 @@ import { colors } from "../globalStyles";
 
 // styles with emotion
 const Container = styled("header")`
+  background: ${colors.light};
   border-bottom: 1px solid ${colors.primary};
   position: sticky;
   top: 0;

@@ -6,7 +6,7 @@ export const colors = {
   tertiary: "#f6416c",
   complementary: "#f8f3d4",
   dark: "#333",
-  light: "#F7FFF7",
+  light: "#f7f7f7",
   lightGrey: "#C1C1C1",
   danger: "#FF6767"
 };

@@ -13,7 +13,7 @@ class Number extends React.Component {
         <p>
           <strong>Times the button has been clicked:</strong> {num}
         </p>
-        <Button text="Increment number" clickBehaviour={() => addNum(num)} />
+        <Button text="Increment number" clickBehavior={() => addNum(num)} />
       </div>
     );
   }
