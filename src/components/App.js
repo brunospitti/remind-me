@@ -11,7 +11,7 @@ import { Footer } from "./Footer";
 
 // global css styles
 // eslint-disable-next-line
-import globalStyles from "../globalStyles";
+import { GlobalStyles } from "../globalStyles";
 
 // Code splitting section
 
@@ -33,6 +33,7 @@ class App extends React.PureComponent {
           </Router>
         </Provider>
         <Footer />
+        <GlobalStyles />
       </div>
     );
   }

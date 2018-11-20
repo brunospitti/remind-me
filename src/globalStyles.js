@@ -1,4 +1,4 @@
-import { injectGlobal } from "emotion";
+import { createGlobalStyle } from "styled-components";
 
 export const colors = {
   primary: "#00b8a9",
@@ -11,7 +11,7 @@ export const colors = {
   danger: "#FF6767"
 };
 
-export default injectGlobal`
+export const GlobalStyles = createGlobalStyle`
     // css reset
 
     html, body, div, span, applet, object, iframe,
@@ -30,7 +30,6 @@ export default injectGlobal`
         margin: 0;
         padding: 0;
         border: 0;
-        font-size: 100%;
         vertical-align: baseline;
     }
     /* HTML5 display-role reset for older browsers */
@@ -58,6 +57,9 @@ export default injectGlobal`
     }
     * {
         box-sizing: border-box;
+        :focus{
+            outline: none;
+        }
     }
 
 

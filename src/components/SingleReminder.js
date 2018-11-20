@@ -1,68 +1,55 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from "react";
 import { connect } from "react-redux";
-import styled from "react-emotion";
+import styled from "styled-components";
+import { lighten } from "polished";
 
 import { colors } from "../globalStyles";
+import RatioButton from "./basics/RatioButton";
 
 const StyledLi = styled("li")`
   position: relative;
-  padding: 30px 0;
+  padding: 20px;
+  text-align: left;
+  border-bottom: 1px solid ${lighten(0.2, colors.lightGrey)};
+  span {
+    display: table-cell;
+    vertical-align: middle;
+    padding-left: 15px;
+    transition: 0.25s all ease;
+    cursor: pointer;
+  }
   &.checked {
     span {
       text-decoration: line-through;
       opacity: 0.5;
     }
-    label {
-      background-color: ${colors.secondary};
-      border-color: ${colors.secondary};
-      &:after {
-        opacity: 1;
-      }
-    }
   }
 `;
 
-const StyledRatio = styled("div")`
-  label {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 50%;
-    cursor: pointer;
-    height: 28px;
-    left: 0;
-    position: absolute;
-    width: 28px;
-    &:after {
-      border: 2px solid #fff;
-      border-top: none;
-      border-right: none;
-      content: "";
-      height: 6px;
-      left: 7px;
-      opacity: 0;
-      position: absolute;
-      top: 8px;
-      transform: rotate(-45deg);
-      width: 12px;
-    }
-  }
-  input[type="checkbox"] {
-    visibility: hidden;
-  }
+const StyledItemContainer = styled("div")`
+  display: table;
+  width: 100%;
 `;
 
 const SingleReminder = props => (
   <React.Fragment>
     <StyledLi className={props.task.checked ? "checked" : "not-checked"}>
-      <StyledRatio>
-        <input type="checkbox" id={`checkbox${props.task.id}`} />
-        <label
-          htmlFor={`checkbox${props.task.id}`}
-          onClick={() => props.handleCheck(props.task.id)}
+      <StyledItemContainer>
+        <RatioButton
+          checked={props.task.checked}
+          taskId={props.task.id}
+          handleCheck={props.handleCheck}
         />
-      </StyledRatio>
-      <span>{props.task.task}</span>
+        <span
+          role="button"
+          onKeyPress={() => props.itemListDetails(props.task.id)}
+          onClick={() => props.itemListDetails(props.task.id)}
+          tabIndex="0"
+        >
+          {props.task.task}
+        </span>
+      </StyledItemContainer>
     </StyledLi>
   </React.Fragment>
 );
