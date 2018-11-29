@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { lighten } from "polished";
 
 import { colors } from "../globalStyles";
+import SingleReminder from "./SingleReminder";
 
 const StyledDetailsContainer = styled("div")`
   height: calc(100% - 48px);
@@ -19,13 +20,32 @@ const StyledDetailsContainer = styled("div")`
   }
 `;
 
+const StyledListItem = styled("li")`
+  position: relative;
+  padding: 20px;
+  text-align: left;
+`;
+
 const SingleReminderDetails = props => (
   <React.Fragment>
     <StyledDetailsContainer>
       <h3>Task details</h3>
-      {props.task.task}
-      {props.task.end_date}
-      {props.task.state_date}
+      <ul>
+        <SingleReminder
+          task={props.task}
+          handleCheck={props.handleCheck}
+          itemListDetails={props.itemListDetails}
+        />
+
+        <StyledListItem>
+          <b>Date created: </b>
+          {props.task.state_date}
+        </StyledListItem>
+        <StyledListItem>
+          <b>Scheduled to: </b>
+          {props.task.end_date}
+        </StyledListItem>
+      </ul>
     </StyledDetailsContainer>
   </React.Fragment>
 );

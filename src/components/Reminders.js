@@ -100,6 +100,8 @@ export default class Reminders extends React.Component {
           {this.state.showDetails && (
             <SingleReminderDetails
               task={this.getTaskFromId(this.state.detailsId)}
+              handleCheck={this.handleCheck}
+              itemListDetails={this.itemListDetails}
             />
           )}
         </StyledReminderOuter>

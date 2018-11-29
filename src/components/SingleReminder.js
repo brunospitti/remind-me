@@ -50,6 +50,16 @@ const SingleReminder = props => (
           {props.task.task}
         </span>
       </StyledItemContainer>
+      <ul>
+        {Object.keys(props.task.labels).map((label, i) => (
+          <li
+            key={i}
+            style={{ backgroundColor: props.task.labels[label].color }}
+          >
+            {label.label}
+          </li>
+        ))}
+      </ul>
     </StyledLi>
   </React.Fragment>
 );

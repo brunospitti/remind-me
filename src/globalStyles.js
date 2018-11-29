@@ -11,6 +11,17 @@ export const colors = {
   danger: "#FF6767"
 };
 
+export const labelColors = {
+  blueGreen: "#84DCC6",
+  salmon: "#FFA69E",
+  red: "#FF686B",
+  peach: "#FFB4A2",
+  englishLavender: "#B5838D",
+  blue: "#247BA0",
+  yellow: "#F3FFBD",
+  pink: "#FF1654"
+};
+
 export const GlobalStyles = createGlobalStyle`
     // css reset
 
