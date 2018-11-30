@@ -1,11 +1,14 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 
-import LabelColorSelector from "./LabelColorSelector";
+import LabelColorSelector from "./basics/LabelColorSelector";
+import { SingleInput } from "./basics/SingleInput";
 
-const StyledLabel = styled("span")`
+const StyledUl = styled("ul")`
+  display: inline-block;
+`
+const StyledLabel = styled("li")`
   position: relative;
   padding: 10px 20px;
   margin: 0 5px;
@@ -18,7 +21,7 @@ const StyledLabel = styled("span")`
 const LabelsManager = props => (
   <React.Fragment>
     <h3>Label manager</h3>
-    <ul>
+    <StyledUl>
       {Object.keys(props.labels).map((label, i) => (
         <StyledLabel
           key={i}
@@ -31,7 +34,8 @@ const LabelsManager = props => (
           />
         </StyledLabel>
       ))}
-    </ul>
+    </StyledUl>
+    <SingleInput clickBehavior={props.addLabel} text="+"/>
   </React.Fragment>
 );
 

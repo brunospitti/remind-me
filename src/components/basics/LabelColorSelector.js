@@ -8,40 +8,48 @@ import { labelColors, colors } from "../../globalStyles";
 
 import changeColorIcon from "../../assets/icons/paint-board-and-brush.svg";
 
+const StyledImg = styled("img")`
+  cursor: pointer;
+  width: 20px;
+  display: inline-block;
+  margin-bottom: -6px;
+  margin-left: 10px;
+`;
+
+const StyledColorList = styled("ul")`
+  position: absolute;
+  top: -57px;
+  left: 0;
+  border-radius: 3px;
+  box-shadow: 1px 1px 4px ${colors.lightGrey};
+  background: ${lighten(0.025, colors.light)};
+  padding: 10px;
+  width: 330px;
+`;
+
+const StyledLabelColor = styled("li")`
+  cursor: pointer;
+  height: 30px;
+  width: 30px;
+  display: inline-block;
+  &:not(:first-child) {
+    margin-left: 5px;
+  }
+`;
+
 class LabelColorSelector extends React.PureComponent {
   state = {
     showColorSelector: false
   };
 
+  handleColorChange = (label, labelColor) => {
+    this.props.handleColorChange(label, labelColor);
+    this.setState({
+      showColorSelector: !this.state.showColorSelector
+    })
+  }
+
   render() {
-    const StyledImg = styled("img")`
-      cursor: pointer;
-      width: 20px;
-      display: inline-block;
-      margin-bottom: -6px;
-      margin-left: 10px;
-    `;
-
-    const StyledColorList = styled("ul")`
-      position: absolute;
-      top: -57px;
-      left: 0;
-      border-radius: 3px;
-      box-shadow: 1px 1px 4px ${colors.lightGrey};
-      background: ${lighten(0.025, colors.light)};
-      padding: 10px;
-      width: 295px;
-    `;
-
-    const StyledLabelColor = styled("li")`
-      cursor: pointer;
-      height: 30px;
-      width: 30px;
-      display: inline-block;
-      &:not(:first-child) {
-        margin-left: 5px;
-      }
-    `;
     return (
       <React.Fragment>
         <StyledImg
@@ -67,7 +75,7 @@ class LabelColorSelector extends React.PureComponent {
                 key={i}
                 style={{ backgroundColor: labelColors[labelColor] }}
                 onClick={() =>
-                  this.props.handleColorChange(this.props.label, labelColor)
+                  this.handleColorChange(this.props.label, labelColor)
                 }
               />
             ))}
