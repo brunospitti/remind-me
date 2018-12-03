@@ -23,11 +23,11 @@ const StyledRatio = styled("div")`
     display: block;
     transition: 0.25s all ease;
     &:hover {
-      background-color: ${lighten(0.5, colors.secondary)};
-      border: 1px solid ${lighten(0.1, colors.secondary)};
+      background-color: ${lighten(0.3, colors.secondary)};
+      border: 1px solid ${colors.secondary};
     }
     &:after {
-      border: 5px solid ${colors.secondary};
+      border: 5px solid ${props => props.mainColor};
       border-top: none;
       border-right: none;
       content: "";
@@ -49,7 +49,7 @@ const StyledRatio = styled("div")`
   &.checked {
     label {
       background-color: white;
-      border-color: ${colors.secondary};
+      border-color: ${props => lighten(0.1, props.mainColor)};
       &:after {
         opacity: 1;
       }
@@ -58,7 +58,10 @@ const StyledRatio = styled("div")`
 `;
 
 const RatioButton = props => (
-  <StyledRatio className={props.checked ? "checked" : "not-checked"}>
+  <StyledRatio
+    mainColor={props.mainColor}
+    className={props.checked ? "checked" : "not-checked"}
+  >
     <input type="checkbox" id={`checkbox${props.taskId}`} />
     <label
       htmlFor={`checkbox${props.taskId}`}

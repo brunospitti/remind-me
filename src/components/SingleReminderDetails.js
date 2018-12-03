@@ -39,7 +39,7 @@ const SingleReminderDetails = props => (
 
         <StyledListItem>
           <b>Date created: </b>
-          {props.task.state_date}
+          {props.task.start_date}
         </StyledListItem>
         <StyledListItem>
           <b>Scheduled to: </b>

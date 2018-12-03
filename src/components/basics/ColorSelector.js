@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { lighten } from "polished";
 
-import { labelColors, colors } from "../../globalStyles";
+import { listColors, colors } from "../../globalStyles";
 
 import changeColorIcon from "../../assets/icons/paint-board-and-brush.svg";
 
@@ -37,17 +37,17 @@ const StyledLabelColor = styled("li")`
   }
 `;
 
-class LabelColorSelector extends React.PureComponent {
+class ColorSelector extends React.PureComponent {
   state = {
     showColorSelector: false
   };
 
-  handleColorChange = (label, labelColor) => {
-    this.props.handleColorChange(label, labelColor);
+  handleColorChange = (list, listColor) => {
+    this.props.handleColorChange(list, listColor);
     this.setState({
       showColorSelector: !this.state.showColorSelector
-    })
-  }
+    });
+  };
 
   render() {
     return (
@@ -70,12 +70,12 @@ class LabelColorSelector extends React.PureComponent {
         />
         {this.state.showColorSelector && (
           <StyledColorList>
-            {Object.keys(labelColors).map((labelColor, i) => (
+            {Object.keys(listColors).map((listColor, i) => (
               <StyledLabelColor
                 key={i}
-                style={{ backgroundColor: labelColors[labelColor] }}
+                style={{ backgroundColor: listColors[listColor] }}
                 onClick={() =>
-                  this.handleColorChange(this.props.label, labelColor)
+                  this.handleColorChange(this.props.list, listColor)
                 }
               />
             ))}
@@ -86,4 +86,4 @@ class LabelColorSelector extends React.PureComponent {
   }
 }
 
-export default LabelColorSelector;
+export default ColorSelector;

@@ -11,7 +11,6 @@ const StyledLi = styled("li")`
   position: relative;
   padding: 20px;
   text-align: left;
-  border-bottom: 1px solid ${lighten(0.2, colors.lightGrey)};
   span {
     display: table-cell;
     vertical-align: middle;
@@ -40,6 +39,7 @@ const SingleReminder = props => (
           checked={props.task.checked}
           taskId={props.task.id}
           handleCheck={props.handleCheck}
+          mainColor={props.mainColor}
         />
         <span
           role="button"
@@ -50,16 +50,6 @@ const SingleReminder = props => (
           {props.task.task}
         </span>
       </StyledItemContainer>
-      <ul>
-        {Object.keys(props.task.labels).map((label, i) => (
-          <li
-            key={i}
-            style={{ backgroundColor: props.task.labels[label].color }}
-          >
-            {label.label}
-          </li>
-        ))}
-      </ul>
     </StyledLi>
   </React.Fragment>
 );
