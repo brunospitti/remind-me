@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import styled, { keyframes } from "styled-components";
 import { lighten } from "polished";
 
-import { colors } from "../globalStyles";
+import { colors } from "../assets/globalStyles";
 
 import { mock_lists } from "../assets/mock_data";
 
@@ -100,11 +100,15 @@ export default class Reminders extends React.Component {
   };
 
   itemListDetails = taskId => {
-    this.setState({ showDetails: !this.state.showDetails, detailsId: taskId });
+    this.setState({ showDetails: true, detailsId: taskId });
   };
 
+  closeDetails = () =>{
+    this.setState({ showDetails: false, detailsId: "" });
+  }
+
   getTaskFromId = taskId => {
-    let currState = this.state.currList;
+    let currState = this.props.currentList;
     let currTask = currState.items.find(x => x.id === taskId);
     return currTask;
   };
@@ -141,6 +145,8 @@ export default class Reminders extends React.Component {
               task={this.getTaskFromId(this.state.detailsId)}
               handleCheck={this.handleCheck}
               itemListDetails={this.itemListDetails}
+              mainColor={this.props.currentList.color}
+              closeDetails={this.closeDetails}
             />
           )}
         </StyledReminderOuter>

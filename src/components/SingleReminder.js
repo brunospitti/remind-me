@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { lighten } from "polished";
 
-import { colors } from "../globalStyles";
 import RatioButton from "./basics/RatioButton";
 
 const StyledLi = styled("li")`

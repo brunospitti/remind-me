@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { listColors } from "../globalStyles";
+import { listColors } from "../assets/globalStyles";
 
 import Reminders from "../components/Reminders";
 import ListsManager from "../components/ListsManager";

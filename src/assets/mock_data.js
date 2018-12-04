@@ -1,4 +1,4 @@
-import { listColors } from "../globalStyles";
+import { listColors } from "../assets/globalStyles";
 
 export const defaultLabels = [
   { label: "work", color: listColors.blue },

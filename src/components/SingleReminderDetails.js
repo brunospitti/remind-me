@@ -4,13 +4,15 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { lighten } from "polished";
 
-import { colors } from "../globalStyles";
+import { colors } from "../assets/globalStyles";
 import SingleReminder from "./SingleReminder";
+import { Button } from "./basics/Button";
 
 const StyledDetailsContainer = styled("div")`
   height: calc(100% - 48px);
   width: 50%;
   position: absolute;
+  padding: 20px;
   right: 5px;
   bottom: 0;
   background: white;
@@ -18,6 +20,16 @@ const StyledDetailsContainer = styled("div")`
   &.active {
     width: 50%;
   }
+  button{
+    position: absolute;
+    bottom: 20px;
+  }
+`;
+
+const StyledH3 = styled("h3")`
+  color: ${props => props.mainColor};
+  margin-bottom: 10px;
+  font-size: 1.3em;
 `;
 
 const StyledListItem = styled("li")`
@@ -26,28 +38,45 @@ const StyledListItem = styled("li")`
   text-align: left;
 `;
 
-const SingleReminderDetails = props => (
-  <React.Fragment>
-    <StyledDetailsContainer>
-      <h3>Task details</h3>
-      <ul>
-        <SingleReminder
-          task={props.task}
-          handleCheck={props.handleCheck}
-          itemListDetails={props.itemListDetails}
-        />
+class SingleReminderDetails extends React.Component{
+  dateTransformation = mainColor => {
+    console.log(mainColor)
+  }
 
-        <StyledListItem>
-          <b>Date created: </b>
-          {props.task.start_date}
-        </StyledListItem>
-        <StyledListItem>
-          <b>Scheduled to: </b>
-          {props.task.end_date}
-        </StyledListItem>
-      </ul>
-    </StyledDetailsContainer>
-  </React.Fragment>
-);
+  componentDidMount(){
+    this.dateTransformation(this.props.mainColor)
+  }
+
+  render(){
+    return(
+
+      <React.Fragment>
+        <StyledDetailsContainer>
+          <StyledH3 mainColor={this.props.mainColor}>Task details</StyledH3>
+          <ul>
+            <SingleReminder
+              task={this.props.task}
+              handleCheck={this.props.handleCheck}
+              itemListDetails={this.props.itemListDetails}
+              mainColor={this.props.mainColor}
+            />
+    
+            <StyledListItem>
+              <b>Date created: </b>
+              {this.props.task.start_date}
+            </StyledListItem>
+            <StyledListItem>
+              <b>Scheduled to: </b>
+              {this.props.task.end_date}
+            </StyledListItem>
+          </ul>
+          <Button clickBehavior={this.props.closeDetails}
+                  text="Close me"
+          />
+        </StyledDetailsContainer>
+      </React.Fragment>
+    )
+  }
+}
 
 export default SingleReminderDetails;

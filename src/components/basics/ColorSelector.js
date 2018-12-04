@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { lighten } from "polished";
 
-import { listColors, colors } from "../../globalStyles";
+import { listColors, colors } from "../../assets/globalStyles";
 
 import changeColorIcon from "../../assets/icons/paint-board-and-brush.svg";
 

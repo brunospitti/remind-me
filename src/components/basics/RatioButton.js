@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { lighten } from "polished";
 
-import { colors } from "../../globalStyles";
+import { colors } from "../../assets/globalStyles";
 
 const StyledRatio = styled("div")`
   display: table-cell;

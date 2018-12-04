@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { colors, listColors } from "../../globalStyles";
+import { colors, listColors } from "../../assets/globalStyles";
 import { Button } from "./Button";
 import ColorSelector from "./ColorSelector";
 
