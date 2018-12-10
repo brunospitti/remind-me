@@ -10,7 +10,7 @@ const StyledLi = styled("li")`
   position: relative;
   padding: 20px;
   text-align: left;
-  span {
+  div {
     display: table-cell;
     vertical-align: middle;
     padding-left: 15px;
@@ -18,7 +18,7 @@ const StyledLi = styled("li")`
     cursor: pointer;
   }
   &.checked {
-    span {
+    div {
       text-decoration: line-through;
       opacity: 0.5;
     }
@@ -32,7 +32,11 @@ const StyledItemContainer = styled("div")`
 
 const SingleReminder = props => (
   <React.Fragment>
-    <StyledLi className={props.task.checked ? "checked" : "not-checked"}>
+    <StyledLi
+      className={props.task.checked ? "checked" : "not-checked"}
+      onMouseEnter={() => props.showReminderOptionsFunc(props.task.id, true)}
+      onMouseLeave={() => props.showReminderOptionsFunc(props.task.id, false)}
+    >
       <StyledItemContainer>
         <RatioButton
           checked={props.task.checked}
@@ -40,14 +44,15 @@ const SingleReminder = props => (
           handleCheck={props.handleCheck}
           mainColor={props.mainColor}
         />
-        <span
+        <div
           role="button"
           onKeyPress={() => props.itemListDetails(props.task.id)}
           onClick={() => props.itemListDetails(props.task.id)}
           tabIndex="0"
         >
           {props.task.task}
-        </span>
+        </div>
+        {props.showReminderOptions && <span>options here</span>}
       </StyledItemContainer>
     </StyledLi>
   </React.Fragment>

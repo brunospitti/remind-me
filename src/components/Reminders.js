@@ -9,6 +9,7 @@ import { mock_lists } from "../assets/mock_data";
 
 import SingleReminder from "./SingleReminder";
 import SingleReminderDetails from "./SingleReminderDetails";
+import AddItem from "./AddItem";
 
 const expandsReminderOuter = keyframes`
   0% {
@@ -74,21 +75,11 @@ const StyledReminder = styled("div")`
   }
 `;
 
-const StyledInput = styled("input")`
-  position: relative;
-  text-align: left;
-  margin-left: 58px;
-  width: 60%;
-  margin-bottom: 5px;
-  border: 0;
-  background: transparent;
-  padding: 20px 0;
-`;
-
 export default class Reminders extends React.Component {
   state = {
     showDetails: false,
-    detailsId: ""
+    detailsId: "",
+    showReminderOptions: false
   };
 
   handleCheck = taskId => {
@@ -103,14 +94,18 @@ export default class Reminders extends React.Component {
     this.setState({ showDetails: true, detailsId: taskId });
   };
 
-  closeDetails = () =>{
+  closeDetails = () => {
     this.setState({ showDetails: false, detailsId: "" });
-  }
+  };
 
   getTaskFromId = taskId => {
     let currState = this.props.currentList;
     let currTask = currState.items.find(x => x.id === taskId);
     return currTask;
+  };
+
+  showReminderOptionsFunc = (taskId, toggle) => {
+    this.setState({ showReminderOptions: `${toggle},${taskId}` });
   };
 
   render() {
@@ -129,12 +124,14 @@ export default class Reminders extends React.Component {
                   handleCheck={this.handleCheck}
                   itemListDetails={this.itemListDetails}
                   mainColor={this.props.currentList.color}
+                  showReminderOptionsFunc={this.showReminderOptionsFunc}
+                  showReminderOptions={
+                    `true,${task.id}` === this.state.showReminderOptions &&
+                    this.state.showReminderOptions
+                  }
                 />
               ))}
-              <StyledInput
-                type="text"
-                placeholder="Insert new bitch right here"
-              />
+              <AddItem addItem={this.props.addItem} />
               {[...Array(this.props.completeListLayoutNum)].map((e, i) => (
                 <li key={i} className={i === 0 ? "first-fake" : null} />
               ))}
@@ -147,6 +144,7 @@ export default class Reminders extends React.Component {
               itemListDetails={this.itemListDetails}
               mainColor={this.props.currentList.color}
               closeDetails={this.closeDetails}
+              deleteItem={this.props.deleteItem}
             />
           )}
         </StyledReminderOuter>

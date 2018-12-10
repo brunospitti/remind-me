@@ -20,7 +20,7 @@ const StyledDetailsContainer = styled("div")`
   &.active {
     width: 50%;
   }
-  button{
+  > button {
     position: absolute;
     bottom: 20px;
   }
@@ -38,18 +38,31 @@ const StyledListItem = styled("li")`
   text-align: left;
 `;
 
-class SingleReminderDetails extends React.Component{
-  dateTransformation = mainColor => {
-    console.log(mainColor)
-  }
+class SingleReminderDetails extends React.Component {
+  dateTransformation = dateTime => {
+    if (dateTime) {
+      let date = dateTime.substring(0, 10);
+      let year = date.substring(0, 4);
+      let month = date.substring(5, 7);
+      let day = date.substring(8, 10);
+      let time = dateTime.substring(11, dateTime.length);
+      let hour = time.substring(0, 2);
+      let minute = time.substring(3, 5);
+      let second = time.substring(6, 8);
 
-  componentDidMount(){
-    this.dateTransformation(this.props.mainColor)
-  }
+      return `${day}/${month}/${year} - ${hour}h${minute}m${second}s`;
+    } else {
+      return null;
+    }
+  };
 
-  render(){
-    return(
+  deleteItem = itemToDelete => {
+    this.props.closeDetails();
+    this.props.deleteItem(itemToDelete);
+  };
 
+  render() {
+    return (
       <React.Fragment>
         <StyledDetailsContainer>
           <StyledH3 mainColor={this.props.mainColor}>Task details</StyledH3>
@@ -60,22 +73,26 @@ class SingleReminderDetails extends React.Component{
               itemListDetails={this.props.itemListDetails}
               mainColor={this.props.mainColor}
             />
-    
+
             <StyledListItem>
               <b>Date created: </b>
-              {this.props.task.start_date}
+              {this.dateTransformation(this.props.task.start_date)}
             </StyledListItem>
             <StyledListItem>
               <b>Scheduled to: </b>
-              {this.props.task.end_date}
+              {this.dateTransformation(this.props.task.end_date)}
+            </StyledListItem>
+            <StyledListItem>
+              <Button
+                clickBehavior={() => this.deleteItem(this.props.task.id)}
+                text="Delete"
+              />
             </StyledListItem>
           </ul>
-          <Button clickBehavior={this.props.closeDetails}
-                  text="Close me"
-          />
+          <Button clickBehavior={this.props.closeDetails} text="Close me" />
         </StyledDetailsContainer>
       </React.Fragment>
-    )
+    );
   }
 }
 

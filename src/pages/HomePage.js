@@ -43,7 +43,7 @@ export default class HomePage extends React.Component {
   };
 
   addList = (newList, newColor) => {
-    let mock_lists = this.state.mock_lists;
+    let mock_lists = [...this.state.mock_lists];
     mock_lists.push({
       list: newList,
       color: listColors[newColor],
@@ -54,7 +54,7 @@ export default class HomePage extends React.Component {
   };
 
   updateList = list => {
-    let mockLists = this.state.mock_lists;
+    let mockLists = [...this.state.mock_lists];
     mockLists[mockLists.findIndex(key => key.id == list.id)].id = list.id;
     this.setState({ mock_lists: mockLists });
   };
@@ -77,6 +77,43 @@ export default class HomePage extends React.Component {
     }
   }
 
+  addItem = itemToAdd => {
+    let currState = [...this.state.mock_lists];
+    let currList = this.getCurrentList();
+    let randomId = Math.random()
+      .toString(36)
+      .slice(-8);
+    let currTime = new Date(new Date().toString().split("GMT")[0] + " UTC")
+      .toISOString()
+      .split(".")[0];
+
+    currState.filter(list => list.id === currList.id)[0].items.push({
+      id: randomId,
+      task: itemToAdd,
+      start_date: currTime,
+      end_date: "",
+      checked: false,
+      labels: []
+    });
+
+    this.setState({ mock_lists: currState });
+  };
+
+  deleteItem = itemToDelete => {
+    let currState = [...this.state.mock_lists];
+    let currList = this.getCurrentList();
+    let currListItems = currState.filter(list => list.id === currList.id)[0]
+      .items;
+    let currItem = currListItems.filter(item => item.id === itemToDelete)[0];
+
+    let itemIndex = currListItems.indexOf(currItem);
+    if (itemIndex > -1) {
+      currListItems.splice(itemIndex, 1);
+    }
+
+    this.setState({ mock_lists: currState });
+  };
+
   render() {
     return (
       <div className="home">
@@ -86,6 +123,8 @@ export default class HomePage extends React.Component {
             currentList={this.getCurrentList()}
             updateList={this.updateList}
             completeListLayoutNum={this.state.completeListLayoutNum}
+            addItem={this.addItem}
+            deleteItem={this.deleteItem}
           />
           <ListsManager
             lists={this.getLists()}
