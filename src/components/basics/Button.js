@@ -1,6 +1,8 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
+import deleteIcon from "../../assets/icons/delete.svg";
+
 import { colors } from "../../assets/globalStyles";
 
 export class Button extends React.PureComponent {
@@ -36,10 +38,37 @@ export class Button extends React.PureComponent {
       ${StyledButtonDanger};
     `;
 
-    return (
-      <StyledButton onClick={this.props.clickBehavior}>
-        {this.props.text}
-      </StyledButton>
-    );
+    const StyledButtonIcon = styled("button")`
+      background: transparent;
+      cursor: pointer;
+      border: 0;
+      padding: 10px;
+      margin: 10px auto;
+      img {
+        width: 20px;
+        display: inline-block;
+        margin-bottom: -6px;
+        margin-left: 10px;
+        &#deleteIcon {
+          opacity: 0.4;
+        }
+      }
+    `;
+
+    if (this.props.icon) {
+      return (
+        <StyledButtonIcon onClick={this.props.clickBehavior}>
+          {this.props.icon === "deleteIcon" ? (
+            <img src={deleteIcon} alt="delete item" id="deleteIcon" />
+          ) : null}
+        </StyledButtonIcon>
+      );
+    } else {
+      return (
+        <StyledButton onClick={this.props.clickBehavior}>
+          {this.props.text}
+        </StyledButton>
+      );
+    }
   }
 }

@@ -129,6 +129,7 @@ export default class Reminders extends React.Component {
                     `true,${task.id}` === this.state.showReminderOptions &&
                     this.state.showReminderOptions
                   }
+                  deleteItem={this.props.deleteItem}
                 />
               ))}
               <AddItem addItem={this.props.addItem} />

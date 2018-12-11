@@ -5,8 +5,10 @@ import styled from "styled-components";
 import { lighten } from "polished";
 
 import RatioButton from "./basics/RatioButton";
+import { Button } from "./basics/Button";
 
 const StyledLi = styled("li")`
+  cursor: pointer;
   position: relative;
   padding: 20px;
   text-align: left;
@@ -16,6 +18,11 @@ const StyledLi = styled("li")`
     padding-left: 15px;
     transition: 0.25s all ease;
     cursor: pointer;
+  }
+  span {
+    position: absolute;
+    right: 0;
+    top: 0;
   }
   &.checked {
     div {
@@ -52,7 +59,15 @@ const SingleReminder = props => (
         >
           {props.task.task}
         </div>
-        {props.showReminderOptions && <span>options here</span>}
+        {props.showReminderOptions && (
+          <span>
+            <Button
+              icon="deleteIcon"
+              clickBehavior={() => props.deleteItem(props.task.id)}
+              text="Delete"
+            />
+          </span>
+        )}
       </StyledItemContainer>
     </StyledLi>
   </React.Fragment>

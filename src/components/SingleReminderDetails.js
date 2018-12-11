@@ -75,12 +75,16 @@ class SingleReminderDetails extends React.Component {
             />
 
             <StyledListItem>
-              <b>Date created: </b>
-              {this.dateTransformation(this.props.task.start_date)}
+              <p>
+                <b>Date created:</b>
+              </p>
+              <p>{this.dateTransformation(this.props.task.start_date)}</p>
             </StyledListItem>
             <StyledListItem>
-              <b>Scheduled to: </b>
-              {this.dateTransformation(this.props.task.end_date)}
+              <p>
+                <b>Scheduled to:</b>
+              </p>
+              <p>{this.dateTransformation(this.props.task.end_date)}</p>
             </StyledListItem>
             <StyledListItem>
               <Button
