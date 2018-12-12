@@ -115,7 +115,7 @@ export default class Reminders extends React.Component {
           className={this.state.showDetails ? "expanded" : "compressed"}
         >
           <h2>{this.props.currentList.list}</h2>
-          <StyledReminder mainColor={this.props.currentList.color}>
+          <StyledReminder id="reminders" mainColor={this.props.currentList.color}>
             <ul>
               {this.props.currentList.items.map(task => (
                 <SingleReminder

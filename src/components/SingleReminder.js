@@ -40,6 +40,7 @@ const StyledItemContainer = styled("div")`
 const SingleReminder = props => (
   <React.Fragment>
     <StyledLi
+      id="single-reminder"
       className={props.task.checked ? "checked" : "not-checked"}
       onMouseEnter={() => props.showReminderOptionsFunc(props.task.id, true)}
       onMouseLeave={() => props.showReminderOptionsFunc(props.task.id, false)}

@@ -6,7 +6,7 @@ import { colors } from "../assets/globalStyles";
 const StyledInput = styled("input")`
   position: relative;
   text-align: left;
-  margin-left: 58px;
+  margin-left: 53px;
   width: 60%;
   margin-bottom: 5px;
   border: 0;
@@ -34,7 +34,7 @@ export default class AddItem extends React.Component {
       <form onSubmit={e => this.handleSubmit(e)}>
         <StyledInput
           type="text"
-          placeholder="Insert new bitch right here"
+          placeholder="Insert new item"
           value={this.state.inputValue}
           onChange={e => this.handleChange(e)}
         />

@@ -12,12 +12,17 @@ export default class HomePage extends React.Component {
     defaultLabels,
     mock_lists,
     currentList: {},
-    mock_id: 2,
     completeListLayoutNum: 0
   };
 
+  randomId = () => (
+    Math.random()
+      .toString(36)
+      .slice(-10)
+  )
+
   componentWillMount() {
-    this.selectList(2);
+    this.selectList(1);
   }
 
   getLists = () => {
@@ -47,7 +52,7 @@ export default class HomePage extends React.Component {
     mock_lists.push({
       list: newList,
       color: listColors[newColor],
-      id: this.state.mock_id + 1,
+      id: this.randomId(),
       items: []
     });
     this.setState({ mock_lists });
@@ -69,8 +74,11 @@ export default class HomePage extends React.Component {
 
   completeListLayout() {
     let currState = this.getCurrentList();
-    if (currState.items.length < 7) {
-      let completeListLayoutNum = 7 - currState.items.length;
+    let containerHeight = document.querySelector("#reminders").clientHeight;
+    let itemHeight = document.querySelector("#single-reminder").clientHeight;
+    let maxItems = Math.floor(containerHeight/itemHeight) - 1
+    if (currState.items.length < maxItems) {
+      let completeListLayoutNum = maxItems - currState.items.length;
       this.setState({ completeListLayoutNum }, () => {});
     } else {
       this.setState({ completeListLayoutNum: 0 }, () => {});
@@ -80,9 +88,7 @@ export default class HomePage extends React.Component {
   addItem = itemToAdd => {
     let currState = [...this.state.mock_lists];
     let currList = this.getCurrentList();
-    let randomId = Math.random()
-      .toString(36)
-      .slice(-8);
+    let randomId = this.randomId()
     let currTime = new Date(new Date().toString().split("GMT")[0] + " UTC")
       .toISOString()
       .split(".")[0];
@@ -96,7 +102,10 @@ export default class HomePage extends React.Component {
       labels: []
     });
 
-    this.setState({ mock_lists: currState });
+    this.setState({ mock_lists: currState },() => {
+      this.completeListLayout()
+    });
+
   };
 
   deleteItem = itemToDelete => {
@@ -111,7 +120,9 @@ export default class HomePage extends React.Component {
       currListItems.splice(itemIndex, 1);
     }
 
-    this.setState({ mock_lists: currState });
+    this.setState({ mock_lists: currState },() => {
+      this.completeListLayout()
+    });
   };
 
   render() {
