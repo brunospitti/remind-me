@@ -24,6 +24,14 @@ const StyledDetailsContainer = styled("div")`
     position: absolute;
     bottom: 20px;
   }
+  li#single-reminder {
+    div {
+      padding-left: 0;
+    }
+    div + div {
+      padding-left: 15px;
+    }
+  }
 `;
 
 const StyledH3 = styled("h3")`
@@ -72,6 +80,7 @@ class SingleReminderDetails extends React.Component {
               handleCheck={this.props.handleCheck}
               itemListDetails={this.props.itemListDetails}
               mainColor={this.props.mainColor}
+              showReminderOptionsFunc={this.props.showReminderOptionsFunc}
             />
 
             <StyledListItem>

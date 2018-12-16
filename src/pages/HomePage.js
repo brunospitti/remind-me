@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { connect } from "react-redux";
 
 import { listColors } from "../assets/globalStyles";
 
@@ -7,66 +8,38 @@ import Reminders from "../components/Reminders";
 import ListsManager from "../components/ListsManager";
 import { defaultLabels, mock_lists } from "../assets/mock_data";
 
-export default class HomePage extends React.Component {
+class HomePage extends React.Component {
   state = {
     defaultLabels,
     mock_lists,
-    currentList: {},
+    currentList: "",
     completeListLayoutNum: 0
   };
 
-  randomId = () => (
+  randomId = () =>
     Math.random()
       .toString(36)
-      .slice(-10)
-  )
+      .slice(-10);
 
   componentWillMount() {
     this.selectList(1);
   }
 
-  getLists = () => {
-    let mockLists = this.state.mock_lists.map(list => ({
-      list: list.list,
-      color: list.color,
-      id: list.id
-    }));
-    return mockLists;
-  };
-
   getCurrentList = () => {
-    return this.state.mock_lists.filter(
+    return this.props.lists.filter(
       list => list.id === this.state.currentList
     )[0];
   };
 
-  handleColorChange = (list, color) => {
-    let mockLists = this.state.mock_lists;
-    mockLists[mockLists.findIndex(key => key.list == list)].color =
-      listColors[color];
-    this.setState({ mock_lists: mockLists });
-  };
-
-  addList = (newList, newColor) => {
-    let mock_lists = [...this.state.mock_lists];
-    mock_lists.push({
-      list: newList,
-      color: listColors[newColor],
-      id: this.randomId(),
-      items: []
-    });
-    this.setState({ mock_lists });
-  };
-
   updateList = list => {
-    let mockLists = [...this.state.mock_lists];
+    let mockLists = [...this.props.lists];
     mockLists[mockLists.findIndex(key => key.id == list.id)].id = list.id;
     this.setState({ mock_lists: mockLists });
   };
 
   selectList = listId => {
-    let currentList = mock_lists.filter(list => list.id === listId);
-    currentList = currentList[0].id;
+    let currentList = this.props.lists.filter(list => list.id === listId)[0];
+    currentList = currentList.id;
     this.setState({ currentList }, () => {
       this.completeListLayout();
     });
@@ -75,8 +48,11 @@ export default class HomePage extends React.Component {
   completeListLayout() {
     let currState = this.getCurrentList();
     let containerHeight = document.querySelector("#reminders").clientHeight;
-    let itemHeight = document.querySelector("#single-reminder").clientHeight;
-    let maxItems = Math.floor(containerHeight/itemHeight) - 1
+    let itemHeight =
+      currState.items.length > 0
+        ? document.querySelector("#single-reminder").clientHeight
+        : 61;
+    let maxItems = Math.floor(containerHeight / itemHeight) - 1;
     if (currState.items.length < maxItems) {
       let completeListLayoutNum = maxItems - currState.items.length;
       this.setState({ completeListLayoutNum }, () => {});
@@ -86,9 +62,9 @@ export default class HomePage extends React.Component {
   }
 
   addItem = itemToAdd => {
-    let currState = [...this.state.mock_lists];
+    let currState = [...this.props.lists];
     let currList = this.getCurrentList();
-    let randomId = this.randomId()
+    let randomId = this.randomId();
     let currTime = new Date(new Date().toString().split("GMT")[0] + " UTC")
       .toISOString()
       .split(".")[0];
@@ -102,14 +78,13 @@ export default class HomePage extends React.Component {
       labels: []
     });
 
-    this.setState({ mock_lists: currState },() => {
-      this.completeListLayout()
+    this.setState({ mock_lists: currState }, () => {
+      this.completeListLayout();
     });
-
   };
 
   deleteItem = itemToDelete => {
-    let currState = [...this.state.mock_lists];
+    let currState = [...this.props.lists];
     let currList = this.getCurrentList();
     let currListItems = currState.filter(list => list.id === currList.id)[0]
       .items;
@@ -120,8 +95,8 @@ export default class HomePage extends React.Component {
       currListItems.splice(itemIndex, 1);
     }
 
-    this.setState({ mock_lists: currState },() => {
-      this.completeListLayout()
+    this.setState({ mock_lists: currState }, () => {
+      this.completeListLayout();
     });
   };
 
@@ -130,21 +105,24 @@ export default class HomePage extends React.Component {
       <div className="home">
         <React.Fragment>
           <Reminders
-            mock_lists={this.state.mock_lists}
             currentList={this.getCurrentList()}
             updateList={this.updateList}
             completeListLayoutNum={this.state.completeListLayoutNum}
             addItem={this.addItem}
             deleteItem={this.deleteItem}
           />
-          <ListsManager
-            lists={this.getLists()}
-            handleColorChange={this.handleColorChange}
-            addList={this.addList}
-            selectList={this.selectList}
-          />
+          <ListsManager selectList={this.selectList} />
         </React.Fragment>
       </div>
     );
   }
 }
+
+const mapStateToProps = ({ lists }) => ({
+  lists
+});
+
+export default connect(
+  mapStateToProps,
+  null
+)(HomePage);

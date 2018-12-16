@@ -5,6 +5,9 @@ import styled from "styled-components";
 import ColorSelector from "./basics/ColorSelector";
 import { SingleInput } from "./basics/SingleInput";
 
+import addList from "../redux/actionCreators/addList";
+import changeListColor from "../redux/actionCreators/changeListColor";
+
 const StyledH3 = styled("h3")`
   margin-bottom: 10px;
 `;
@@ -52,9 +55,25 @@ const ListsManager = props => (
           </div>
         </StyledList>
       ))}
-      <SingleInput clickBehavior={props.addList} text="+" />
+      <SingleInput clickBehavior={props.handleAddList} text="+" />
     </ul>
   </React.Fragment>
 );
 
-export default ListsManager;
+const mapStateToProps = ({ lists }) => ({
+  lists
+});
+
+const mapDispatchToProps = dispatch => ({
+  handleAddList(newList, newColor) {
+    dispatch(addList(newList, newColor));
+  },
+  handleColorChange(listName, newColor) {
+    dispatch(changeListColor(listName, newColor));
+  }
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ListsManager);

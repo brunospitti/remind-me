@@ -14,7 +14,7 @@ const StyledInput = styled("input")`
   padding: 20px 0;
 `;
 
-export default class AddItem extends React.Component {
+class AddItem extends React.Component {
   state = {
     inputValue: ""
   };
@@ -33,6 +33,7 @@ export default class AddItem extends React.Component {
     return (
       <form onSubmit={e => this.handleSubmit(e)}>
         <StyledInput
+          maxLength="35"
           type="text"
           placeholder="Insert new item"
           value={this.state.inputValue}
@@ -42,3 +43,14 @@ export default class AddItem extends React.Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  handleAddItem(newItem) {
+    dispatch(addItem(newItem));
+  }
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(AddItem);

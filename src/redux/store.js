@@ -2,10 +2,12 @@ import { createStore, compose, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 
 import reducer from "./reducers";
+import { defaultLabels, mock_lists } from "../assets/mock_data";
 
 // create an object for the default data
 const defaultState = {
-  num: 0
+  defaultLabels,
+  mock_lists
 };
 
 const store = createStore(

@@ -5,8 +5,6 @@ import { lighten } from "polished";
 
 import { colors } from "../assets/globalStyles";
 
-import { mock_lists } from "../assets/mock_data";
-
 import SingleReminder from "./SingleReminder";
 import SingleReminderDetails from "./SingleReminderDetails";
 import AddItem from "./AddItem";
@@ -115,7 +113,10 @@ export default class Reminders extends React.Component {
           className={this.state.showDetails ? "expanded" : "compressed"}
         >
           <h2>{this.props.currentList.list}</h2>
-          <StyledReminder id="reminders" mainColor={this.props.currentList.color}>
+          <StyledReminder
+            id="reminders"
+            mainColor={this.props.currentList.color}
+          >
             <ul>
               {this.props.currentList.items.map(task => (
                 <SingleReminder
@@ -146,6 +147,7 @@ export default class Reminders extends React.Component {
               mainColor={this.props.currentList.color}
               closeDetails={this.closeDetails}
               deleteItem={this.props.deleteItem}
+              showReminderOptionsFunc={this.showReminderOptionsFunc}
             />
           )}
         </StyledReminderOuter>
