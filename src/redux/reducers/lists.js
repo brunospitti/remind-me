@@ -46,7 +46,22 @@ function lists(state = mock_lists, action) {
         });
       return newStateAddItem;
 
-    default:
+      case "DELETE_ITEM_FROM_LIST":
+
+      const newStateDeleteItem = [...state];
+
+        let currListItems = newStateDeleteItem.filter(list => list.id === action.listId)[0]
+          .items;
+        let currItem = currListItems.filter(item => item.id === action.itemToDelete)[0];
+        let itemIndex = currListItems.indexOf(currItem);
+
+        if (itemIndex > -1) {
+          currListItems.splice(itemIndex, 1);
+        }
+
+      return newStateDeleteItem;
+
+      default:
       return state;
   }
 }

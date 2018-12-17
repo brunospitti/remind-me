@@ -19,6 +19,9 @@ class HomePage extends React.Component {
 
   componentWillMount() {
     this.props.handleSelectList(1);
+    setTimeout(function(){
+      this.completeListLayout()
+    }.bind(this), 0);
   }
 
   getCurrentList = () => {
@@ -49,28 +52,6 @@ class HomePage extends React.Component {
     this.setState({ mock_lists: mockLists });
   };
 
-
-  addItem = itemToAdd => {
-    let currState = [...this.props.lists];
-    let currList = this.getCurrentList();
-    let currTime = new Date(new Date().toString().split("GMT")[0] + " UTC")
-      .toISOString()
-      .split(".")[0];
-
-    currState.filter(list => list.id === currList.id)[0].items.push({
-      id: randomId(),
-      task: itemToAdd,
-      start_date: currTime,
-      end_date: "",
-      checked: false,
-      labels: []
-    });
-
-    this.setState({ mock_lists: currState }, () => {
-      this.completeListLayout();
-    });
-  };
-
   deleteItem = itemToDelete => {
     let currState = [...this.props.lists];
     let currList = this.getCurrentList();
@@ -97,8 +78,6 @@ class HomePage extends React.Component {
             completeListLayoutNum={this.state.completeListLayoutNum}
             completeListLayout={this.completeListLayout}
             updateList={this.updateList}
-            addItem={this.addItem}
-            deleteItem={this.deleteItem}
           />
           <ListsManager completeListLayout={this.completeListLayout} />
         </React.Fragment>

@@ -131,6 +131,8 @@ export default class Reminders extends React.Component {
                     this.state.showReminderOptions
                   }
                   deleteItem={this.props.deleteItem}
+                  listId={this.props.currentList.id}
+                  completeListLayout={this.props.completeListLayout}
                 />
               ))}
               <AddItem addItem={this.props.addItem} listId={this.props.currentList.id} completeListLayout={this.props.completeListLayout}/>
@@ -148,6 +150,8 @@ export default class Reminders extends React.Component {
               closeDetails={this.closeDetails}
               deleteItem={this.props.deleteItem}
               showReminderOptionsFunc={this.showReminderOptionsFunc}
+              listId={this.props.currentList.id}
+              completeListLayout={this.props.completeListLayout}
             />
           )}
         </StyledReminderOuter>

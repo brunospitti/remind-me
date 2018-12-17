@@ -7,6 +7,8 @@ import { lighten } from "polished";
 import RatioButton from "./basics/RatioButton";
 import { Button } from "./basics/Button";
 
+import deleteItem from "../redux/actionCreators/deleteItem";
+
 const StyledLi = styled("li")`
   cursor: pointer;
   position: relative;
@@ -37,41 +39,63 @@ const StyledItemContainer = styled("div")`
   width: 100%;
 `;
 
-const SingleReminder = props => (
-  <React.Fragment>
-    <StyledLi
-      id="single-reminder"
-      className={props.task.checked ? "checked" : "not-checked"}
-      onMouseEnter={() => props.showReminderOptionsFunc(props.task.id, true)}
-      onMouseLeave={() => props.showReminderOptionsFunc(props.task.id, false)}
-    >
-      <StyledItemContainer>
-        <RatioButton
-          checked={props.task.checked}
-          taskId={props.task.id}
-          handleCheck={props.handleCheck}
-          mainColor={props.mainColor}
-        />
-        <div
-          role="button"
-          onKeyPress={() => props.itemListDetails(props.task.id)}
-          onClick={() => props.itemListDetails(props.task.id)}
-          tabIndex="0"
-        >
-          {props.task.task}
-        </div>
-        {props.showReminderOptions && (
-          <span>
-            <Button
-              icon="deleteIcon"
-              clickBehavior={() => props.deleteItem(props.task.id)}
-              text="Delete"
-            />
-          </span>
-        )}
-      </StyledItemContainer>
-    </StyledLi>
-  </React.Fragment>
-);
 
-export default SingleReminder;
+class SingleReminder extends React.PureComponent {
+  deleteItem = (itemToDelete, listId) => {
+    this.props.handleDeleteItem(itemToDelete, listId);
+    setTimeout(function(){
+      this.props.completeListLayout()
+    }.bind(this), 0);
+  };
+  render() {
+    return (
+
+      <React.Fragment>
+        <StyledLi
+          id="single-reminder"
+          className={this.props.task.checked ? "checked" : "not-checked"}
+          onMouseEnter={() => this.props.showReminderOptionsFunc(this.props.task.id, true)}
+          onMouseLeave={() => this.props.showReminderOptionsFunc(this.props.task.id, false)}
+        >
+          <StyledItemContainer>
+            <RatioButton
+              checked={this.props.task.checked}
+              taskId={this.props.task.id}
+              handleCheck={this.props.handleCheck}
+              mainColor={this.props.mainColor}
+            />
+            <div
+              role="button"
+              onKeyPress={() => this.props.itemListDetails(this.props.task.id)}
+              onClick={() => this.props.itemListDetails(this.props.task.id)}
+              tabIndex="0"
+            >
+              {this.props.task.task}
+            </div>
+            {this.props.showReminderOptions && (
+              <span>
+                <Button
+                  icon="deleteIcon"
+                  clickBehavior={() => this.deleteItem(this.props.task.id, this.props.listId)}
+                  text="Delete"
+                />
+              </span>
+            )}
+          </StyledItemContainer>
+        </StyledLi>
+      </React.Fragment>
+    )
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+  handleDeleteItem(itemToDelete, listId) {
+    dispatch(deleteItem(itemToDelete, listId));
+  }
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(SingleReminder);
+

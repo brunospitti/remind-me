@@ -8,6 +8,8 @@ import { colors } from "../assets/globalStyles";
 import SingleReminder from "./SingleReminder";
 import { Button } from "./basics/Button";
 
+import deleteItem from "../redux/actionCreators/deleteItem";
+
 const StyledDetailsContainer = styled("div")`
   height: calc(100% - 48px);
   width: 50%;
@@ -64,9 +66,12 @@ class SingleReminderDetails extends React.Component {
     }
   };
 
-  deleteItem = itemToDelete => {
+  deleteItem = (itemToDelete, listId) => {
     this.props.closeDetails();
-    this.props.deleteItem(itemToDelete);
+    this.props.handleDeleteItem(itemToDelete, listId);
+    setTimeout(function(){
+      this.props.completeListLayout()
+    }.bind(this), 0);
   };
 
   render() {
@@ -97,7 +102,7 @@ class SingleReminderDetails extends React.Component {
             </StyledListItem>
             <StyledListItem>
               <Button
-                clickBehavior={() => this.deleteItem(this.props.task.id)}
+                clickBehavior={() => this.deleteItem(this.props.task.id, this.props.listId)}
                 text="Delete"
               />
             </StyledListItem>
@@ -109,4 +114,15 @@ class SingleReminderDetails extends React.Component {
   }
 }
 
-export default SingleReminderDetails;
+const mapDispatchToProps = dispatch => ({
+  handleDeleteItem(itemToDelete, listId) {
+    dispatch(deleteItem(itemToDelete, listId));
+  }
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(SingleReminderDetails);
+
+
