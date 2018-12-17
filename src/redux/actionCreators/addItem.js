@@ -1,6 +1,7 @@
-export default function addItem(newItem) {
+export default function addItem(itemToAdd, listId) {
   return {
-    type: "ADD_LIST",
-    newItem
+    type: "ADD_ITEM_TO_LIST",
+    itemToAdd,
+    listId
   };
 }

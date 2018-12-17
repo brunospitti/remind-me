@@ -29,6 +29,23 @@ function lists(state = mock_lists, action) {
 
       return newStateChangeColor;
 
+      case "ADD_ITEM_TO_LIST":
+      const newStateAddItem = [...state];
+
+        let currTime = new Date(new Date().toString().split("GMT")[0] + " UTC")
+          .toISOString()
+          .split(".")[0];
+
+          newStateAddItem.filter(list => list.id === action.listId)[0].items.push({
+          id: randomId(),
+          task: action.itemToAdd,
+          start_date: currTime,
+          end_date: "",
+          checked: false,
+          labels: []
+        });
+      return newStateAddItem;
+
     default:
       return state;
   }

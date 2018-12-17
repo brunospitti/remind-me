@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
 
 import lists from "./lists";
-import items from "./items";
+import activeList from "./activeList";
 
 export default combineReducers({
   lists,
-  items
+  activeList
 });

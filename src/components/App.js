@@ -3,6 +3,7 @@ import { render } from "react-dom";
 import { Router } from "@reach/router";
 import Loadable from "react-loadable";
 import { Provider } from "react-redux";
+require("babel-polyfill");
 
 import store from "../redux/store";
 

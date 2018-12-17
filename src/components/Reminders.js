@@ -133,7 +133,7 @@ export default class Reminders extends React.Component {
                   deleteItem={this.props.deleteItem}
                 />
               ))}
-              <AddItem addItem={this.props.addItem} />
+              <AddItem addItem={this.props.addItem} listId={this.props.currentList.id} completeListLayout={this.props.completeListLayout}/>
               {[...Array(this.props.completeListLayoutNum)].map((e, i) => (
                 <li key={i} className={i === 0 ? "first-fake" : null} />
               ))}

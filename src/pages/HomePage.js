@@ -6,46 +6,28 @@ import { listColors } from "../assets/globalStyles";
 
 import Reminders from "../components/Reminders";
 import ListsManager from "../components/ListsManager";
-import { defaultLabels, mock_lists } from "../assets/mock_data";
+
+import { randomId } from "../assets/helpers";
+
+
+import selectList from "../redux/actionCreators/selectList";
 
 class HomePage extends React.Component {
   state = {
-    defaultLabels,
-    mock_lists,
-    currentList: "",
     completeListLayoutNum: 0
   };
 
-  randomId = () =>
-    Math.random()
-      .toString(36)
-      .slice(-10);
-
   componentWillMount() {
-    this.selectList(1);
+    this.props.handleSelectList(1);
   }
 
   getCurrentList = () => {
     return this.props.lists.filter(
-      list => list.id === this.state.currentList
+      list => list.id === this.props.activeList
     )[0];
   };
 
-  updateList = list => {
-    let mockLists = [...this.props.lists];
-    mockLists[mockLists.findIndex(key => key.id == list.id)].id = list.id;
-    this.setState({ mock_lists: mockLists });
-  };
-
-  selectList = listId => {
-    let currentList = this.props.lists.filter(list => list.id === listId)[0];
-    currentList = currentList.id;
-    this.setState({ currentList }, () => {
-      this.completeListLayout();
-    });
-  };
-
-  completeListLayout() {
+  completeListLayout = () => {
     let currState = this.getCurrentList();
     let containerHeight = document.querySelector("#reminders").clientHeight;
     let itemHeight =
@@ -61,16 +43,22 @@ class HomePage extends React.Component {
     }
   }
 
+  updateList = list => {
+    let mockLists = [...this.props.lists];
+    mockLists[mockLists.findIndex(key => key.id == list.id)].id = list.id;
+    this.setState({ mock_lists: mockLists });
+  };
+
+
   addItem = itemToAdd => {
     let currState = [...this.props.lists];
     let currList = this.getCurrentList();
-    let randomId = this.randomId();
     let currTime = new Date(new Date().toString().split("GMT")[0] + " UTC")
       .toISOString()
       .split(".")[0];
 
     currState.filter(list => list.id === currList.id)[0].items.push({
-      id: randomId,
+      id: randomId(),
       task: itemToAdd,
       start_date: currTime,
       end_date: "",
@@ -106,23 +94,31 @@ class HomePage extends React.Component {
         <React.Fragment>
           <Reminders
             currentList={this.getCurrentList()}
-            updateList={this.updateList}
             completeListLayoutNum={this.state.completeListLayoutNum}
+            completeListLayout={this.completeListLayout}
+            updateList={this.updateList}
             addItem={this.addItem}
             deleteItem={this.deleteItem}
           />
-          <ListsManager selectList={this.selectList} />
+          <ListsManager completeListLayout={this.completeListLayout} />
         </React.Fragment>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ lists }) => ({
-  lists
+const mapStateToProps = ({ lists, activeList }) => ({
+  lists, activeList
+});
+
+
+const mapDispatchToProps = dispatch => ({
+  handleSelectList(listId) {
+    dispatch(selectList(listId));
+  }
 });
 
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps,
 )(HomePage);

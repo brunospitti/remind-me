@@ -1,5 +1,8 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
+import { connect } from "react-redux";
+
+import addItem from "../redux/actionCreators/addItem";
 
 import { colors } from "../assets/globalStyles";
 
@@ -21,7 +24,10 @@ class AddItem extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.addItem(this.state.inputValue);
+    this.props.handleAddItem(this.state.inputValue, this.props.listId);
+    setTimeout(function(){
+      this.props.completeListLayout()
+    }.bind(this), 0);
     this.setState({ inputValue: "" });
   };
 
@@ -45,8 +51,8 @@ class AddItem extends React.Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  handleAddItem(newItem) {
-    dispatch(addItem(newItem));
+  handleAddItem(newItem, listId) {
+    dispatch(addItem(newItem, listId));
   }
 });
 
