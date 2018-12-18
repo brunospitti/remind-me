@@ -80,14 +80,6 @@ export default class Reminders extends React.Component {
     showReminderOptions: false
   };
 
-  handleCheck = taskId => {
-    let currState = this.props.currentList;
-    let currTask = currState.items.find(x => x.id === taskId);
-    currTask.checked = !currTask.checked;
-    currState.currTask;
-    this.props.updateList(currState);
-  };
-
   itemListDetails = taskId => {
     this.setState({ showDetails: true, detailsId: taskId });
   };
@@ -122,7 +114,6 @@ export default class Reminders extends React.Component {
                 <SingleReminder
                   key={task.id}
                   task={task}
-                  handleCheck={this.handleCheck}
                   itemListDetails={this.itemListDetails}
                   mainColor={this.props.currentList.color}
                   showReminderOptionsFunc={this.showReminderOptionsFunc}
@@ -130,7 +121,6 @@ export default class Reminders extends React.Component {
                     `true,${task.id}` === this.state.showReminderOptions &&
                     this.state.showReminderOptions
                   }
-                  deleteItem={this.props.deleteItem}
                   listId={this.props.currentList.id}
                   completeListLayout={this.props.completeListLayout}
                 />
@@ -144,11 +134,9 @@ export default class Reminders extends React.Component {
           {this.state.showDetails && (
             <SingleReminderDetails
               task={this.getTaskFromId(this.state.detailsId)}
-              handleCheck={this.handleCheck}
               itemListDetails={this.itemListDetails}
               mainColor={this.props.currentList.color}
               closeDetails={this.closeDetails}
-              deleteItem={this.props.deleteItem}
               showReminderOptionsFunc={this.showReminderOptionsFunc}
               listId={this.props.currentList.id}
               completeListLayout={this.props.completeListLayout}

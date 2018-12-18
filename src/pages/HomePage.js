@@ -17,11 +17,8 @@ class HomePage extends React.Component {
     completeListLayoutNum: 0
   };
 
-  componentWillMount() {
-    this.props.handleSelectList(1);
-    setTimeout(function(){
-      this.completeListLayout()
-    }.bind(this), 0);
+  componentDidMount() {
+    this.completeListLayout()
   }
 
   getCurrentList = () => {
@@ -46,29 +43,6 @@ class HomePage extends React.Component {
     }
   }
 
-  updateList = list => {
-    let mockLists = [...this.props.lists];
-    mockLists[mockLists.findIndex(key => key.id == list.id)].id = list.id;
-    this.setState({ mock_lists: mockLists });
-  };
-
-  deleteItem = itemToDelete => {
-    let currState = [...this.props.lists];
-    let currList = this.getCurrentList();
-    let currListItems = currState.filter(list => list.id === currList.id)[0]
-      .items;
-    let currItem = currListItems.filter(item => item.id === itemToDelete)[0];
-
-    let itemIndex = currListItems.indexOf(currItem);
-    if (itemIndex > -1) {
-      currListItems.splice(itemIndex, 1);
-    }
-
-    this.setState({ mock_lists: currState }, () => {
-      this.completeListLayout();
-    });
-  };
-
   render() {
     return (
       <div className="home">
@@ -77,7 +51,6 @@ class HomePage extends React.Component {
             currentList={this.getCurrentList()}
             completeListLayoutNum={this.state.completeListLayoutNum}
             completeListLayout={this.completeListLayout}
-            updateList={this.updateList}
           />
           <ListsManager completeListLayout={this.completeListLayout} />
         </React.Fragment>

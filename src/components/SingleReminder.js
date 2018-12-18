@@ -61,8 +61,8 @@ class SingleReminder extends React.PureComponent {
             <RatioButton
               checked={this.props.task.checked}
               taskId={this.props.task.id}
-              handleCheck={this.props.handleCheck}
               mainColor={this.props.mainColor}
+              listId={this.props.listId}
             />
             <div
               role="button"

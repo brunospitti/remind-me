@@ -6,6 +6,8 @@ import { lighten } from "polished";
 
 import { colors } from "../../assets/globalStyles";
 
+import checkItem from "../../redux/actionCreators/checkItem";
+
 const StyledRatio = styled("div")`
   display: table-cell;
   vertical-align: middle;
@@ -65,9 +67,19 @@ const RatioButton = props => (
     <input type="checkbox" id={`checkbox${props.taskId}`} />
     <label
       htmlFor={`checkbox${props.taskId}`}
-      onClick={() => props.handleCheck(props.taskId)}
+      onClick={() => props.handleCheckItem(props.taskId, props.listId)}
     />
   </StyledRatio>
 );
 
-export default RatioButton;
+const mapDispatchToProps = dispatch => ({
+  handleCheckItem(itemToCheck, listId) {
+    dispatch(checkItem(itemToCheck, listId));
+  }
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(RatioButton);
+

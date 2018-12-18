@@ -82,10 +82,10 @@ class SingleReminderDetails extends React.Component {
           <ul>
             <SingleReminder
               task={this.props.task}
-              handleCheck={this.props.handleCheck}
               itemListDetails={this.props.itemListDetails}
               mainColor={this.props.mainColor}
               showReminderOptionsFunc={this.props.showReminderOptionsFunc}
+              listId={this.props.listId}
             />
 
             <StyledListItem>
