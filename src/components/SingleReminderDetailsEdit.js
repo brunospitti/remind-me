@@ -11,7 +11,7 @@ import EditIcon from "../assets/icons/edit.svg";
 
 import { colors } from "../assets/globalStyles";
 import SingleReminder from "./SingleReminder";
-import SingleReminderDetailsEdit from "./SingleReminderDetailsEdit"
+import EditItem from "./EditItem";
 import { Button } from "./basics/Button";
 
 import deleteItem from "../redux/actionCreators/deleteItem";
@@ -43,6 +43,7 @@ const StyledDetailsContainer = styled("div")`
 `;
 
 const StyledEditIcon = styled(EditIcon)`
+  cursor: ${props => props.cursor};
   display: inline-block;
   float: right;
   width: 33px;
@@ -50,11 +51,7 @@ const StyledEditIcon = styled(EditIcon)`
 `
 
 const StyledH3 = styled("h3")`
-  color: ${props => props.mainColor};
-  margin-bottom: 10px;
-  margin-top: 7px;
-  font-size: 1.3em;
-  display: inline-block;
+  font-size: 1.1em;
 `;
 
 const StyledListItem = styled("li")`
@@ -63,40 +60,38 @@ const StyledListItem = styled("li")`
   text-align: left;
 `;
 
-class SingleReminderDetails extends React.Component {
-  deleteItem = (itemToDelete, listId) => {
-    this.props.closeDetails();
-    this.props.handleDeleteItem(itemToDelete, listId);
-    setTimeout(function(){
-      this.props.completeListLayout()
-    }.bind(this), 0);
+class SingleReminderDetailsEdit extends React.Component {
+
+  handleSubmit = e => {
+    e.preventDefault();
+    console.log("submited")
+    // this.props.handleAddItem(this.state.inputValue, this.props.listId);
   };
+
+  getInputValue = inputValue => {
+    console.log(inputValue)
+  }
 
   render() {
     return (
       <React.Fragment>
-        <StyledDetailsContainer>
-          <div className="header-container">
-            <StyledH3 mainColor={this.props.mainColor}>Task details</StyledH3>
-            <StyledEditIcon mainColor={this.props.mainColor} />
-          </div>
-          <ul>
-            <SingleReminderDetailsEdit
-              task={this.props.task}
-              itemListDetails={this.props.itemListDetails}
-              mainColor={this.props.mainColor}
-              showReminderOptionsFunc={this.props.showReminderOptionsFunc}
-              listId={this.props.listId}
-            />
-            <StyledListItem>
-              <Button
-                clickBehavior={() => this.deleteItem(this.props.task.id, this.props.listId)}
-                text="Delete"
-              />
-            </StyledListItem>
-          </ul>
-          <Button clickBehavior={this.props.closeDetails} text="Close me" />
-        </StyledDetailsContainer>
+        <form onSubmit={e => this.handleSubmit(e)}>
+          <StyledListItem>
+            <EditItem getInputValue={this.getInputValue} initialValue={this.props.task.task}></EditItem>
+          </StyledListItem>
+          <StyledListItem>
+            <p>
+              <b>Date created:</b>
+            </p>
+            <p>{dateTransformation(this.props.task.start_date)}</p>
+          </StyledListItem>
+          <StyledListItem>
+            <p>
+              <b>Scheduled to:</b>
+            </p>
+            <p>{dateTransformation(this.props.task.end_date)}</p>
+          </StyledListItem>
+          </form>
       </React.Fragment>
     );
   }
@@ -111,6 +106,6 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   null,
   mapDispatchToProps
-)(SingleReminderDetails);
+)(SingleReminderDetailsEdit);
 
 
