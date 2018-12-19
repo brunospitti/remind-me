@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
-import deleteIcon from "../../assets/icons/delete.svg";
+import DeleteIcon from "../../assets/icons/delete.svg";
 
 import { colors } from "../../assets/globalStyles";
 
@@ -44,13 +44,18 @@ export class Button extends React.PureComponent {
       border: 0;
       padding: 10px;
       margin: 10px auto;
-      img {
+      svg {
         width: 20px;
+        height: 20px;
         display: inline-block;
         margin-bottom: -6px;
         margin-left: 10px;
         &#deleteIcon {
           opacity: 0.4;
+          &:hover{
+            opacity: 1;
+            fill: ${colors.danger};
+          }
         }
       }
     `;
@@ -59,7 +64,7 @@ export class Button extends React.PureComponent {
       return (
         <StyledButtonIcon onClick={this.props.clickBehavior}>
           {this.props.icon === "deleteIcon" ? (
-            <img src={deleteIcon} alt="delete item" id="deleteIcon" />
+            <DeleteIcon alt="delete item" id="deleteIcon" />
           ) : null}
         </StyledButtonIcon>
       );

@@ -6,14 +6,15 @@ import { lighten } from "polished";
 
 import { listColors, colors } from "../../assets/globalStyles";
 
-import changeColorIcon from "../../assets/icons/paint-board-and-brush.svg";
+import ChangeColorIcon from "../../assets/icons/paint-board-and-brush.svg";
 
-const StyledImg = styled("img")`
+const StyledImg = styled(ChangeColorIcon)`
   cursor: pointer;
   width: 20px;
   display: inline-block;
   margin-bottom: -6px;
   margin-left: 10px;
+  margin-right: 10px;
 `;
 
 const StyledColorList = styled("ul")`
@@ -53,7 +54,6 @@ class ColorSelector extends React.PureComponent {
     return (
       <React.Fragment>
         <StyledImg
-          src={changeColorIcon}
           alt="change color"
           role="button"
           onKeyPress={() =>

@@ -31,13 +31,17 @@ export class SingleInput extends React.PureComponent {
     position: relative;
     vertical-align: top;
     margin-left: 2%;
-    input {
-      border-radius: 3px 0 0 0;
+    .input-holder {
+      border-radius: 3px 3px 0 0;
       padding: 15px 0;
       border: 1px solid ${props => props.mainColor};
-      border-right: 0;
-      text-align: center;
-      max-width: 100px;
+      max-width: 130px;
+      input{
+        border: 0;
+        width: calc(100% - 40px);
+        display: inline-block;
+        padding: 0 0 0 10px;
+      }
     }
     img {
       background: white;
@@ -64,13 +68,15 @@ export class SingleInput extends React.PureComponent {
     return (
       <React.Fragment>
         <this.StyledForm mainColor={listColors[this.state.inputColor]}>
-          <input
-            type="text"
-            placeholder="Add new list"
-            value={this.state.inputValue}
-            onChange={e => this.handleChange(e)}
-          />
-          <ColorSelector handleColorChange={this.handleColorAdd} />
+          <div className="input-holder">
+            <input
+              type="text"
+              placeholder="Add new list"
+              value={this.state.inputValue}
+              onChange={e => this.handleChange(e)}
+            />
+            <ColorSelector handleColorChange={this.handleColorAdd} />
+          </div>
           <Button
             clickBehavior={e => this.clickBehavior(e)}
             text={this.props.text}
