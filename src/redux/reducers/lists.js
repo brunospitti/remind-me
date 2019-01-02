@@ -43,7 +43,6 @@ function lists(state = mock_lists, action) {
         id: randomId(),
         task: action.itemToAdd,
         start_date: currTime,
-        end_date: "",
         checked: false,
         labels: []
       });

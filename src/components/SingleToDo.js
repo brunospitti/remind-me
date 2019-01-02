@@ -40,7 +40,7 @@ const StyledItemContainer = styled("div")`
 `;
 
 
-class SingleReminder extends React.PureComponent {
+class SingleToDo extends React.PureComponent {
   deleteItem = (itemToDelete, listId) => {
     this.props.handleDeleteItem(itemToDelete, listId);
     setTimeout(function(){
@@ -52,10 +52,10 @@ class SingleReminder extends React.PureComponent {
 
       <React.Fragment>
         <StyledLi
-          id="single-reminder"
+          id="single-to-do"
           className={this.props.task.checked ? "checked" : "not-checked"}
-          onMouseEnter={() => this.props.showReminderOptionsFunc(this.props.task.id, true)}
-          onMouseLeave={() => this.props.showReminderOptionsFunc(this.props.task.id, false)}
+          onMouseEnter={() => this.props.showToDoOptionsFunc(this.props.task.id, true)}
+          onMouseLeave={() => this.props.showToDoOptionsFunc(this.props.task.id, false)}
         >
           <StyledItemContainer>
             <RatioButton
@@ -72,7 +72,7 @@ class SingleReminder extends React.PureComponent {
             >
               {this.props.task.task}
             </div>
-            {this.props.showReminderOptions && (
+            {this.props.showToDoOptions && (
               <span>
                 <Button
                   icon="deleteIcon"
@@ -97,5 +97,5 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   null,
   mapDispatchToProps
-)(SingleReminder);
+)(SingleToDo);
 

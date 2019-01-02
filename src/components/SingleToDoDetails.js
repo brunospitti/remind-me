@@ -10,8 +10,8 @@ import EditIcon from "../assets/icons/edit.svg";
 
 
 import { colors } from "../assets/globalStyles";
-import SingleReminder from "./SingleReminder";
-import SingleReminderDetailsEdit from "./SingleReminderDetailsEdit"
+import SingleToDo from "./SingleToDo";
+import SingleToDoDetailsEdit from "./SingleToDoDetailsEdit"
 import { Button } from "./basics/Button";
 
 import deleteItem from "../redux/actionCreators/deleteItem";
@@ -32,7 +32,7 @@ const StyledDetailsContainer = styled("div")`
     position: absolute;
     bottom: 20px;
   }
-  li#single-reminder {
+  li#single-ToDo {
     div {
       padding-left: 0;
     }
@@ -63,7 +63,7 @@ const StyledListItem = styled("li")`
   text-align: left;
 `;
 
-class SingleReminderDetails extends React.Component {
+class SingleToDoDetails extends React.Component {
   deleteItem = (itemToDelete, listId) => {
     this.props.closeDetails();
     this.props.handleDeleteItem(itemToDelete, listId);
@@ -81,11 +81,11 @@ class SingleReminderDetails extends React.Component {
             <StyledEditIcon mainColor={this.props.mainColor} />
           </div>
           <ul>
-            <SingleReminderDetailsEdit
+            <SingleToDoDetailsEdit
               task={this.props.task}
               itemListDetails={this.props.itemListDetails}
               mainColor={this.props.mainColor}
-              showReminderOptionsFunc={this.props.showReminderOptionsFunc}
+              showToDoOptionsFunc={this.props.showToDoOptionsFunc}
               listId={this.props.listId}
             />
             <StyledListItem>
@@ -111,6 +111,6 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   null,
   mapDispatchToProps
-)(SingleReminderDetails);
+)(SingleToDoDetails);
 
 

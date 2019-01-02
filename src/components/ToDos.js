@@ -5,11 +5,11 @@ import { lighten } from "polished";
 
 import { colors } from "../assets/globalStyles";
 
-import SingleReminder from "./SingleReminder";
-import SingleReminderDetails from "./SingleReminderDetails";
+import SingleToDo from "./SingleToDo";
+import SingleToDoDetails from "./SingleToDoDetails";
 import AddItem from "./AddItem";
 
-const expandsReminderOuter = keyframes`
+const expandsToDoOuter = keyframes`
   0% {
     width: 60%;
   }
@@ -18,7 +18,7 @@ const expandsReminderOuter = keyframes`
   }
 `;
 
-const compressReminderOuter = keyframes`
+const compressToDoOuter = keyframes`
   0% {
     width: 80%;
   }
@@ -27,16 +27,16 @@ const compressReminderOuter = keyframes`
   }
 `;
 
-const StyledReminderOuter = styled("div")`
+const StyledToDoOuter = styled("div")`
   width: 60%;
   margin: 30px auto;
   position: relative;
   transition: all 0.25s ease;
   &.expanded {
-    animation: ${expandsReminderOuter} 0.25s ease forwards;
+    animation: ${expandsToDoOuter} 0.25s ease forwards;
   }
   &.compressed {
-    animation: ${compressReminderOuter} 0.25s ease forwards;
+    animation: ${compressToDoOuter} 0.25s ease forwards;
   }
   h2 {
     font-size: 2em;
@@ -44,7 +44,7 @@ const StyledReminderOuter = styled("div")`
   }
 `;
 
-const StyledReminder = styled("div")`
+const StyledToDo = styled("div")`
   padding: 0 20px;
   border-radius: 3px;
   box-shadow: 1px 1px 4px ${colors.lightGrey};
@@ -73,11 +73,11 @@ const StyledReminder = styled("div")`
   }
 `;
 
-export default class Reminders extends React.Component {
+export default class ToDos extends React.Component {
   state = {
     showDetails: false,
     detailsId: "",
-    showReminderOptions: false
+    showToDoOptions: false
   };
 
   itemListDetails = taskId => {
@@ -94,32 +94,32 @@ export default class Reminders extends React.Component {
     return currTask;
   };
 
-  showReminderOptionsFunc = (taskId, toggle) => {
-    this.setState({ showReminderOptions: `${toggle},${taskId}` });
+  showToDoOptionsFunc = (taskId, toggle) => {
+    this.setState({ showToDoOptions: `${toggle},${taskId}` });
   };
 
   render() {
     return (
       <React.Fragment>
-        <StyledReminderOuter
+        <StyledToDoOuter
           className={this.state.showDetails ? "expanded" : "compressed"}
         >
           <h2>{this.props.currentList.list}</h2>
-          <StyledReminder
-            id="reminders"
+          <StyledToDo
+            id="to-dos"
             mainColor={this.props.currentList.color}
           >
             <ul>
               {this.props.currentList.items.map(task => (
-                <SingleReminder
+                <SingleToDo
                   key={task.id}
                   task={task}
                   itemListDetails={this.itemListDetails}
                   mainColor={this.props.currentList.color}
-                  showReminderOptionsFunc={this.showReminderOptionsFunc}
-                  showReminderOptions={
-                    `true,${task.id}` === this.state.showReminderOptions &&
-                    this.state.showReminderOptions
+                  showToDoOptionsFunc={this.showToDoOptionsFunc}
+                  showToDoOptions={
+                    `true,${task.id}` === this.state.showToDoOptions &&
+                    this.state.showToDoOptions
                   }
                   listId={this.props.currentList.id}
                   completeListLayout={this.props.completeListLayout}
@@ -130,19 +130,19 @@ export default class Reminders extends React.Component {
                 <li key={i} className={i === 0 ? "first-fake" : null} />
               ))}
             </ul>
-          </StyledReminder>
+          </StyledToDo>
           {this.state.showDetails && (
-            <SingleReminderDetails
+            <SingleToDoDetails
               task={this.getTaskFromId(this.state.detailsId)}
               itemListDetails={this.itemListDetails}
               mainColor={this.props.currentList.color}
               closeDetails={this.closeDetails}
-              showReminderOptionsFunc={this.showReminderOptionsFunc}
+              showToDoOptionsFunc={this.showToDoOptionsFunc}
               listId={this.props.currentList.id}
               completeListLayout={this.props.completeListLayout}
             />
           )}
-        </StyledReminderOuter>
+        </StyledToDoOuter>
       </React.Fragment>
     );
   }

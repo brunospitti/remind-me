@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import { listColors } from "../assets/globalStyles";
 
-import Reminders from "../components/Reminders";
+import ToDos from "../components/ToDos";
 import ListsManager from "../components/ListsManager";
 
 import { randomId } from "../assets/helpers";
@@ -29,10 +29,10 @@ class HomePage extends React.Component {
 
   completeListLayout = () => {
     let currState = this.getCurrentList();
-    let containerHeight = document.querySelector("#reminders").clientHeight;
+    let containerHeight = document.querySelector("#to-dos").clientHeight;
     let itemHeight =
       currState.items.length > 0
-        ? document.querySelector("#single-reminder").clientHeight
+        ? document.querySelector("#single-to-do").clientHeight
         : 61;
     let maxItems = Math.floor(containerHeight / itemHeight) - 1;
     if (currState.items.length < maxItems) {
@@ -47,7 +47,7 @@ class HomePage extends React.Component {
     return (
       <div className="home">
         <React.Fragment>
-          <Reminders
+          <ToDos
             currentList={this.getCurrentList()}
             completeListLayoutNum={this.state.completeListLayoutNum}
             completeListLayout={this.completeListLayout}

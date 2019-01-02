@@ -22,7 +22,7 @@ export class Header extends React.PureComponent {
   render() {
     return (
       <Container>
-        <StyledH1>Remind me...</StyledH1>
+        <StyledH1>To do list</StyledH1>
       </Container>
     );
   }

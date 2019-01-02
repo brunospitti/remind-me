@@ -1,7 +1,7 @@
 {
-  "name": "remind-me-app",
+  "name": "to-do-app",
   "version": "1.0.0",
-  "description": "Remind me app",
+  "description": "To do app",
   "scripts": {
     "test": "jest --silent",
     "test:update": "jest --silent -u",

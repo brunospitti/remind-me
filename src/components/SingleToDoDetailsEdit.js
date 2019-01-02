@@ -10,7 +10,7 @@ import EditIcon from "../assets/icons/edit.svg";
 
 
 import { colors } from "../assets/globalStyles";
-import SingleReminder from "./SingleReminder";
+import SingleToDo from "./SingleToDo";
 import EditItem from "./EditItem";
 import { Button } from "./basics/Button";
 
@@ -32,7 +32,7 @@ const StyledDetailsContainer = styled("div")`
     position: absolute;
     bottom: 20px;
   }
-  li#single-reminder {
+  li#single-ToDo {
     div {
       padding-left: 0;
     }
@@ -60,7 +60,7 @@ const StyledListItem = styled("li")`
   text-align: left;
 `;
 
-class SingleReminderDetailsEdit extends React.Component {
+class SingleToDoDetailsEdit extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
@@ -85,12 +85,6 @@ class SingleReminderDetailsEdit extends React.Component {
             </p>
             <p>{dateTransformation(this.props.task.start_date)}</p>
           </StyledListItem>
-          <StyledListItem>
-            <p>
-              <b>Scheduled to:</b>
-            </p>
-            <p>{dateTransformation(this.props.task.end_date)}</p>
-          </StyledListItem>
           </form>
       </React.Fragment>
     );
@@ -106,6 +100,6 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   null,
   mapDispatchToProps
-)(SingleReminderDetailsEdit);
+)(SingleToDoDetailsEdit);
 
 
