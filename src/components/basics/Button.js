@@ -7,6 +7,8 @@ import { colors } from "../../assets/globalStyles";
 
 export class Button extends React.PureComponent {
   render() {
+
+    // styled components
     const StyledButtonPrimary = () =>
       this.props.primary &&
       css`
@@ -59,6 +61,7 @@ export class Button extends React.PureComponent {
         }
       }
     `;
+
 
     if (this.props.icon) {
       return (

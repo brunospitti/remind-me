@@ -9,37 +9,6 @@ import { Button } from "./basics/Button";
 
 import deleteItem from "../redux/actionCreators/deleteItem";
 
-const StyledLi = styled("li")`
-  cursor: pointer;
-  position: relative;
-  padding: 20px;
-  text-align: left;
-  div {
-    display: table-cell;
-    vertical-align: middle;
-    padding-left: 15px;
-    transition: 0.25s all ease;
-    cursor: pointer;
-  }
-  span {
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-  &.checked {
-    div {
-      text-decoration: line-through;
-      opacity: 0.5;
-    }
-  }
-`;
-
-const StyledItemContainer = styled("div")`
-  display: table;
-  width: 100%;
-`;
-
-
 class SingleToDo extends React.PureComponent {
   deleteItem = (itemToDelete, listId) => {
     this.props.handleDeleteItem(itemToDelete, listId);
@@ -87,6 +56,38 @@ class SingleToDo extends React.PureComponent {
     )
   }
 }
+
+// styled components
+const StyledLi = styled("li")`
+  cursor: pointer;
+  position: relative;
+  padding: 20px;
+  text-align: left;
+  div {
+    display: table-cell;
+    vertical-align: middle;
+    padding-left: 15px;
+    transition: 0.25s all ease;
+    cursor: pointer;
+  }
+  span {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  &.checked {
+    div {
+      text-decoration: line-through;
+      opacity: 0.5;
+    }
+  }
+`;
+
+const StyledItemContainer = styled("div")`
+  display: table;
+  width: 100%;
+`;
+
 
 const mapDispatchToProps = dispatch => ({
   handleDeleteItem(itemToDelete, listId) {

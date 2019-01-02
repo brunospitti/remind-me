@@ -6,16 +6,6 @@ import addItem from "../redux/actionCreators/addItem";
 
 import { colors } from "../assets/globalStyles";
 
-const StyledInput = styled("input")`
-  position: relative;
-  text-align: left;
-  margin-left: 53px;
-  width: 60%;
-  margin-bottom: 5px;
-  border: 0;
-  background: transparent;
-  padding: 20px 0;
-`;
 
 class EditItem extends React.Component {
   state = {
@@ -43,6 +33,18 @@ class EditItem extends React.Component {
     );
   }
 }
+
+// styled components
+const StyledInput = styled("input")`
+  position: relative;
+  text-align: left;
+  margin-left: 53px;
+  width: 60%;
+  margin-bottom: 5px;
+  border: 0;
+  background: transparent;
+  padding: 20px 0;
+`;
 
 const mapDispatchToProps = dispatch => ({
   handleAddItem(newItem, listId) {

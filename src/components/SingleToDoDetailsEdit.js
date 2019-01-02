@@ -16,6 +16,39 @@ import { Button } from "./basics/Button";
 
 import deleteItem from "../redux/actionCreators/deleteItem";
 
+
+class SingleToDoDetailsEdit extends React.Component {
+
+  handleSubmit = e => {
+    e.preventDefault();
+    console.log("submited")
+    // this.props.handleAddItem(this.state.inputValue, this.props.listId);
+  };
+
+  getInputValue = inputValue => {
+    console.log(inputValue)
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        <form onSubmit={e => this.handleSubmit(e)}>
+          <StyledListItem>
+            <EditItem getInputValue={this.getInputValue} initialValue={this.props.task.task}></EditItem>
+          </StyledListItem>
+          <StyledListItem>
+            <p>
+              <b>Date created:</b>
+            </p>
+            <p>{dateTransformation(this.props.task.start_date)}</p>
+          </StyledListItem>
+          </form>
+      </React.Fragment>
+    );
+  }
+}
+
+// styled components
 const StyledDetailsContainer = styled("div")`
   height: calc(100% - 48px);
   width: 50%;
@@ -59,37 +92,6 @@ const StyledListItem = styled("li")`
   padding: 20px;
   text-align: left;
 `;
-
-class SingleToDoDetailsEdit extends React.Component {
-
-  handleSubmit = e => {
-    e.preventDefault();
-    console.log("submited")
-    // this.props.handleAddItem(this.state.inputValue, this.props.listId);
-  };
-
-  getInputValue = inputValue => {
-    console.log(inputValue)
-  }
-
-  render() {
-    return (
-      <React.Fragment>
-        <form onSubmit={e => this.handleSubmit(e)}>
-          <StyledListItem>
-            <EditItem getInputValue={this.getInputValue} initialValue={this.props.task.task}></EditItem>
-          </StyledListItem>
-          <StyledListItem>
-            <p>
-              <b>Date created:</b>
-            </p>
-            <p>{dateTransformation(this.props.task.start_date)}</p>
-          </StyledListItem>
-          </form>
-      </React.Fragment>
-    );
-  }
-}
 
 const mapDispatchToProps = dispatch => ({
   handleDeleteItem(itemToDelete, listId) {

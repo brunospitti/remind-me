@@ -9,33 +9,6 @@ import addList from "../redux/actionCreators/addList";
 import changeListColor from "../redux/actionCreators/changeListColor";
 import selectList from "../redux/actionCreators/selectList";
 
-const StyledH3 = styled("h3")`
-  margin-bottom: 10px;
-`;
-
-const StyledList = styled("li")`
-  position: relative;
-  margin: 0 2%;
-  display: inline-block;
-  width: 15%;
-  max-width: 150px;
-  text-align: center;
-  &:first-child {
-    margin-left: 0;
-  }
-  .info-wrapper {
-    background: white;
-  }
-`;
-
-const StyledButton = styled("button")`
-  border: 0;
-  width: 100%;
-  cursor: pointer;
-  height: 50px;
-  margin-bottom: 10px;
-`;
-
 
 class ListsManager extends React.PureComponent{
 
@@ -74,10 +47,37 @@ class ListsManager extends React.PureComponent{
   }
 }
 
+// styled components
+const StyledH3 = styled("h3")`
+  margin-bottom: 10px;
+`;
+
+const StyledList = styled("li")`
+  position: relative;
+  margin: 0 2%;
+  display: inline-block;
+  width: 15%;
+  max-width: 150px;
+  text-align: center;
+  &:first-child {
+    margin-left: 0;
+  }
+  .info-wrapper {
+    background: white;
+  }
+`;
+
+const StyledButton = styled("button")`
+  border: 0;
+  width: 100%;
+  cursor: pointer;
+  height: 50px;
+  margin-bottom: 10px;
+`;
+
 const mapStateToProps = ({ lists }) => ({
   lists
 });
-
 
 const mapDispatchToProps = dispatch => ({
   handleAddList(newList, newColor) {

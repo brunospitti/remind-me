@@ -8,6 +8,21 @@ import { colors } from "../../assets/globalStyles";
 
 import checkItem from "../../redux/actionCreators/checkItem";
 
+
+const RatioButton = props => (
+  <StyledRatio
+    mainColor={props.mainColor}
+    className={props.checked ? "checked" : "not-checked"}
+  >
+    <input type="checkbox" id={`checkbox${props.taskId}`} />
+    <label
+      htmlFor={`checkbox${props.taskId}`}
+      onClick={() => props.handleCheckItem(props.taskId, props.listId)}
+    />
+  </StyledRatio>
+);
+
+// styled components
 const StyledRatio = styled("div")`
   display: table-cell;
   vertical-align: middle;
@@ -58,19 +73,6 @@ const StyledRatio = styled("div")`
     }
   }
 `;
-
-const RatioButton = props => (
-  <StyledRatio
-    mainColor={props.mainColor}
-    className={props.checked ? "checked" : "not-checked"}
-  >
-    <input type="checkbox" id={`checkbox${props.taskId}`} />
-    <label
-      htmlFor={`checkbox${props.taskId}`}
-      onClick={() => props.handleCheckItem(props.taskId, props.listId)}
-    />
-  </StyledRatio>
-);
 
 const mapDispatchToProps = dispatch => ({
   handleCheckItem(itemToCheck, listId) {

@@ -16,6 +16,46 @@ import { Button } from "./basics/Button";
 
 import deleteItem from "../redux/actionCreators/deleteItem";
 
+class SingleToDoDetails extends React.Component {
+  deleteItem = (itemToDelete, listId) => {
+    this.props.closeDetails();
+    this.props.handleDeleteItem(itemToDelete, listId);
+    setTimeout(function(){
+      this.props.completeListLayout()
+    }.bind(this), 0);
+  };
+
+  render() {
+    return (
+      <React.Fragment>
+        <StyledDetailsContainer>
+          <div className="header-container">
+            <StyledH3 mainColor={this.props.mainColor}>Task details</StyledH3>
+            <StyledEditIcon mainColor={this.props.mainColor} />
+          </div>
+          <ul>
+            <SingleToDoDetailsEdit
+              task={this.props.task}
+              itemListDetails={this.props.itemListDetails}
+              mainColor={this.props.mainColor}
+              showToDoOptionsFunc={this.props.showToDoOptionsFunc}
+              listId={this.props.listId}
+            />
+            <StyledListItem>
+              <Button
+                clickBehavior={() => this.deleteItem(this.props.task.id, this.props.listId)}
+                text="Delete"
+              />
+            </StyledListItem>
+          </ul>
+          <Button clickBehavior={this.props.closeDetails} text="Close me" />
+        </StyledDetailsContainer>
+      </React.Fragment>
+    );
+  }
+}
+
+// styled components
 const StyledDetailsContainer = styled("div")`
   height: calc(100% - 48px);
   width: 50%;
@@ -63,44 +103,6 @@ const StyledListItem = styled("li")`
   text-align: left;
 `;
 
-class SingleToDoDetails extends React.Component {
-  deleteItem = (itemToDelete, listId) => {
-    this.props.closeDetails();
-    this.props.handleDeleteItem(itemToDelete, listId);
-    setTimeout(function(){
-      this.props.completeListLayout()
-    }.bind(this), 0);
-  };
-
-  render() {
-    return (
-      <React.Fragment>
-        <StyledDetailsContainer>
-          <div className="header-container">
-            <StyledH3 mainColor={this.props.mainColor}>Task details</StyledH3>
-            <StyledEditIcon mainColor={this.props.mainColor} />
-          </div>
-          <ul>
-            <SingleToDoDetailsEdit
-              task={this.props.task}
-              itemListDetails={this.props.itemListDetails}
-              mainColor={this.props.mainColor}
-              showToDoOptionsFunc={this.props.showToDoOptionsFunc}
-              listId={this.props.listId}
-            />
-            <StyledListItem>
-              <Button
-                clickBehavior={() => this.deleteItem(this.props.task.id, this.props.listId)}
-                text="Delete"
-              />
-            </StyledListItem>
-          </ul>
-          <Button clickBehavior={this.props.closeDetails} text="Close me" />
-        </StyledDetailsContainer>
-      </React.Fragment>
-    );
-  }
-}
 
 const mapDispatchToProps = dispatch => ({
   handleDeleteItem(itemToDelete, listId) {

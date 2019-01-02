@@ -3,8 +3,18 @@ import styled from "styled-components";
 
 import { colors } from "../assets/globalStyles";
 
-// styles with emotion
-const Container = styled("header")`
+export class Header extends React.PureComponent {
+  render() {
+    return (
+      <StyledContainer>
+        <StyledH1>To do list</StyledH1>
+      </StyledContainer>
+    );
+  }
+}
+
+// styled components
+const StyledContainer = styled("header")`
   background: ${colors.light};
   border-bottom: 1px solid ${colors.primary};
   position: sticky;
@@ -17,13 +27,3 @@ const StyledH1 = styled("h1")`
   font-size: 24px;
   color: ${colors.primary};
 `;
-
-export class Header extends React.PureComponent {
-  render() {
-    return (
-      <Container>
-        <StyledH1>To do list</StyledH1>
-      </Container>
-    );
-  }
-}
