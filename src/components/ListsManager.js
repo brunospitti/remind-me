@@ -3,47 +3,47 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 
 import ColorSelector from "./basics/ColorSelector";
-import { SingleInput } from "./basics/SingleInput";
+import { AddList } from "./AddList";
 
 import addList from "../redux/actionCreators/addList";
 import changeListColor from "../redux/actionCreators/changeListColor";
 import selectList from "../redux/actionCreators/selectList";
 
-
-class ListsManager extends React.PureComponent{
-
+class ListsManager extends React.PureComponent {
   handleSelectList = listId => {
     this.props.handleSelectList(listId);
-    setTimeout(function(){
-      this.props.completeListLayout()
-    }.bind(this), 0);
-  }
-  render(){
-    return(
-
-    <React.Fragment>
-      <StyledH3>Lists:</StyledH3>
-      <ul>
-        {Object.keys(this.props.lists).map((list, i) => (
-          <StyledList key={i}>
-            <StyledButton
-              className="color-wrapper"
-              style={{ backgroundColor: this.props.lists[list].color }}
-              onClick={() => this.handleSelectList(this.props.lists[list].id)}
-            />
-            <div className="info-wrapper">
-              <span>{this.props.lists[list].list}</span>
-              <ColorSelector
-                list={this.props.lists[list].list}
-                handleColorChange={this.props.handleColorChange}
+    setTimeout(
+      function() {
+        this.props.completeListLayout();
+      }.bind(this),
+      0
+    );
+  };
+  render() {
+    return (
+      <React.Fragment>
+        <StyledH3>Lists:</StyledH3>
+        <ul>
+          {Object.keys(this.props.lists).map((list, i) => (
+            <StyledList key={i}>
+              <StyledButton
+                className="color-wrapper"
+                style={{ backgroundColor: this.props.lists[list].color }}
+                onClick={() => this.handleSelectList(this.props.lists[list].id)}
               />
-            </div>
-          </StyledList>
-        ))}
-        <SingleInput clickBehavior={this.props.handleAddList} text="+" />
-      </ul>
-    </React.Fragment>
-    )
+              <div className="info-wrapper">
+                <span>{this.props.lists[list].list}</span>
+                <ColorSelector
+                  list={this.props.lists[list].list}
+                  handleColorChange={this.props.handleColorChange}
+                />
+              </div>
+            </StyledList>
+          ))}
+          <AddList clickBehavior={this.props.handleAddList} text="+" />
+        </ul>
+      </React.Fragment>
+    );
   }
 }
 
@@ -87,7 +87,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(changeListColor(listName, newColor));
   },
   handleSelectList: listId => {
-    dispatch(selectList(listId))
+    dispatch(selectList(listId));
   }
 });
 

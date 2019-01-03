@@ -14,50 +14,65 @@ import changeItemPriorityColor from "../redux/actionCreators/changeItemPriorityC
 class SingleToDo extends React.PureComponent {
   deleteItem = (itemToDelete, listId) => {
     this.props.handleDeleteItem(itemToDelete, listId);
-    setTimeout(function(){
-      this.props.completeListLayout()
-    }.bind(this), 0);
+    setTimeout(
+      function() {
+        this.props.completeListLayout();
+      }.bind(this),
+      0
+    );
   };
 
   render() {
     return (
-
       <React.Fragment>
         <StyledLi
           id="single-to-do"
           className={this.props.task.checked ? "checked" : "not-checked"}
-          onMouseEnter={() => this.props.showToDoOptionsFunc(this.props.task.id, true)}
-          onMouseLeave={() => this.props.showToDoOptionsFunc(this.props.task.id, false)}
+          onMouseEnter={() =>
+            this.props.showToDoOptionsFunc(this.props.task.id, true)
+          }
+          onMouseLeave={() =>
+            this.props.showToDoOptionsFunc(this.props.task.id, false)
+          }
         >
-          <StyledItemContainer>
+          <div>
             <RatioButton
               checked={this.props.task.checked}
               taskId={this.props.task.id}
               mainColor={this.props.mainColor}
               listId={this.props.listId}
             />
-            <div
+            <StyledTask
               role="button"
               onKeyPress={() => this.props.itemListDetails(this.props.task.id)}
               onClick={() => this.props.itemListDetails(this.props.task.id)}
               tabIndex="0"
             >
               {this.props.task.task}
-            </div>
-            <PrioritySelector handleChangeItemPriorityColor={this.props.handleChangeItemPriorityColor} priority={this.props.task.priority} listId={this.props.listId} taskId={this.props.task.id}/>
+            </StyledTask>
+            <PrioritySelector
+              handleChangeItemPriorityColor={
+                this.props.handleChangeItemPriorityColor
+              }
+              priority={this.props.task.priority}
+              listId={this.props.listId}
+              taskId={this.props.task.id}
+            />
             {this.props.showToDoOptions && (
               <span>
                 <Button
                   icon="deleteIcon"
-                  clickBehavior={() => this.deleteItem(this.props.task.id, this.props.listId)}
+                  clickBehavior={() =>
+                    this.deleteItem(this.props.task.id, this.props.listId)
+                  }
                   text="Delete"
                 />
               </span>
             )}
-          </StyledItemContainer>
+          </div>
         </StyledLi>
       </React.Fragment>
-    )
+    );
   }
 }
 
@@ -67,18 +82,21 @@ const StyledLi = styled("li")`
   position: relative;
   padding: 20px;
   text-align: left;
+  > div {
+    width: 100%;
+  }
   div {
-    display: table-cell;
-    vertical-align: middle;
-    padding-left: 15px;
+    display: inline-block;
+    box-sizing: border-box;
     transition: 0.25s all ease;
+    vertical-align: top;
     cursor: pointer;
   }
   span {
     position: absolute;
     right: 0;
     top: 0;
-    &.priority{
+    &.priority {
       right: 40px;
     }
   }
@@ -90,11 +108,15 @@ const StyledLi = styled("li")`
   }
 `;
 
-const StyledItemContainer = styled("div")`
-  display: table;
-  width: 100%;
+const StyledTask = styled("div")`
+  width: calc(100% - 90px);
+  padding-left: 15px;
+  vertical-align: middle !important;
 `;
 
+const mapStateToProps = ({ lists }) => ({
+  lists
+});
 
 const mapDispatchToProps = dispatch => ({
   handleDeleteItem(itemToDelete, listId) {
@@ -106,7 +128,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(SingleToDo);
-

@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
-import { colors, listColors } from "../../assets/globalStyles";
-import { Button } from "./Button";
-import ColorSelector from "./ColorSelector";
+import { colors, listColors } from "../assets/globalStyles";
+import { Button } from "./basics/Button";
+import ColorSelector from "./basics/ColorSelector";
 
-export class SingleInput extends React.PureComponent {
+export class AddList extends React.PureComponent {
   state = {
     inputValue: "",
     inputColor: "lightGrey"
@@ -51,40 +51,40 @@ export class SingleInput extends React.PureComponent {
 
 // styled components
 const StyledForm = styled("form")`
-display: inline-block;
-position: relative;
-vertical-align: top;
-margin-left: 2%;
-.input-holder {
-  border-radius: 3px 3px 0 0;
-  padding: 15px 0;
-  border: 1px solid ${props => props.mainColor};
-  max-width: 130px;
-  input{
-    border: 0;
-    width: calc(100% - 40px);
-    display: inline-block;
-    padding: 0 0 0 10px;
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+  margin-left: 2%;
+  .input-holder {
+    border-radius: 3px 3px 0 0;
+    padding: 15px 0;
+    border: 1px solid ${props => props.mainColor};
+    max-width: 130px;
+    input {
+      border: 0;
+      width: calc(100% - 40px);
+      display: inline-block;
+      padding: 0 0 0 10px;
+    }
   }
-}
-img {
-  background: white;
-  margin: 0;
-  padding: 15px 10px;
-  margin-bottom: -20px;
-  border-radius: 0 3px 0 0;
-  width: 40px;
-  border: 1px solid ${props => props.mainColor};
-  border-left: 0;
-}
-button {
-  background: ${props => props.mainColor};
-  display: block;
-  width: 100%;
-  border-radius: 0 0 3px 3px;
-  font-size: 2em;
-  padding: 0px 10px 11px;
-  line-height: 26px;
-  margin: 0;
-}
+  img {
+    background: white;
+    margin: 0;
+    padding: 15px 10px;
+    margin-bottom: -20px;
+    border-radius: 0 3px 0 0;
+    width: 40px;
+    border: 1px solid ${props => props.mainColor};
+    border-left: 0;
+  }
+  button {
+    background: ${props => props.mainColor};
+    display: block;
+    width: 100%;
+    border-radius: 0 0 3px 3px;
+    font-size: 2em;
+    padding: 0px 10px 11px;
+    line-height: 26px;
+    margin: 0;
+  }
 `;

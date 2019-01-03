@@ -4,45 +4,51 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { lighten } from "polished";
 
-import {dateTransformation} from "../assets/helpers"
+import { dateTransformation } from "../assets/helpers";
 
 import EditIcon from "../assets/icons/edit.svg";
 
-
 import { colors } from "../assets/globalStyles";
 import SingleToDo from "./SingleToDo";
-import EditItem from "./EditItem";
+import SimpleInput from "./basics/SimpleInput";
 import { Button } from "./basics/Button";
 
 import deleteItem from "../redux/actionCreators/deleteItem";
-
+import SimpleTextArea from "./basics/SimpleTextArea";
 
 class SingleToDoDetailsEdit extends React.Component {
-
   handleSubmit = e => {
     e.preventDefault();
-    console.log("submited")
+    console.log("submited");
     // this.props.handleAddItem(this.state.inputValue, this.props.listId);
   };
 
   getInputValue = inputValue => {
-    console.log(inputValue)
-  }
+    console.log(inputValue);
+  };
 
   render() {
     return (
       <React.Fragment>
         <form onSubmit={e => this.handleSubmit(e)}>
-          <StyledListItem>
-            <EditItem getInputValue={this.getInputValue} initialValue={this.props.task.task}></EditItem>
-          </StyledListItem>
-          <StyledListItem>
-            <p>
-              <b>Date created:</b>
-            </p>
-            <p>{dateTransformation(this.props.task.start_date)}</p>
-          </StyledListItem>
-          </form>
+          <SimpleInput
+            getInputValue={this.getInputValue}
+            initialValue={this.props.task.task}
+            inputPlaceholder="Insert new item"
+          />
+          <p>
+            <b>Date created:</b>
+          </p>
+          <p>{dateTransformation(this.props.task.start_date)}</p>
+          <p>
+            <b>Notes:</b>
+          </p>
+          <SimpleTextArea
+            getInputValue={this.getInputValue}
+            initialValue={this.props.task.notes}
+            inputPlaceholder="Notes"
+          />
+        </form>
       </React.Fragment>
     );
   }
@@ -81,16 +87,10 @@ const StyledEditIcon = styled(EditIcon)`
   float: right;
   width: 33px;
   fill: ${props => props.mainColor};
-`
+`;
 
 const StyledH3 = styled("h3")`
   font-size: 1.1em;
-`;
-
-const StyledListItem = styled("li")`
-  position: relative;
-  padding: 20px;
-  text-align: left;
 `;
 
 const mapDispatchToProps = dispatch => ({
@@ -103,5 +103,3 @@ export default connect(
   null,
   mapDispatchToProps
 )(SingleToDoDetailsEdit);
-
-

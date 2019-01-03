@@ -4,14 +4,13 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { lighten } from "polished";
 
-import {dateTransformation} from "../assets/helpers"
+import { dateTransformation } from "../assets/helpers";
 
 import EditIcon from "../assets/icons/edit.svg";
 
-
 import { colors } from "../assets/globalStyles";
 import SingleToDo from "./SingleToDo";
-import SingleToDoDetailsEdit from "./SingleToDoDetailsEdit"
+import SingleToDoDetailsEdit from "./SingleToDoDetailsEdit";
 import { Button } from "./basics/Button";
 
 import deleteItem from "../redux/actionCreators/deleteItem";
@@ -22,38 +21,48 @@ class SingleToDoDetails extends React.Component {
   deleteItem = (itemToDelete, listId) => {
     this.props.closeDetails();
     this.props.handleDeleteItem(itemToDelete, listId);
-    setTimeout(function(){
-      this.props.completeListLayout()
-    }.bind(this), 0);
+    setTimeout(
+      function() {
+        this.props.completeListLayout();
+      }.bind(this),
+      0
+    );
   };
 
   render() {
     return (
-      <React.Fragment>
-        <StyledDetailsContainer>
-          <div className="header-container">
-            <StyledH3 mainColor={this.props.mainColor}>Task details</StyledH3>
-            <StyledEditIcon mainColor={this.props.mainColor} />
-            <PrioritySelector handleChangeItemPriorityColor={this.props.handleChangeItemPriorityColor} priority={this.props.task.priority} listId={this.props.listId} taskId={this.props.task.id}/>
-          </div>
-          <ul>
-            <SingleToDoDetailsEdit
-              task={this.props.task}
-              itemListDetails={this.props.itemListDetails}
-              mainColor={this.props.mainColor}
-              showToDoOptionsFunc={this.props.showToDoOptionsFunc}
-              listId={this.props.listId}
-            />
-            <StyledListItem>
-              <Button
-                clickBehavior={() => this.deleteItem(this.props.task.id, this.props.listId)}
-                text="Delete"
-              />
-            </StyledListItem>
-          </ul>
+      <StyledDetailsContainer>
+        <div className="header-container">
+          <StyledH3 mainColor={this.props.mainColor}>Task details</StyledH3>
+          <StyledEditIcon mainColor={this.props.mainColor} />
+          <PrioritySelector
+            handleChangeItemPriorityColor={
+              this.props.handleChangeItemPriorityColor
+            }
+            priority={this.props.task.priority}
+            listId={this.props.listId}
+            taskId={this.props.task.id}
+          />
+        </div>
+        <ul>
+          <SingleToDoDetailsEdit
+            task={this.props.task}
+            itemListDetails={this.props.itemListDetails}
+            mainColor={this.props.mainColor}
+            showToDoOptionsFunc={this.props.showToDoOptionsFunc}
+            listId={this.props.listId}
+          />
+        </ul>
+        <StyledFooter mainColor={this.props.mainColor}>
+          <Button
+            clickBehavior={() =>
+              this.deleteItem(this.props.task.id, this.props.listId)
+            }
+            text="Delete"
+          />
           <Button clickBehavior={this.props.closeDetails} text="Close me" />
-        </StyledDetailsContainer>
-      </React.Fragment>
+        </StyledFooter>
+      </StyledDetailsContainer>
     );
   }
 }
@@ -90,7 +99,7 @@ const StyledEditIcon = styled(EditIcon)`
   float: right;
   width: 33px;
   fill: ${props => props.mainColor};
-`
+`;
 
 const StyledH3 = styled("h3")`
   color: ${props => props.mainColor};
@@ -106,6 +115,18 @@ const StyledListItem = styled("li")`
   text-align: left;
 `;
 
+const StyledFooter = styled("div")`
+  position: absolute;
+  bottom: 0;
+  background: ${lighten(0.225, colors.lightGrey)};
+  width: 100%;
+  left: 0;
+  padding: 0 20px;
+`;
+
+const mapStateToProps = ({ lists }) => ({
+  lists
+});
 
 const mapDispatchToProps = dispatch => ({
   handleDeleteItem(itemToDelete, listId) {
@@ -117,8 +138,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(SingleToDoDetails);
-
-

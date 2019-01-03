@@ -44,6 +44,7 @@ export default class ToDos extends React.Component {
           <StyledToDo
             id="to-dos"
             mainColor={this.props.currentList.color}
+            toDoWidth={this.state.showDetails ? "50%" : "100%"}
           >
             <ul>
               {this.props.currentList.items.map(task => (
@@ -61,7 +62,11 @@ export default class ToDos extends React.Component {
                   completeListLayout={this.props.completeListLayout}
                 />
               ))}
-              <AddItem addItem={this.props.addItem} listId={this.props.currentList.id} completeListLayout={this.props.completeListLayout}/>
+              <AddItem
+                addItem={this.props.addItem}
+                listId={this.props.currentList.id}
+                completeListLayout={this.props.completeListLayout}
+              />
               {[...Array(this.props.completeListLayoutNum)].map((e, i) => (
                 <li key={i} className={i === 0 ? "first-fake" : null} />
               ))}
@@ -127,6 +132,7 @@ const StyledToDo = styled("div")`
   background: ${lighten(0.025, colors.light)};
   height: 55vh;
   overflow-x: auto;
+  width: ${props => props.toDoWidth};
   &::-webkit-scrollbar-track {
     background-color: ${props => lighten(0.5, props.mainColor)};
   }
