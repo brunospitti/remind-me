@@ -4,10 +4,12 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { lighten } from "polished";
 
+import PrioritySelector from "./basics/PrioritySelector";
 import RatioButton from "./basics/RatioButton";
 import { Button } from "./basics/Button";
 
 import deleteItem from "../redux/actionCreators/deleteItem";
+import changeItemPriorityColor from "../redux/actionCreators/changeItemPriorityColor";
 
 class SingleToDo extends React.PureComponent {
   deleteItem = (itemToDelete, listId) => {
@@ -16,6 +18,7 @@ class SingleToDo extends React.PureComponent {
       this.props.completeListLayout()
     }.bind(this), 0);
   };
+
   render() {
     return (
 
@@ -41,6 +44,7 @@ class SingleToDo extends React.PureComponent {
             >
               {this.props.task.task}
             </div>
+            <PrioritySelector handleChangeItemPriorityColor={this.props.handleChangeItemPriorityColor} priority={this.props.task.priority} listId={this.props.listId} taskId={this.props.task.id}/>
             {this.props.showToDoOptions && (
               <span>
                 <Button
@@ -74,6 +78,9 @@ const StyledLi = styled("li")`
     position: absolute;
     right: 0;
     top: 0;
+    &.priority{
+      right: 40px;
+    }
   }
   &.checked {
     div {
@@ -92,6 +99,9 @@ const StyledItemContainer = styled("div")`
 const mapDispatchToProps = dispatch => ({
   handleDeleteItem(itemToDelete, listId) {
     dispatch(deleteItem(itemToDelete, listId));
+  },
+  handleChangeItemPriorityColor(listId, taskId, newPriority) {
+    dispatch(changeItemPriorityColor(listId, taskId, newPriority));
   }
 });
 

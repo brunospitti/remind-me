@@ -15,6 +15,8 @@ import SingleToDoDetailsEdit from "./SingleToDoDetailsEdit"
 import { Button } from "./basics/Button";
 
 import deleteItem from "../redux/actionCreators/deleteItem";
+import PrioritySelector from "./basics/PrioritySelector";
+import changeItemPriorityColor from "../redux/actionCreators/changeItemPriorityColor";
 
 class SingleToDoDetails extends React.Component {
   deleteItem = (itemToDelete, listId) => {
@@ -32,6 +34,7 @@ class SingleToDoDetails extends React.Component {
           <div className="header-container">
             <StyledH3 mainColor={this.props.mainColor}>Task details</StyledH3>
             <StyledEditIcon mainColor={this.props.mainColor} />
+            <PrioritySelector handleChangeItemPriorityColor={this.props.handleChangeItemPriorityColor} priority={this.props.task.priority} listId={this.props.listId} taskId={this.props.task.id}/>
           </div>
           <ul>
             <SingleToDoDetailsEdit
@@ -107,6 +110,9 @@ const StyledListItem = styled("li")`
 const mapDispatchToProps = dispatch => ({
   handleDeleteItem(itemToDelete, listId) {
     dispatch(deleteItem(itemToDelete, listId));
+  },
+  handleChangeItemPriorityColor(listId, taskId, newPriority) {
+    dispatch(changeItemPriorityColor(listId, taskId, newPriority));
   }
 });
 

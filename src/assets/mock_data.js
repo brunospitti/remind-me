@@ -18,42 +18,42 @@ export const mock_lists = [
         task: "Ema Barhems",
         start_date: "2018-03-20T13:28:09",
         checked: false,
-        labels: ["work", "gym", "leisure", "shopping"]
+        priority: 'high'
       },
       {
         id: 2,
         task: "Culver Pitway",
         start_date: "2018-10-08T09:15:29",
         checked: false,
-        labels: ["work", "gym", "leisure", "shopping"]
+        priority: 'medium'
       },
       {
         id: 3,
         task: "Michael Botten",
         start_date: "2017-12-18T10:42:37",
         checked: false,
-        labels: ["work", "gym", "leisure", "shopping"]
+        priority: 'low'
       },
       {
         id: 4,
         task: "Erl Cottle",
         start_date: "2018-06-13T23:35:46",
         checked: false,
-        labels: ["work", "gym", "leisure", "shopping"]
+        priority: 'low'
       },
       {
         id: 5,
         task: "Alleen Butte",
         start_date: "2018-10-11T13:35:09",
         checked: false,
-        labels: ["work", "gym", "leisure", "shopping"]
+        priority: 'low'
       },
       {
         id: 6,
         task: "Skip MacBean",
         start_date: "2018-07-04T10:35:58",
         checked: false,
-        labels: ["work", "gym", "leisure", "shopping"]
+        priority: 'low'
       }
     ]
   },
@@ -67,21 +67,21 @@ export const mock_lists = [
         task: "Ema Barhems",
         start_date: "2018-03-20T13:28:09",
         checked: false,
-        labels: ["work", "gym", "leisure", "shopping"]
+        priority: 'low'
       },
       {
         id: 2,
         task: "Culver Pitway",
         start_date: "2018-10-08T09:15:29",
         checked: false,
-        labels: ["work", "gym", "leisure", "shopping"]
+        priority: 'low'
       },
       {
         id: 3,
         task: "Jarad Salliss",
         start_date: "2018-01-17T13:35:27",
         checked: false,
-        labels: ["work", "gym", "leisure", "shopping"]
+        priority: 'low'
       }
     ]
   }

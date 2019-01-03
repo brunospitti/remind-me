@@ -73,7 +73,21 @@ function lists(state = mock_lists, action) {
       currList.currTask;
 
       newState[newState.findIndex(key => key.id == currList.id)].id = currList.id;
-        
+
+      return newState;
+    }
+
+    case "CHANGE_ITEM_PRIORITY_COLOR": {
+      const newState = [...state];
+
+      let currList = newState.filter(list => list.id === action.listId)[0]
+      let currTask = currList.items.find(x => x.id === action.taskId);
+      console.log(currTask)
+      currTask.priority = action.newPriority;
+      currList.currTask;
+
+      newState[newState.findIndex(key => key.id == currList.id)].id = currList.id;
+
       return newState;
     }
 

@@ -23,6 +23,12 @@ export const listColors = {
   lightGrey: "#C1C1C1"
 };
 
+export const priorityColors = {
+    low: "#c9d5ff",
+    medium: "#a9e6bb",
+    high: "#FF686B",
+}
+
 export const GlobalStyles = createGlobalStyle`
     // css reset
 

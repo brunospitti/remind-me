@@ -2,6 +2,7 @@ import React from "react";
 import styled, { css } from "styled-components";
 
 import DeleteIcon from "../../assets/icons/delete.svg";
+import PriorityIcon from "../../assets/icons/priority.svg";
 
 import { colors } from "../../assets/globalStyles";
 
@@ -61,14 +62,25 @@ export class Button extends React.PureComponent {
         }
       }
     `;
+    
+    const StyledPriorityIcon = styled(PriorityIcon)`
+      fill: ${props => props.mainColor};
+    `
 
 
     if (this.props.icon) {
       return (
         <StyledButtonIcon onClick={this.props.clickBehavior}>
-          {this.props.icon === "deleteIcon" ? (
-            <DeleteIcon alt="delete item" id="deleteIcon" />
-          ) : null}
+          {this.props.icon ? (
+            this.props.icon === "deleteIcon" ? (
+              <DeleteIcon alt="delete item" id="deleteIcon" />
+            ) : (
+              this.props.icon === "priorityIcon" ? (
+                <StyledPriorityIcon alt="priority item" id="priorityIcon" mainColor={this.props.mainColor}/>
+              ) : null
+            )
+          ) : null
+          }
         </StyledButtonIcon>
       );
     } else {
