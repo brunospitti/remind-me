@@ -31,7 +31,7 @@ class SingleToDoDetails extends React.Component {
 
   render() {
     return (
-      <StyledDetailsContainer>
+      <StyledDetailsContainer className={this.props.task.checked ? "checked" : "not-checked"}>
         <div className="header-container">
           <StyledH3 mainColor={this.props.mainColor}>Task details</StyledH3>
           <StyledEditIcon mainColor={this.props.mainColor} />
@@ -93,6 +93,11 @@ const StyledDetailsContainer = styled("div")`
     }
     div + div {
       padding-left: 15px;
+    }
+  }
+  &.checked{
+    .header-container, ul, > div{
+      opacity: 0.5;
     }
   }
 `;
