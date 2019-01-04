@@ -12,23 +12,18 @@ import AddItem from "./AddItem";
 export default class ToDos extends React.Component {
   state = {
     showDetails: false,
-    detailsId: "",
+    detailsTask: "",
     showToDoOptions: false
   };
 
-  itemListDetails = taskId => {
-    this.setState({ showDetails: true, detailsId: taskId });
+  itemListDetails = task => {
+    this.setState({ showDetails: true, detailsTask: task });
   };
 
   closeDetails = () => {
-    this.setState({ showDetails: false, detailsId: "" });
+    this.setState({ showDetails: false, detailsTask: {} });
   };
 
-  getTaskFromId = taskId => {
-    let currState = this.props.currentList;
-    let currTask = currState.items.find(x => x.id === taskId);
-    return currTask;
-  };
 
   showToDoOptionsFunc = (taskId, toggle) => {
     this.setState({ showToDoOptions: `${toggle},${taskId}` });
@@ -44,7 +39,7 @@ export default class ToDos extends React.Component {
           <StyledToDo
             id="to-dos"
             mainColor={this.props.currentList.color}
-            toDoWidth={this.state.showDetails ? "50%" : "100%"}
+            toDoWidth={this.state.showDetails ? "55%" : "100%"}
           >
             <ul>
               {this.props.currentList.items.map(task => (
@@ -74,7 +69,7 @@ export default class ToDos extends React.Component {
           </StyledToDo>
           {this.state.showDetails && (
             <SingleToDoDetails
-              task={this.getTaskFromId(this.state.detailsId)}
+              task={this.state.detailsTask}
               itemListDetails={this.itemListDetails}
               mainColor={this.props.currentList.color}
               closeDetails={this.closeDetails}

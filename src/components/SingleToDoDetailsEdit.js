@@ -15,17 +15,18 @@ import { Button } from "./basics/Button";
 
 import deleteItem from "../redux/actionCreators/deleteItem";
 import SimpleTextArea from "./basics/SimpleTextArea";
+import editItemName from "../redux/actionCreators/editItemName";
+import editItemNotes from "../redux/actionCreators/editItemNotes";
 
 class SingleToDoDetailsEdit extends React.Component {
-  handleSubmit = e => {
-    e.preventDefault();
-    console.log("submited");
-    // this.props.handleAddItem(this.state.inputValue, this.props.listId);
+  getInputValue = inputValue => {
+    this.props.handleEditItemName(this.props.listId, this.props.task.id, inputValue)
   };
 
-  getInputValue = inputValue => {
-    console.log(inputValue);
+  getTextAreaValue = textAreaValue => {
+    this.props.handleEditItemNotes(this.props.listId, this.props.task.id, textAreaValue)
   };
+
 
   render() {
     return (
@@ -36,17 +37,10 @@ class SingleToDoDetailsEdit extends React.Component {
             initialValue={this.props.task.task}
             inputPlaceholder="Insert new item"
           />
-          <p>
-            <b>Date created:</b>
-          </p>
-          <p>{dateTransformation(this.props.task.start_date)}</p>
-          <p>
-            <b>Notes:</b>
-          </p>
           <SimpleTextArea
-            getInputValue={this.getInputValue}
+            getTextAreaValue={this.getTextAreaValue}
             initialValue={this.props.task.notes}
-            inputPlaceholder="Notes"
+            inputPlaceholder="Add notes"
           />
         </form>
       </React.Fragment>
@@ -94,8 +88,11 @@ const StyledH3 = styled("h3")`
 `;
 
 const mapDispatchToProps = dispatch => ({
-  handleDeleteItem(itemToDelete, listId) {
-    dispatch(deleteItem(itemToDelete, listId));
+  handleEditItemName(listId, taskId, newName) {
+    dispatch(editItemName(listId, taskId, newName));
+  },
+  handleEditItemNotes(listId, taskId, newNotes) {
+    dispatch(editItemNotes(listId, taskId, newNotes));
   }
 });
 

@@ -44,8 +44,8 @@ class SingleToDo extends React.PureComponent {
             />
             <StyledTask
               role="button"
-              onKeyPress={() => this.props.itemListDetails(this.props.task.id)}
-              onClick={() => this.props.itemListDetails(this.props.task.id)}
+              onKeyPress={() => this.props.itemListDetails(this.props.task)}
+              onClick={() => this.props.itemListDetails(this.props.task)}
               tabIndex="0"
             >
               {this.props.task.task}
@@ -78,7 +78,6 @@ class SingleToDo extends React.PureComponent {
 
 // styled components
 const StyledLi = styled("li")`
-  cursor: pointer;
   position: relative;
   padding: 20px;
   text-align: left;

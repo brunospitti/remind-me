@@ -93,6 +93,34 @@ function lists(state = mock_lists, action) {
       return newState;
     }
 
+    case "EDIT_ITEM_NAME": {
+      const newState = [...state];
+
+      let currList = newState.filter(list => list.id === action.listId)[0];
+      let currTask = currList.items.find(x => x.id === action.taskId);
+      currTask.task = action.newName;
+      currList.currTask;
+
+      newState[newState.findIndex(key => key.id == currList.id)].id =
+        currList.id;
+
+      return newState;
+    }
+
+    case "EDIT_ITEM_NOTES": {
+      const newState = [...state];
+
+      let currList = newState.filter(list => list.id === action.listId)[0];
+      let currTask = currList.items.find(x => x.id === action.taskId);
+      currTask.notes = action.newNotes;
+      currList.currTask;
+
+      newState[newState.findIndex(key => key.id == currList.id)].id =
+        currList.id;
+
+      return newState;
+    }
+
     default:
       return state;
   }

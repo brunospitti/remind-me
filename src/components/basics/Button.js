@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 
 import DeleteIcon from "../../assets/icons/delete.svg";
 import PriorityIcon from "../../assets/icons/priority.svg";
+import CollapseIcon from "../../assets/icons/collapse.svg";
 
 import { colors } from "../../assets/globalStyles";
 
@@ -77,6 +78,10 @@ export class Button extends React.PureComponent {
             ) : (
               this.props.icon === "priorityIcon" ? (
                 <StyledPriorityIcon alt="priority item" id="priorityIcon" mainColor={this.props.mainColor}/>
+              ) : (
+                this.props.icon === "collapseIcon" ? (
+                  <CollapseIcon alt="collapse item" id="collapseIcon"/>
+                ) : null
               ) : null
             )
           ) : null

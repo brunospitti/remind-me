@@ -54,13 +54,16 @@ class SingleToDoDetails extends React.Component {
           />
         </ul>
         <StyledFooter mainColor={this.props.mainColor}>
+          <Button className="footer-item" icon="collapseIcon" clickBehavior={this.props.closeDetails} text="Close me" />
+          <div className="footer-item" ><b>Date created:</b> {dateTransformation(this.props.task.start_date)}</div>
           <Button
+            className="footer-item"
+            icon="deleteIcon"
             clickBehavior={() =>
               this.deleteItem(this.props.task.id, this.props.listId)
             }
             text="Delete"
           />
-          <Button clickBehavior={this.props.closeDetails} text="Close me" />
         </StyledFooter>
       </StyledDetailsContainer>
     );
@@ -70,7 +73,7 @@ class SingleToDoDetails extends React.Component {
 // styled components
 const StyledDetailsContainer = styled("div")`
   height: calc(100% - 48px);
-  width: 50%;
+  width: 45%;
   position: absolute;
   padding: 20px;
   right: 5px;
@@ -78,7 +81,7 @@ const StyledDetailsContainer = styled("div")`
   background: white;
   box-shadow: -1px 2px 4px ${colors.lightGrey};
   &.active {
-    width: 50%;
+    width: 40%;
   }
   > button {
     position: absolute;
@@ -121,7 +124,35 @@ const StyledFooter = styled("div")`
   background: ${lighten(0.225, colors.lightGrey)};
   width: 100%;
   left: 0;
-  padding: 0 20px;
+  button{
+    background: ${lighten(0.2, colors.lightGrey)};
+    margin: 0;
+    padding: 20px;
+    transition: 0.25s all ease;
+    &:hover{
+      background: ${lighten(0.15, colors.lightGrey)};
+    }
+    svg{
+      margin-left: 0;
+      fill:
+    }
+  }
+  div{
+    width: calc(100% - 120px);
+    text-align: center;
+  }
+  button:last-child{
+   
+svg{
+  &:hover{
+    opacity: 0.4 !important;
+  fill: black !important;
+}
+    }
+  }
+  .footer-item{
+    display: inline-block;
+  }
 `;
 
 const mapStateToProps = ({ lists }) => ({

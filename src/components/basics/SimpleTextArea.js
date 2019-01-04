@@ -17,7 +17,7 @@ class SimpleTextArea extends React.Component {
   };
 
   handleBlur = () => {
-    this.props.getInputValue(this.state.inputValue);
+    this.props.getTextAreaValue(this.state.inputValue);
   };
 
   render() {
@@ -26,7 +26,7 @@ class SimpleTextArea extends React.Component {
         type="text"
         placeholder={this.props.inputPlaceholder}
         value={this.state.inputValue}
-        onChange={e => this.handleChange(e)}
+        onChange={this.handleChange}
         onBlur={() => this.handleBlur()}
       />
     );
