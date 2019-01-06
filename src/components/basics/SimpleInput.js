@@ -22,6 +22,7 @@ class SimpleInput extends React.Component {
   render() {
     return (
       <StyledInput
+        autoFocus
         maxLength="35"
         type="text"
         placeholder={this.props.inputPlaceholder}

@@ -42,7 +42,7 @@ function lists(state = mock_lists, action) {
         task: action.itemToAdd,
         start_date: currTime,
         checked: false,
-        priority: "low"
+        priority: 1
       });
 
       return newState;

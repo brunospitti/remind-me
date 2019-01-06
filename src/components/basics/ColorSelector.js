@@ -8,7 +8,6 @@ import { listColors, colors } from "../../assets/globalStyles";
 
 import ChangeColorIcon from "../../assets/icons/paint-board-and-brush.svg";
 
-
 class ColorSelector extends React.PureComponent {
   state = {
     showColorSelector: false
@@ -75,7 +74,7 @@ const StyledColorList = styled("ul")`
   box-shadow: 1px 1px 4px ${colors.lightGrey};
   background: ${lighten(0.025, colors.light)};
   padding: 10px;
-  width: 330px;
+  width: 300px;
 `;
 
 const StyledLabelColor = styled("li")`

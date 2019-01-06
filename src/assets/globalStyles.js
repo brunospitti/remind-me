@@ -18,16 +18,15 @@ export const listColors = {
   purple: "#9881d0",
   englishLavender: "#B5838D",
   blue: "#247BA0",
-  yellow: "#F3FFBD",
   pink: "#FF1654",
   lightGrey: "#C1C1C1"
 };
 
 export const priorityColors = {
-    low: "#c9d5ff",
-    medium: "#a9e6bb",
-    high: "#FF686B",
-}
+  low: "#c9d5ff",
+  medium: "#a9e6bb",
+  high: "#FF686B"
+};
 
 export const GlobalStyles = createGlobalStyle`
     // css reset

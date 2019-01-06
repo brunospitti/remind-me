@@ -28,16 +28,17 @@ class ListsManager extends React.PureComponent {
             <StyledList key={i}>
               <StyledButton
                 className="color-wrapper"
-                style={{ backgroundColor: this.props.lists[list].color }}
+                mainColor={this.props.lists[list].color}
                 onClick={() => this.handleSelectList(this.props.lists[list].id)}
-              />
-              <div className="info-wrapper">
-                <span>{this.props.lists[list].list}</span>
-                <ColorSelector
-                  list={this.props.lists[list].list}
-                  handleColorChange={this.props.handleColorChange}
-                />
-              </div>
+              >
+                <div className="info-wrapper">
+                  <span>{this.props.lists[list].list}</span>
+                  <ColorSelector
+                    list={this.props.lists[list].list}
+                    handleColorChange={this.props.handleColorChange}
+                  />
+                </div>
+              </StyledButton>
             </StyledList>
           ))}
           <AddList clickBehavior={this.props.handleAddList} text="+" />
@@ -56,23 +57,29 @@ const StyledList = styled("li")`
   position: relative;
   margin: 0 2%;
   display: inline-block;
-  width: 15%;
   max-width: 150px;
   text-align: center;
   &:first-child {
     margin-left: 0;
   }
-  .info-wrapper {
-    background: white;
+  span {
+    text-transform: capitalize;
+    font-size: 1.2em;
   }
 `;
 
 const StyledButton = styled("button")`
+  background: white;
   border: 0;
   width: 100%;
   cursor: pointer;
   height: 50px;
   margin-bottom: 10px;
+  border-bottom: 6px solid ${props => props.mainColor};
+  transition: 0.2s all ease;
+  &:hover {
+    border-bottom-width: 10px;
+  }
 `;
 
 const mapStateToProps = ({ lists }) => ({

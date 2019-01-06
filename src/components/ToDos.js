@@ -5,41 +5,65 @@ import { lighten } from "polished";
 
 import { colors } from "../assets/globalStyles";
 
+import Sort from "./basics/Sort";
 import SingleToDo from "./SingleToDo";
 import SingleToDoDetails from "./SingleToDoDetails";
 import AddItem from "./AddItem";
 
 export default class ToDos extends React.Component {
   state = {
-    showDetails: false,
     detailsTask: "",
-    showToDoOptions: false
+    showToDoOptions: false,
+    showDetailsEditItems: false
   };
 
+  componentDidMount() {
+    let items = [...this.props.currentList.items];
+    items.sort(function(a, b) {
+      return new Date(b.start_date) - new Date(a.start_date);
+    });
+    // console.log(items);
+  }
+
   itemListDetails = task => {
-    this.setState({ showDetails: true, detailsTask: task });
+    this.setState(
+      {
+        detailsTask: task,
+        showDetailsEditItems: false
+      },
+      () => {
+        this.props.showDetailsFunc(true);
+      }
+    );
   };
 
   closeDetails = () => {
-    this.setState({ showDetails: false, detailsTask: {} });
+    this.setState({ detailsTask: {} }, () => {
+      this.props.showDetailsFunc(false);
+    });
   };
-
 
   showToDoOptionsFunc = (taskId, toggle) => {
     this.setState({ showToDoOptions: `${toggle},${taskId}` });
   };
 
+  showDetailsEditItemsFunc = () => {
+    this.setState({ showDetailsEditItems: true });
+  };
+
   render() {
     return (
       <React.Fragment>
-        <StyledToDoOuter
-          className={this.state.showDetails ? "expanded" : "compressed"}
-        >
-          <h2>{this.props.currentList.list}</h2>
+        <h2>{this.props.currentList.list}</h2>
+        <Sort
+          sortBy={this.props.sortBy}
+          handleSortByChange={this.props.handleSortByChange}
+        />
+        <StyledTodoHolder>
           <StyledToDo
             id="to-dos"
             mainColor={this.props.currentList.color}
-            toDoWidth={this.state.showDetails ? "55%" : "100%"}
+            toDoWidth={this.props.showDetails ? "55%" : "100%"}
           >
             <ul>
               {this.props.currentList.items.map(task => (
@@ -67,9 +91,11 @@ export default class ToDos extends React.Component {
               ))}
             </ul>
           </StyledToDo>
-          {this.state.showDetails && (
+          {this.props.showDetails && (
             <SingleToDoDetails
               task={this.state.detailsTask}
+              showDetailsEditItems={this.state.showDetailsEditItems}
+              showDetailsEditItemsFunc={this.showDetailsEditItemsFunc}
               itemListDetails={this.itemListDetails}
               mainColor={this.props.currentList.color}
               closeDetails={this.closeDetails}
@@ -78,46 +104,17 @@ export default class ToDos extends React.Component {
               completeListLayout={this.props.completeListLayout}
             />
           )}
-        </StyledToDoOuter>
+        </StyledTodoHolder>
       </React.Fragment>
     );
   }
 }
 
 // styled components
-const expandsToDoOuter = keyframes`
-  0% {
-    width: 60%;
-  }
-  100% {
-    width: 80%;
-  }
-`;
-
-const compressToDoOuter = keyframes`
-  0% {
-    width: 80%;
-  }
-  100% {
-    width: 60%;
-  }
-`;
-
-const StyledToDoOuter = styled("div")`
-  width: 60%;
-  margin: 30px auto;
+const StyledTodoHolder = styled("div")`
+  display: block;
   position: relative;
-  transition: all 0.25s ease;
-  &.expanded {
-    animation: ${expandsToDoOuter} 0.25s ease forwards;
-  }
-  &.compressed {
-    animation: ${compressToDoOuter} 0.25s ease forwards;
-  }
-  h2 {
-    font-size: 2em;
-    margin-bottom: 20px;
-  }
+  margin-bottom: 4vh;
 `;
 
 const StyledToDo = styled("div")`

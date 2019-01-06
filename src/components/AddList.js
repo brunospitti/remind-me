@@ -29,17 +29,21 @@ export class AddList extends React.PureComponent {
   render() {
     return (
       <React.Fragment>
-        <StyledForm mainColor={listColors[this.state.inputColor]}>
+        <StyledForm
+          mainColor={listColors[this.state.inputColor]}
+          buttonHeight={this.state.inputValue === "" ? "7px" : "40px"}
+        >
           <div className="input-holder">
             <input
               type="text"
-              placeholder="Add new list"
+              placeholder="Create new list"
               value={this.state.inputValue}
               onChange={e => this.handleChange(e)}
             />
             <ColorSelector handleColorChange={this.handleColorAdd} />
           </div>
           <Button
+            style={{ backgroundColor: "blue" }}
             clickBehavior={e => this.clickBehavior(e)}
             text={this.props.text}
           />
@@ -57,11 +61,11 @@ const StyledForm = styled("form")`
   margin-left: 2%;
   .input-holder {
     border-radius: 3px 3px 0 0;
-    padding: 15px 0;
-    border: 1px solid ${props => props.mainColor};
-    max-width: 130px;
+    padding: 12px 0 10px;
+    max-width: 160px;
     input {
       border: 0;
+      font-size: 1.2em;
       width: calc(100% - 40px);
       display: inline-block;
       padding: 0 0 0 10px;
@@ -81,10 +85,11 @@ const StyledForm = styled("form")`
     background: ${props => props.mainColor};
     display: block;
     width: 100%;
-    border-radius: 0 0 3px 3px;
+    border-radius: 0;
     font-size: 2em;
-    padding: 0px 10px 11px;
-    line-height: 26px;
+    padding: 0 0 7px;
+    line-height: 1em;
     margin: 0;
+    height: ${props => props.buttonHeight};
   }
 `;

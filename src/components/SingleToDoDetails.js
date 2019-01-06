@@ -31,7 +31,9 @@ class SingleToDoDetails extends React.Component {
 
   render() {
     return (
-      <StyledDetailsContainer className={this.props.task.checked ? "checked" : "not-checked"}>
+      <StyledDetailsContainer
+        className={this.props.task.checked ? "checked" : "not-checked"}
+      >
         <div className="header-container">
           <StyledH3 mainColor={this.props.mainColor}>Task details</StyledH3>
           <StyledEditIcon mainColor={this.props.mainColor} />
@@ -47,6 +49,8 @@ class SingleToDoDetails extends React.Component {
         <ul>
           <SingleToDoDetailsEdit
             task={this.props.task}
+            showDetailsEditItems={this.props.showDetailsEditItems}
+            showDetailsEditItemsFunc={this.props.showDetailsEditItemsFunc}
             itemListDetails={this.props.itemListDetails}
             mainColor={this.props.mainColor}
             showToDoOptionsFunc={this.props.showToDoOptionsFunc}
@@ -54,8 +58,16 @@ class SingleToDoDetails extends React.Component {
           />
         </ul>
         <StyledFooter mainColor={this.props.mainColor}>
-          <Button className="footer-item" icon="collapseIcon" clickBehavior={this.props.closeDetails} text="Close me" />
-          <div className="footer-item" ><b>Date created:</b> {dateTransformation(this.props.task.start_date)}</div>
+          <Button
+            className="footer-item"
+            icon="collapseIcon"
+            clickBehavior={this.props.closeDetails}
+            text="Close me"
+          />
+          <div className="footer-item">
+            <b>Date created:</b>{" "}
+            {dateTransformation(this.props.task.start_date)}
+          </div>
           <Button
             className="footer-item"
             icon="deleteIcon"
@@ -72,7 +84,7 @@ class SingleToDoDetails extends React.Component {
 
 // styled components
 const StyledDetailsContainer = styled("div")`
-  height: calc(100% - 48px);
+  height: 100%;
   width: 45%;
   position: absolute;
   padding: 20px;
@@ -95,8 +107,10 @@ const StyledDetailsContainer = styled("div")`
       padding-left: 15px;
     }
   }
-  &.checked{
-    .header-container, ul, > div{
+  &.checked {
+    .header-container,
+    ul,
+    > div {
       opacity: 0.5;
     }
   }
@@ -129,33 +143,32 @@ const StyledFooter = styled("div")`
   background: ${lighten(0.225, colors.lightGrey)};
   width: 100%;
   left: 0;
-  button{
+  button {
     background: ${lighten(0.2, colors.lightGrey)};
     margin: 0;
     padding: 20px;
     transition: 0.25s all ease;
-    &:hover{
+    &:hover {
       background: ${lighten(0.15, colors.lightGrey)};
     }
-    svg{
+    svg {
       margin-left: 0;
-      fill:
+      fill: ;
     }
   }
-  div{
+  div {
     width: calc(100% - 120px);
     text-align: center;
   }
-  button:last-child{
-   
-svg{
-  &:hover{
-    opacity: 0.4 !important;
-  fill: black !important;
-}
+  button:last-child {
+    svg {
+      &:hover {
+        opacity: 0.4 !important;
+        fill: black !important;
+      }
     }
   }
-  .footer-item{
+  .footer-item {
     display: inline-block;
   }
 `;

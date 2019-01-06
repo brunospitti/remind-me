@@ -10,7 +10,6 @@ import ChangeColorIcon from "../../assets/icons/paint-board-and-brush.svg";
 
 import { Button } from "./Button";
 
-
 class PrioritySelector extends React.PureComponent {
   state = {
     showChangePriority: false
@@ -22,16 +21,23 @@ class PrioritySelector extends React.PureComponent {
     let high = priorityColors.high;
     let { priority } = this.props;
 
-    if (priority === "low"){
-      return low
-    } else if (priority === "medium"){
-      return medium
+    if (priority === 1) {
+      return low;
+    } else if (priority === 2) {
+      return medium;
     } else {
-      return high
+      return high;
     }
-  }
+  };
 
   handleChangePriority = (listId, taskId, newPriority) => {
+    if (newPriority === "low") {
+      newPriority = 1;
+    } else if (newPriority === "medium") {
+      newPriority = 2;
+    } else {
+      newPriority = 3;
+    }
     this.props.handleChangeItemPriorityColor(listId, taskId, newPriority);
     this.setState({
       showChangePriority: false
@@ -44,7 +50,7 @@ class PrioritySelector extends React.PureComponent {
         <span className="priority">
           <Button
             icon="priorityIcon"
-            clickBehavior={() => this.setState({showChangePriority: true})}
+            clickBehavior={() => this.setState({ showChangePriority: true })}
             text="Priority"
             mainColor={this.priorityColor()}
           />
@@ -56,10 +62,14 @@ class PrioritySelector extends React.PureComponent {
                 key={i}
                 mainColor={priorityColors[priorityColor]}
                 onClick={() =>
-                  this.handleChangePriority(this.props.listId, this.props.taskId, priorityColor)
+                  this.handleChangePriority(
+                    this.props.listId,
+                    this.props.taskId,
+                    priorityColor
+                  )
                 }
               >
-                { priorityColor }
+                {priorityColor}
               </StyledLabelColor>
             ))}
           </StyledColorList>
@@ -86,10 +96,10 @@ const StyledLabelColor = styled("li")`
   background: ${props => props.mainColor};
   border-bottom: 2px solid ${props => darken(0.2, props.mainColor)};
   width: 70px;
-    text-align: center;
-    display: inline-block;
-    padding: 10px 0;
-    color: white;
+  text-align: center;
+  display: inline-block;
+  padding: 10px 0;
+  color: white;
   &:not(:first-child) {
     margin-left: 5px;
   }

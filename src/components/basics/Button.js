@@ -9,7 +9,6 @@ import { colors } from "../../assets/globalStyles";
 
 export class Button extends React.PureComponent {
   render() {
-
     // styled components
     const StyledButtonPrimary = () =>
       this.props.primary &&
@@ -56,18 +55,17 @@ export class Button extends React.PureComponent {
         margin-left: 10px;
         &#deleteIcon {
           opacity: 0.4;
-          &:hover{
+          &:hover {
             opacity: 1;
             fill: ${colors.danger};
           }
         }
       }
     `;
-    
+
     const StyledPriorityIcon = styled(PriorityIcon)`
       fill: ${props => props.mainColor};
-    `
-
+    `;
 
     if (this.props.icon) {
       return (
@@ -76,16 +74,17 @@ export class Button extends React.PureComponent {
             this.props.icon === "deleteIcon" ? (
               <DeleteIcon alt="delete item" id="deleteIcon" />
             ) : (
-              this.props.icon === "priorityIcon" ? (
-                <StyledPriorityIcon alt="priority item" id="priorityIcon" mainColor={this.props.mainColor}/>
-              ) : (
-                this.props.icon === "collapseIcon" ? (
-                  <CollapseIcon alt="collapse item" id="collapseIcon"/>
-                ) : null
-              ) : null
+              ((this.props.icon === "priorityIcon" ? (
+                <StyledPriorityIcon
+                  alt="priority item"
+                  id="priorityIcon"
+                  mainColor={this.props.mainColor}
+                />
+              ) : this.props.icon === "collapseIcon" ? (
+                <CollapseIcon alt="collapse item" id="collapseIcon" />
+              ) : null): null)
             )
-          ) : null
-          }
+          ) : null}
         </StyledButtonIcon>
       );
     } else {
