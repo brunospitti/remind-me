@@ -13,11 +13,13 @@ class AddItem extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.handleAddItem(this.state.inputValue, this.props.listId);
-    setTimeout(function(){
-      this.props.completeListLayout()
-    }.bind(this), 0);
-    this.setState({ inputValue: "" });
+    if(this.state.inputValue != "" && this.state.inputValue.length > 3 ){
+      this.props.handleAddItem(this.state.inputValue, this.props.listId);
+      setTimeout(function(){
+        this.props.completeListLayout()
+      }.bind(this), 0);
+      this.setState({ inputValue: "" });
+    }
   };
 
   handleChange = e => {

@@ -68,13 +68,14 @@ const StyledImg = styled(ChangeColorIcon)`
 
 const StyledColorList = styled("ul")`
   position: absolute;
-  top: -57px;
+  bottom: 20px;
+  z-index: 9999;
   left: 0;
   border-radius: 3px;
   box-shadow: 1px 1px 4px ${colors.lightGrey};
   background: ${lighten(0.025, colors.light)};
   padding: 10px;
-  width: 300px;
+  width: 100%;
 `;
 
 const StyledLabelColor = styled("li")`
@@ -83,7 +84,7 @@ const StyledLabelColor = styled("li")`
   width: 30px;
   display: inline-block;
   &:not(:first-child) {
-    margin-left: 5px;
+    margin-left: 2%;
   }
 `;
 

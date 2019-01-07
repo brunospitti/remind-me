@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import { lighten } from "polished";
+
 
 import ColorSelector from "./basics/ColorSelector";
 import { AddList } from "./AddList";
@@ -8,6 +10,7 @@ import { AddList } from "./AddList";
 import addList from "../redux/actionCreators/addList";
 import changeListColor from "../redux/actionCreators/changeListColor";
 import selectList from "../redux/actionCreators/selectList";
+import { colors } from "../assets/globalStyles";
 
 class ListsManager extends React.PureComponent {
   handleSelectList = listId => {
@@ -22,8 +25,8 @@ class ListsManager extends React.PureComponent {
   render() {
     return (
       <React.Fragment>
-        <StyledH3>Lists:</StyledH3>
-        <ul>
+        <h3>Lists:</h3>
+        <StyledUl>
           {Object.keys(this.props.lists).map((list, i) => (
             <StyledList key={i}>
               <StyledButton
@@ -42,22 +45,36 @@ class ListsManager extends React.PureComponent {
             </StyledList>
           ))}
           <AddList clickBehavior={this.props.handleAddList} text="+" />
-        </ul>
+        </StyledUl>
       </React.Fragment>
     );
   }
 }
 
 // styled components
-const StyledH3 = styled("h3")`
-  margin-bottom: 10px;
+const StyledUl = styled("ul")`
+  overflow-x: auto;
+  max-width: 100%;
+  white-space: nowrap;
+  height: 100px;
+  padding-top: 15px;
+  &::-webkit-scrollbar-track {
+    background-color: ${lighten(0.5, colors.primary)};
+  }
+
+  &::-webkit-scrollbar {
+    height: 6px;
+    background-color: ${lighten(0.5, colors.primary)};
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color:  ${colors.primary};
+  }
 `;
 
 const StyledList = styled("li")`
-  position: relative;
   margin: 0 2%;
   display: inline-block;
-  max-width: 150px;
   text-align: center;
   &:first-child {
     margin-left: 0;

@@ -137,7 +137,7 @@ const StyledToDo = styled("div")`
   &::-webkit-scrollbar-thumb {
     background-color: ${props => props.mainColor};
   }
-  > li {
+  > ul > li {
     position: relative;
     height: 61px;
     border-bottom: 1px solid ${lighten(0.2, colors.lightGrey)};

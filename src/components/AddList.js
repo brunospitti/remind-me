@@ -18,8 +18,10 @@ export class AddList extends React.PureComponent {
 
   clickBehavior = e => {
     e.preventDefault();
-    this.props.clickBehavior(this.state.inputValue, this.state.inputColor);
-    this.setState({ inputValue: "", inputColor: "lightGrey" });
+    if(this.state.inputValue != "" && this.state.inputValue.length > 3 ){
+      this.props.clickBehavior(this.state.inputValue, this.state.inputColor);
+      this.setState({ inputValue: "", inputColor: "lightGrey" });
+    }
   };
 
   handleColorAdd = (list, color) => {
