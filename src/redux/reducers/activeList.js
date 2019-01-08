@@ -4,8 +4,13 @@
 
 function activeList(state = 1, action) {
   switch (action.type) {
-    case "CHANGE_ACTIVE_LIST":
+    case "CHANGE_ACTIVE_LIST": {
       return action.listId;
+    }
+
+    case "DELETE_LIST": {
+      return action.nextListId;
+    }
 
     default:
       return state;

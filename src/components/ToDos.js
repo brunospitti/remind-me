@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled, { keyframes } from "styled-components";
-import { lighten } from "polished";
+import { lighten, buttons } from "polished";
 
 import { colors } from "../assets/globalStyles";
 
@@ -9,12 +9,18 @@ import Sort from "./basics/Sort";
 import SingleToDo from "./SingleToDo";
 import SingleToDoDetails from "./SingleToDoDetails";
 import AddItem from "./AddItem";
+import SimpleInput from "./basics/SimpleInput";
+import editListName from "../redux/actionCreators/editListName";
+import { Button } from "./basics/Button";
+import deleteList from "../redux/actionCreators/deleteList";
 
-export default class ToDos extends React.Component {
+
+class ToDos extends React.Component {
   state = {
     detailsTask: "",
     showToDoOptions: false,
-    showDetailsEditItems: false
+    showDetailsEditItems: false,
+    showEditListName: false
   };
 
   componentDidMount() {
@@ -22,7 +28,19 @@ export default class ToDos extends React.Component {
     items.sort(function(a, b) {
       return new Date(b.start_date) - new Date(a.start_date);
     });
-    // console.log(items);
+  }
+
+  handleEditList = inputValue => {
+    if (inputValue.length > 3){
+      this.props.handleEditListName(this.props.currentList.id, inputValue);
+    } else {
+      alert('List name should be longer than 3 letters')
+    }
+    this.setState({showEditListName: false})
+  }
+
+  deleteList = () => {
+    this.props.handleDeleteList(this.props.currentList.id, this.props.nextListId)
   }
 
   itemListDetails = task => {
@@ -51,20 +69,59 @@ export default class ToDos extends React.Component {
     this.setState({ showDetailsEditItems: true });
   };
 
+  showEditListNameFunc = () => {
+    this.setState({ showEditListName: true });
+  };
+
+  numberOfCheckedItems = () => {
+    let checkedItems = this.props.currentList.items.filter(item => item.checked)
+    return checkedItems.length
+  }
+
   render() {
+
+
     return (
       <React.Fragment>
-        <h2>{this.props.currentList.list}</h2>
+        {this.state.showEditListName ? (
+          <StyledSimpleInput
+            className={this.props.className}
+            autoFocus={true}
+            getInputValue={this.handleEditList}
+            initialValue={this.props.currentList.list}
+            inputPlaceholder="List name"
+          />
+        ) : (
+          <StyledFakeInputField
+            onClick={() => this.showEditListNameFunc()}
+          >
+            <span>{this.props.currentList.list}</span>
+          </StyledFakeInputField>
+        )}
+        <Button
+          icon="deleteIcon"
+          clickBehavior={() =>
+            this.deleteList()
+          }
+          text="Delete"
+        />
         <Sort
           sortBy={this.props.sortBy}
           handleSortByChange={this.props.handleSortByChange}
         />
         <StyledTodoHolder>
+          <StyledFilterChecked onClick={() => this.props.filterCheckedFunc()}>
+            {this.props.filterChecked ? 
+              `Show checked items - (${this.numberOfCheckedItems()})`
+              :
+              `Hide checked items - (${this.numberOfCheckedItems()})`
+            }
+          </StyledFilterChecked>
           <StyledToDo
             id="to-dos"
             mainColor={this.props.currentList.color}
             toDoWidth={this.props.showDetails ? "55%" : "100%"}
-          >
+            >
             <ul>
               {this.props.currentList.items.map(task => (
                 <SingleToDo
@@ -79,6 +136,7 @@ export default class ToDos extends React.Component {
                   }
                   listId={this.props.currentList.id}
                   completeListLayout={this.props.completeListLayout}
+                  showItem={this.props.filterChecked ? false : true}
                 />
               ))}
               <AddItem
@@ -117,6 +175,14 @@ const StyledTodoHolder = styled("div")`
   margin-bottom: 4vh;
 `;
 
+const StyledFilterChecked = styled("div")`
+  width: 100%;
+  display: block;
+  padding: 12px 40px;
+  background: ${colors.light};
+  cursor: pointer;
+`;
+
 const StyledToDo = styled("div")`
   padding: 0 20px;
   border-radius: 3px;
@@ -146,3 +212,39 @@ const StyledToDo = styled("div")`
     }
   }
 `;
+
+const StyledFakeInputField = styled("div")`
+  display: inline-block;
+  width: 250px;
+  margin-bottom: 29px;
+  span {
+    font-size: 2em;
+    text-transform: capitalize;
+    cursor: pointer;
+  }
+`;
+
+const StyledSimpleInput = styled(SimpleInput)`
+  width: 250px;
+  font-size: 2em;
+  text-transform: capitalize;
+  border-bottom: 1px solid white;
+  &:hover,
+  &:focus{
+  border-bottom: 1px solid ${colors.lightGrey};
+  }
+`
+
+const mapDispatchToProps = dispatch => ({
+  handleEditListName(listId, newName) {
+    dispatch(editListName(listId, newName));
+  },
+  handleDeleteList(listId, nextListId) {
+    dispatch(deleteList(listId, nextListId));
+  }
+});
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(ToDos);

@@ -44,7 +44,9 @@ class SingleToDoDetailsEdit extends React.Component {
       <React.Fragment>
         {this.props.showDetailsEditItems ? (
           <form onSubmit={e => this.handleSubmit(e)}>
-            <SimpleInput
+            <StyledSimpleInput
+              className={this.props.className}
+              autoFocus={true}
               getInputValue={this.getInputValue}
               initialValue={this.props.task.task}
               inputPlaceholder="Insert new item"
@@ -73,6 +75,17 @@ class SingleToDoDetailsEdit extends React.Component {
 }
 
 // styled components
+
+const StyledSimpleInput = styled(SimpleInput)`
+  position: relative;
+  text-align: left;
+  background: ${colors.light};
+  width: 100%;
+  margin-bottom: 5px;
+  border: 0;
+  padding: 15px 10px;
+`;
+
 const StyledFakeInputFields = styled("div")`
   span {
     display: block;

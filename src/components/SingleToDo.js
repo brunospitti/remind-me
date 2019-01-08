@@ -12,6 +12,21 @@ import deleteItem from "../redux/actionCreators/deleteItem";
 import changeItemPriorityColor from "../redux/actionCreators/changeItemPriorityColor";
 
 class SingleToDo extends React.PureComponent {
+
+  getClasses = () => {
+    let classes = ""
+    if (this.props.task.checked){
+      if(this.props.showItem) {
+        classes = "checked show"
+      } else {
+        classes = "checked hide"
+      }
+    } else {
+      classes = "not-checked show"
+    }
+    return classes
+  }
+  
   deleteItem = (itemToDelete, listId) => {
     this.props.handleDeleteItem(itemToDelete, listId);
     setTimeout(
@@ -27,7 +42,7 @@ class SingleToDo extends React.PureComponent {
       <React.Fragment>
         <StyledLi
           id="single-to-do"
-          className={this.props.task.checked ? "checked" : "not-checked"}
+          className={this.getClasses()}
           onMouseEnter={() =>
             this.props.showToDoOptionsFunc(this.props.task.id, true)
           }
@@ -104,6 +119,9 @@ const StyledLi = styled("li")`
       text-decoration: line-through;
       opacity: 0.5;
     }
+  }
+  &.hide{
+    display:none;
   }
 `;
 

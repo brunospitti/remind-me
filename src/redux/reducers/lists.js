@@ -121,6 +121,30 @@ function lists(state = mock_lists, action) {
       return newState;
     }
 
+    case "EDIT_LIST_NAME": {
+      const newState = [...state];
+
+      let currList = newState.filter(list => list.id === action.listId)[0];
+
+      currList.list = action.newName;
+
+      newState[newState.findIndex(key => key.id == currList.id)].id =
+        currList.id;
+
+      return newState;
+    }
+
+    case "DELETE_LIST": {
+      const newState = [...state];
+      let currList = newState.filter(list => list.id === action.listId)[0];
+      let listIndex = newState.indexOf(currList);
+      if (listIndex > -1) {
+        newState.splice(listIndex, 1);
+      }
+
+      return newState;
+    }
+
     default:
       return state;
   }

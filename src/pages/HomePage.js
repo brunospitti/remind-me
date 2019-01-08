@@ -15,18 +15,19 @@ class HomePage extends React.Component {
   state = {
     completeListLayoutNum: 0,
     showDetails: false,
-    sortBy: "most-important"
+    sortBy: "most-important",
+    filterChecked: false
   };
 
   componentDidMount() {
     this.completeListLayout();
+    this.getNextListIdToShowAfterDeleteCurrentList()
   }
 
   getCurrentList = () => {
     let lists = [...this.props.lists];
     let currList = lists.filter(list => list.id === this.props.activeList)[0];
     let items = currList.items;
-
     if (this.state.sortBy === "most-important") {
       items.sort(function(a, b) {
         return b.priority - a.priority;
@@ -60,9 +61,24 @@ class HomePage extends React.Component {
         return new Date(a.start_date) - new Date(b.start_date);
       });
     }
-
     return currList;
   };
+
+  getNextListIdToShowAfterDeleteCurrentList = () => {
+    let lists = this.props.lists;
+    let currList = lists.filter(list => list.id === this.props.activeList)[0];
+    let listsLength = lists.length - 1
+    let currListIndex = lists.indexOf(currList)
+    let nextListIndex = lists.indexOf(currList) + 1
+   
+    let nextList = nextListIndex > listsLength ? (
+      lists.filter((list, i) => i === 0)[0].id
+    ) : (
+      lists.filter((list, i) => i === nextListIndex)[0].id
+    )
+    
+    return nextList
+  }
 
   completeListLayout = () => {
     let currState = this.getCurrentList();
@@ -87,6 +103,13 @@ class HomePage extends React.Component {
   handleSortByChange = sortBy => {
     this.setState({ sortBy }, () => {});
   };
+  
+  filterCheckedFunc = () => {
+    console.log("asd")
+    this.setState({ filterChecked: !this.state.filterChecked }), () => {
+      this.getCurrentList()
+    };
+  }
 
   render() {
     return (
@@ -96,6 +119,9 @@ class HomePage extends React.Component {
         >
           <ToDos
             currentList={this.getCurrentList()}
+            nextListId={this.getNextListIdToShowAfterDeleteCurrentList()}
+            filterCheckedFunc={this.filterCheckedFunc}
+            filterChecked={this.state.filterChecked}
             completeListLayoutNum={this.state.completeListLayoutNum}
             completeListLayout={this.completeListLayout}
             showDetails={this.state.showDetails}

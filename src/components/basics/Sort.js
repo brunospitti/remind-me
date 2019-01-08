@@ -8,33 +8,36 @@ import addItem from "../../redux/actionCreators/addItem";
 import { colors } from "../../assets/globalStyles";
 import { lighten } from "polished";
 
-export default class Sort extends React.Component {
+export default class Sort extends React.PureComponent {
   render() {
     return (
-      <select
-        value={this.props.sortBy}
-        onChange={e => this.props.handleSortByChange(e.target.value)}
-      >
-        <option value="most-important">Most Important</option>
-        <option value="alphabetically-a-z">Alphabetically (A-Z)</option>
-        <option value="alphabetically-z-a">Alphabetically (Z-A)</option>
-        <option value="newest">Newest</option>
-        <option value="oldest">Oldest</option>
-      </select>
+      <StyledSortBy>
+        <span>Sort by: </span>
+        <select
+          value={this.props.sortBy}
+          onChange={e => this.props.handleSortByChange(e.target.value)}
+          >
+          <option value="most-important">Most Important</option>
+          <option value="alphabetically-a-z">Alphabetically (A-Z)</option>
+          <option value="alphabetically-z-a">Alphabetically (Z-A)</option>
+          <option value="newest">Newest</option>
+          <option value="oldest">Oldest</option>
+        </select>
+      </StyledSortBy>
     );
   }
 }
 
 // styled components
-const StyledTextArea = styled("textarea")`
-  resize: none;
-  background: ${colors.light};
-  position: relative;
-  text-align: left;
-  margin-bottom: 5px;
-  border: 0;
-  padding: 10px;
-  margin: 10px 0;
-  width: 100%;
-  height: 120px;
+const StyledSortBy = styled("div")`
+  float: right;
+  margin-top: 10px;
+  span{
+    font-size: 1.1em;
+  }
+  select{
+    border: 1px solid ${lighten(0.15, colors.lightGrey)};
+    padding: 7px 2px;
+    margin-left: 5px;
+  }
 `;

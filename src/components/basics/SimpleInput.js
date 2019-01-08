@@ -6,7 +6,7 @@ import addItem from "../../redux/actionCreators/addItem";
 
 import { colors } from "../../assets/globalStyles";
 
-class SimpleInput extends React.Component {
+export default class SimpleInput extends React.Component {
   state = {
     inputValue: this.props.initialValue
   };
@@ -22,7 +22,8 @@ class SimpleInput extends React.Component {
   render() {
     return (
       <StyledInput
-        autoFocus
+        className={this.props.className}
+        autoFocus={this.props.autoFocus ? true : false}
         maxLength="35"
         type="text"
         placeholder={this.props.inputPlaceholder}
@@ -36,22 +37,9 @@ class SimpleInput extends React.Component {
 
 // styled components
 const StyledInput = styled("input")`
-  position: relative;
-  text-align: left;
-  background: ${colors.light};
-  width: 100%;
-  margin-bottom: 5px;
   border: 0;
-  padding: 15px 10px;
+  border-bottom: 1px solid;
+  font-size: 1em;
+  margin-bottom: 2vh;
+  padding-bottom: 5px;
 `;
-
-const mapDispatchToProps = dispatch => ({
-  handleAddItem(newItem, listId) {
-    dispatch(addItem(newItem, listId));
-  }
-});
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(SimpleInput);
