@@ -10,6 +10,7 @@ import ListsManager from "../components/ListsManager";
 import { randomId } from "../assets/helpers";
 
 import selectList from "../redux/actionCreators/selectList";
+import NoToDos from "../components/NoToDos";
 
 class HomePage extends React.Component {
   state = {
@@ -20,8 +21,10 @@ class HomePage extends React.Component {
   };
 
   componentDidMount() {
-    this.completeListLayout();
-    this.getNextListIdToShowAfterDeleteCurrentList()
+    if(this.props.lists.length > 0){
+      this.completeListLayout();
+      this.getNextListIdToShowAfterDeleteCurrentList()
+    }
   }
 
   getCurrentList = () => {
@@ -105,7 +108,6 @@ class HomePage extends React.Component {
   };
   
   filterCheckedFunc = () => {
-    console.log("asd")
     this.setState({ filterChecked: !this.state.filterChecked }), () => {
       this.getCurrentList()
     };
@@ -117,6 +119,8 @@ class HomePage extends React.Component {
         <StyledContainer
           className={this.state.showDetails ? "expanded" : "compressed"}
         >
+        { this.props.lists.length > 0 ?
+          <React.Fragment>
           <ToDos
             currentList={this.getCurrentList()}
             nextListId={this.getNextListIdToShowAfterDeleteCurrentList()}
@@ -128,8 +132,14 @@ class HomePage extends React.Component {
             showDetailsFunc={this.showDetailsFunc}
             sortBy={this.state.sortBy}
             handleSortByChange={this.handleSortByChange}
-          />
+            />
           <ListsManager completeListLayout={this.completeListLayout} />
+            </React.Fragment>
+        :
+          <NoToDos
+            
+          />
+        }
         </StyledContainer>
       </div>
     );

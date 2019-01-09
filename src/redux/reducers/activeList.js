@@ -12,6 +12,10 @@ function activeList(state = 1, action) {
       return action.nextListId;
     }
 
+    case "ADD_LIST": {
+      return action.newId;
+    }
+
     default:
       return state;
   }

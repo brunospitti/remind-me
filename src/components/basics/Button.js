@@ -4,6 +4,8 @@ import styled, { css } from "styled-components";
 import DeleteIcon from "../../assets/icons/delete.svg";
 import PriorityIcon from "../../assets/icons/priority.svg";
 import CollapseIcon from "../../assets/icons/collapse.svg";
+import AddIcon from "../../assets/icons/add.svg";
+
 
 import { colors } from "../../assets/globalStyles";
 
@@ -55,9 +57,18 @@ export class Button extends React.PureComponent {
         margin-left: 10px;
         &#deleteIcon {
           opacity: 0.4;
+          transition: all 0.25s ease;
           &:hover {
             opacity: 1;
             fill: ${colors.danger};
+          }
+        }
+        &#addIcon {
+          opacity: 0.7;
+          transition: all 0.25s ease;
+          &:hover {
+            opacity: 1;
+            fill: ${colors.primary};
           }
         }
       }
@@ -82,7 +93,9 @@ export class Button extends React.PureComponent {
                 />
               ) : this.props.icon === "collapseIcon" ? (
                 <CollapseIcon alt="collapse item" id="collapseIcon" />
-              ) : null): null)
+              ) : this.props.icon === "addIcon" ? (
+                <AddIcon alt="add item" id="addIcon" />
+              ) : null) : null)
             )
           ) : null}
         </StyledButtonIcon>

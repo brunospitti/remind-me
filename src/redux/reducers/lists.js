@@ -13,7 +13,7 @@ function lists(state = mock_lists, action) {
 
       newState.push({
         list: action.newList,
-        id: randomId(),
+        id: action.newId,
         color: listColors[action.newColor],
         items: []
       });

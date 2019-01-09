@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled, { keyframes } from "styled-components";
-import { lighten, buttons } from "polished";
+import { lighten, buttons, darken } from "polished";
 
 import { colors } from "../assets/globalStyles";
 
@@ -181,6 +181,10 @@ const StyledFilterChecked = styled("div")`
   padding: 12px 40px;
   background: ${colors.light};
   cursor: pointer;
+  transition: all 0.25s ease;
+  &:hover{
+    background: ${darken(0.02, colors.light)};
+  }
 `;
 
 const StyledToDo = styled("div")`
@@ -229,6 +233,7 @@ const StyledSimpleInput = styled(SimpleInput)`
   font-size: 2em;
   text-transform: capitalize;
   border-bottom: 1px solid white;
+  transition: all 0.25s ease;
   &:hover,
   &:focus{
   border-bottom: 1px solid ${colors.lightGrey};
