@@ -16,7 +16,7 @@ import changeItemPriorityColor from "../redux/actionCreators/changeItemPriorityC
 import SingleToDoDetailsEdit from "./SingleToDoDetailsEdit";
 import { Button } from "./basics/Button";
 
-class SingleToDoDetails extends React.Component {
+class SingleToDoDetails extends React.PureComponent {
   deleteItem = (itemToDelete, listId) => {
     this.props.closeDetails();
     this.props.handleDeleteItem(itemToDelete, listId);

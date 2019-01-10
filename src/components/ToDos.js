@@ -15,7 +15,7 @@ import SingleToDo from "./SingleToDo";
 import SingleToDoDetails from "./SingleToDoDetails";
 import AddItem from "./AddItem";
 
-class ToDos extends React.Component {
+class ToDos extends React.PureComponent {
   state = {
     detailsTask: "",
     showToDoOptions: false,

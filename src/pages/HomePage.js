@@ -8,7 +8,7 @@ import ToDos from "../components/ToDos";
 import ListsManager from "../components/ListsManager";
 import NoToDos from "../components/NoToDos";
 
-class HomePage extends React.Component {
+class HomePage extends React.PureComponent {
   state = {
     completeListLayoutNum: 0,
     showDetails: false,

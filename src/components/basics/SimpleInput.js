@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-export default class SimpleInput extends React.Component {
+export default class SimpleInput extends React.PureComponent {
   state = {
     inputValue: this.props.initialValue
   };

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import addItem from "../redux/actionCreators/addItem";
 
-class AddItem extends React.Component {
+class AddItem extends React.PureComponent {
   state = {
     inputValue: ""
   };

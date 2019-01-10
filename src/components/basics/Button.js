@@ -8,74 +8,21 @@ import CollapseIcon from "../../assets/icons/collapse.svg";
 import AddIcon from "../../assets/icons/add.svg";
 
 export class Button extends React.PureComponent {
+
+  getMainColor = () => {
+    let mainColor = colors.lightGrey;
+    if(this.props.primary){
+      mainColor = colors.primary
+    } else if (this.props.secondary) {
+      mainColor = colors.secondary
+    } else if (this.props.danger) {
+      mainColor = colors.danger
+    }
+
+    return mainColor
+  }
+
   render() {
-    // styled components
-    const StyledButtonPrimary = () =>
-      this.props.primary &&
-      css`
-        background: ${colors.primary};
-      `;
-
-    const StyledButtonSecondary = () =>
-      this.props.secondary &&
-      css`
-        background: ${colors.secondary};
-      `;
-
-    const StyledButtonDanger = () =>
-      this.props.danger &&
-      css`
-        background: ${colors.danger};
-      `;
-
-    const StyledButton = styled("button")`
-      cursor: pointer;
-      background: ${colors.lightGrey};
-      border: 0;
-      padding: 10px 30px;
-      border-radius: 3px;
-      color: ${colors.light};
-      margin: 10px auto;
-      ${StyledButtonPrimary};
-      ${StyledButtonSecondary};
-      ${StyledButtonDanger};
-    `;
-
-    const StyledButtonIcon = styled("button")`
-      background: transparent;
-      cursor: pointer;
-      border: 0;
-      padding: 10px;
-      margin: 10px auto;
-      svg {
-        width: 20px;
-        height: 20px;
-        display: inline-block;
-        margin-bottom: -6px;
-        margin-left: 10px;
-        &#deleteIcon {
-          opacity: 0.4;
-          transition: all 0.25s ease;
-          &:hover {
-            opacity: 1;
-            fill: ${colors.danger};
-          }
-        }
-        &#addIcon {
-          opacity: 0.7;
-          transition: all 0.25s ease;
-          &:hover {
-            opacity: 1;
-            fill: ${colors.primary};
-          }
-        }
-      }
-    `;
-
-    const StyledPriorityIcon = styled(PriorityIcon)`
-      fill: ${props => props.mainColor};
-    `;
-
     if (this.props.icon) {
       return (
         <StyledButtonIcon onClick={this.props.clickBehavior}>
@@ -100,10 +47,56 @@ export class Button extends React.PureComponent {
       );
     } else {
       return (
-        <StyledButton onClick={this.props.clickBehavior}>
+        <StyledButton onClick={this.props.clickBehavior} mainColor={this.getMainColor()}>
           {this.props.text}
         </StyledButton>
       );
     }
   }
 }
+
+// styled components
+const StyledButton = styled("button")`
+  cursor: pointer;
+  background: ${props => props.mainColor};
+  border: 0;
+  padding: 10px 30px;
+  border-radius: 3px;
+  color: ${colors.light};
+  margin: 10px auto;
+`;
+
+const StyledButtonIcon = styled("button")`
+  background: transparent;
+  cursor: pointer;
+  border: 0;
+  padding: 10px;
+  margin: 10px auto;
+  svg {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin-bottom: -6px;
+    margin-left: 10px;
+    &#deleteIcon {
+      opacity: 0.4;
+      transition: all 0.25s ease;
+      &:hover {
+        opacity: 1;
+        fill: ${colors.danger};
+      }
+    }
+    &#addIcon {
+      opacity: 0.7;
+      transition: all 0.25s ease;
+      &:hover {
+        opacity: 1;
+        fill: ${colors.primary};
+      }
+    }
+  }
+`;
+
+const StyledPriorityIcon = styled(PriorityIcon)`
+  fill: ${props => props.mainColor};
+`;

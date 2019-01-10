@@ -6,7 +6,7 @@ import { colors } from "../../assets/globalStyles";
 
 import addItem from "../../redux/actionCreators/addItem";
 
-class SimpleTextArea extends React.Component {
+class SimpleTextArea extends React.PureComponent {
   state = {
     inputValue: this.props.initialValue
   };

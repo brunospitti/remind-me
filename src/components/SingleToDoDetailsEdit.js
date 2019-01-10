@@ -11,7 +11,7 @@ import editItemNotes from "../redux/actionCreators/editItemNotes";
 import SimpleInput from "./basics/SimpleInput";
 import SimpleTextArea from "./basics/SimpleTextArea";
 
-class SingleToDoDetailsEdit extends React.Component {
+class SingleToDoDetailsEdit extends React.PureComponent {
   state = {
     showEditItems: false
   };
