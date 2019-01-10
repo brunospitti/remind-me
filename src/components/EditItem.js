@@ -1,11 +1,8 @@
 import React from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { connect } from "react-redux";
 
 import addItem from "../redux/actionCreators/addItem";
-
-import { colors } from "../assets/globalStyles";
-
 
 class EditItem extends React.Component {
   state = {
@@ -17,19 +14,19 @@ class EditItem extends React.Component {
   };
 
   handleBlur = () => {
-    this.props.getInputValue(this.state.inputValue)
+    this.props.getInputValue(this.state.inputValue);
   };
 
   render() {
     return (
-        <StyledInput
-          maxLength="35"
-          type="text"
-          placeholder="Insert new item"
-          value={this.state.inputValue}
-          onChange={e => this.handleChange(e)}
-          onBlur={() => this.handleBlur()}
-        />
+      <StyledInput
+        maxLength="35"
+        type="text"
+        placeholder="Insert new item"
+        value={this.state.inputValue}
+        onChange={e => this.handleChange(e)}
+        onBlur={() => this.handleBlur()}
+      />
     );
   }
 }

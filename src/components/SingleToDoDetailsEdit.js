@@ -2,21 +2,14 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { lighten } from "polished";
-
-import { dateTransformation } from "../assets/helpers";
-
-import EditIcon from "../assets/icons/edit.svg";
 
 import { colors } from "../assets/globalStyles";
-import SingleToDo from "./SingleToDo";
-import SimpleInput from "./basics/SimpleInput";
-import { Button } from "./basics/Button";
 
-import deleteItem from "../redux/actionCreators/deleteItem";
-import SimpleTextArea from "./basics/SimpleTextArea";
 import editItemName from "../redux/actionCreators/editItemName";
 import editItemNotes from "../redux/actionCreators/editItemNotes";
+
+import SimpleInput from "./basics/SimpleInput";
+import SimpleTextArea from "./basics/SimpleTextArea";
 
 class SingleToDoDetailsEdit extends React.Component {
   state = {

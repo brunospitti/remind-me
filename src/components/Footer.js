@@ -3,6 +3,18 @@ import styled from "styled-components";
 
 import { colors } from "../assets/globalStyles";
 
+export class Footer extends React.PureComponent {
+  render() {
+    return (
+      <Container>
+        <OuterLink href="http://www.brunospitti.com" target="_blank">
+          React App made by Bruno Spitti
+        </OuterLink>
+      </Container>
+    );
+  }
+}
+
 // styles with emotion
 const Container = styled("header")`
   background-color: ${colors.primary};
@@ -22,15 +34,3 @@ const OuterLink = styled("a")`
     text-decoration: underline;
   }
 `;
-
-export class Footer extends React.PureComponent {
-  render() {
-    return (
-      <Container>
-        <OuterLink href="http://www.brunospitti.com" target="_blank">
-          React App made by Bruno Spitti
-        </OuterLink>
-      </Container>
-    );
-  }
-}

@@ -1,11 +1,10 @@
 import React from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { connect } from "react-redux";
 
-import addItem from "../../redux/actionCreators/addItem";
-
 import { colors } from "../../assets/globalStyles";
-import { lighten } from "polished";
+
+import addItem from "../../redux/actionCreators/addItem";
 
 class SimpleTextArea extends React.Component {
   state = {

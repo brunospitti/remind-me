@@ -2,14 +2,10 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import { connect } from "react-redux";
 
-import { listColors } from "../assets/globalStyles";
+import selectList from "../redux/actionCreators/selectList";
 
 import ToDos from "../components/ToDos";
 import ListsManager from "../components/ListsManager";
-
-import { randomId } from "../assets/helpers";
-
-import selectList from "../redux/actionCreators/selectList";
 import NoToDos from "../components/NoToDos";
 
 class HomePage extends React.Component {
@@ -21,9 +17,9 @@ class HomePage extends React.Component {
   };
 
   componentDidMount() {
-    if(this.props.lists.length > 0){
+    if (this.props.lists.length > 0) {
       this.completeListLayout();
-      this.getNextListIdToShowAfterDeleteCurrentList()
+      this.getNextListIdToShowAfterDeleteCurrentList();
     }
   }
 
@@ -70,18 +66,16 @@ class HomePage extends React.Component {
   getNextListIdToShowAfterDeleteCurrentList = () => {
     let lists = this.props.lists;
     let currList = lists.filter(list => list.id === this.props.activeList)[0];
-    let listsLength = lists.length - 1
-    let currListIndex = lists.indexOf(currList)
-    let nextListIndex = lists.indexOf(currList) + 1
-   
-    let nextList = nextListIndex > listsLength ? (
-      lists.filter((list, i) => i === 0)[0].id
-    ) : (
-      lists.filter((list, i) => i === nextListIndex)[0].id
-    )
-    
-    return nextList
-  }
+    let listsLength = lists.length - 1;
+    let nextListIndex = lists.indexOf(currList) + 1;
+
+    let nextList =
+      nextListIndex > listsLength
+        ? lists.filter((list, i) => i === 0)[0].id
+        : lists.filter((list, i) => i === nextListIndex)[0].id;
+
+    return nextList;
+  };
 
   completeListLayout = () => {
     let currState = this.getCurrentList();
@@ -106,12 +100,13 @@ class HomePage extends React.Component {
   handleSortByChange = sortBy => {
     this.setState({ sortBy }, () => {});
   };
-  
+
   filterCheckedFunc = () => {
-    this.setState({ filterChecked: !this.state.filterChecked }), () => {
-      this.getCurrentList()
-    };
-  }
+    this.setState({ filterChecked: !this.state.filterChecked }),
+      () => {
+        this.getCurrentList();
+      };
+  };
 
   render() {
     return (
@@ -119,27 +114,25 @@ class HomePage extends React.Component {
         <StyledContainer
           className={this.state.showDetails ? "expanded" : "compressed"}
         >
-        { this.props.lists.length > 0 ?
-          <React.Fragment>
-          <ToDos
-            currentList={this.getCurrentList()}
-            nextListId={this.getNextListIdToShowAfterDeleteCurrentList()}
-            filterCheckedFunc={this.filterCheckedFunc}
-            filterChecked={this.state.filterChecked}
-            completeListLayoutNum={this.state.completeListLayoutNum}
-            completeListLayout={this.completeListLayout}
-            showDetails={this.state.showDetails}
-            showDetailsFunc={this.showDetailsFunc}
-            sortBy={this.state.sortBy}
-            handleSortByChange={this.handleSortByChange}
-            />
-          <ListsManager completeListLayout={this.completeListLayout} />
+          {this.props.lists.length > 0 ? (
+            <React.Fragment>
+              <ToDos
+                currentList={this.getCurrentList()}
+                nextListId={this.getNextListIdToShowAfterDeleteCurrentList()}
+                filterCheckedFunc={this.filterCheckedFunc}
+                filterChecked={this.state.filterChecked}
+                completeListLayoutNum={this.state.completeListLayoutNum}
+                completeListLayout={this.completeListLayout}
+                showDetails={this.state.showDetails}
+                showDetailsFunc={this.showDetailsFunc}
+                sortBy={this.state.sortBy}
+                handleSortByChange={this.handleSortByChange}
+              />
+              <ListsManager completeListLayout={this.completeListLayout} />
             </React.Fragment>
-        :
-          <NoToDos
-            
-          />
-        }
+          ) : (
+            <NoToDos />
+          )}
         </StyledContainer>
       </div>
     );

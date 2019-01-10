@@ -11,7 +11,6 @@ import { Header } from "./Header";
 import { Footer } from "./Footer";
 
 // global css styles
-// eslint-disable-next-line
 import { GlobalStyles } from "../assets/globalStyles";
 
 // Code splitting section

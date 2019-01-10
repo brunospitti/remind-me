@@ -1,13 +1,11 @@
 import React from "react";
 import styled, { css } from "styled-components";
 
+import { colors } from "../../assets/globalStyles";
 import DeleteIcon from "../../assets/icons/delete.svg";
 import PriorityIcon from "../../assets/icons/priority.svg";
 import CollapseIcon from "../../assets/icons/collapse.svg";
 import AddIcon from "../../assets/icons/add.svg";
-
-
-import { colors } from "../../assets/globalStyles";
 
 export class Button extends React.PureComponent {
   render() {
@@ -95,7 +93,7 @@ export class Button extends React.PureComponent {
                 <CollapseIcon alt="collapse item" id="collapseIcon" />
               ) : this.props.icon === "addIcon" ? (
                 <AddIcon alt="add item" id="addIcon" />
-              ) : null) : null)
+              ) : null): null)
             )
           ) : null}
         </StyledButtonIcon>

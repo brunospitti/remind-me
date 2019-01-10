@@ -7,6 +7,4 @@ export const defaultLabels = [
   { label: "shopping", color: listColors.yellow }
 ];
 
-export const mock_lists = [
-
-];
+export const mock_lists = [];

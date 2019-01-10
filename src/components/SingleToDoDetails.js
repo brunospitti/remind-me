@@ -4,18 +4,17 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { lighten } from "polished";
 
-import { dateTransformation } from "../assets/helpers";
-
+import { colors } from "../assets/globalStyles";
 import EditIcon from "../assets/icons/edit.svg";
 
-import { colors } from "../assets/globalStyles";
-import SingleToDo from "./SingleToDo";
-import SingleToDoDetailsEdit from "./SingleToDoDetailsEdit";
-import { Button } from "./basics/Button";
+import { dateTransformation } from "../assets/helpers";
 
 import deleteItem from "../redux/actionCreators/deleteItem";
 import PrioritySelector from "./basics/PrioritySelector";
 import changeItemPriorityColor from "../redux/actionCreators/changeItemPriorityColor";
+
+import SingleToDoDetailsEdit from "./SingleToDoDetailsEdit";
+import { Button } from "./basics/Button";
 
 class SingleToDoDetails extends React.Component {
   deleteItem = (itemToDelete, listId) => {
@@ -129,12 +128,6 @@ const StyledH3 = styled("h3")`
   margin-top: 7px;
   font-size: 1.3em;
   display: inline-block;
-`;
-
-const StyledListItem = styled("li")`
-  position: relative;
-  padding: 20px;
-  text-align: left;
 `;
 
 const StyledFooter = styled("div")`

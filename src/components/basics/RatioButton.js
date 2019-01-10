@@ -8,7 +8,6 @@ import { colors } from "../../assets/globalStyles";
 
 import checkItem from "../../redux/actionCreators/checkItem";
 
-
 const RatioButton = props => (
   <StyledRatio
     mainColor={props.mainColor}
@@ -84,4 +83,3 @@ export default connect(
   null,
   mapDispatchToProps
 )(RatioButton);
-

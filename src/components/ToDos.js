@@ -1,19 +1,19 @@
 import React from "react";
 import { connect } from "react-redux";
-import styled, { keyframes } from "styled-components";
-import { lighten, buttons, darken } from "polished";
+import styled from "styled-components";
+import { lighten, darken } from "polished";
 
 import { colors } from "../assets/globalStyles";
 
+import editListName from "../redux/actionCreators/editListName";
+import deleteList from "../redux/actionCreators/deleteList";
+
 import Sort from "./basics/Sort";
+import SimpleInput from "./basics/SimpleInput";
+import { Button } from "./basics/Button";
 import SingleToDo from "./SingleToDo";
 import SingleToDoDetails from "./SingleToDoDetails";
 import AddItem from "./AddItem";
-import SimpleInput from "./basics/SimpleInput";
-import editListName from "../redux/actionCreators/editListName";
-import { Button } from "./basics/Button";
-import deleteList from "../redux/actionCreators/deleteList";
-
 
 class ToDos extends React.Component {
   state = {
@@ -31,17 +31,20 @@ class ToDos extends React.Component {
   }
 
   handleEditList = inputValue => {
-    if (inputValue.length > 3){
+    if (inputValue.length > 3) {
       this.props.handleEditListName(this.props.currentList.id, inputValue);
     } else {
-      alert('List name should be longer than 3 letters')
+      alert("List name should be longer than 3 letters");
     }
-    this.setState({showEditListName: false})
-  }
+    this.setState({ showEditListName: false });
+  };
 
   deleteList = () => {
-    this.props.handleDeleteList(this.props.currentList.id, this.props.nextListId)
-  }
+    this.props.handleDeleteList(
+      this.props.currentList.id,
+      this.props.nextListId
+    );
+  };
 
   itemListDetails = task => {
     this.setState(
@@ -74,13 +77,13 @@ class ToDos extends React.Component {
   };
 
   numberOfCheckedItems = () => {
-    let checkedItems = this.props.currentList.items.filter(item => item.checked)
-    return checkedItems.length
-  }
+    let checkedItems = this.props.currentList.items.filter(
+      item => item.checked
+    );
+    return checkedItems.length;
+  };
 
   render() {
-
-
     return (
       <React.Fragment>
         {this.state.showEditListName ? (
@@ -92,17 +95,13 @@ class ToDos extends React.Component {
             inputPlaceholder="List name"
           />
         ) : (
-          <StyledFakeInputField
-            onClick={() => this.showEditListNameFunc()}
-          >
+          <StyledFakeInputField onClick={() => this.showEditListNameFunc()}>
             <span>{this.props.currentList.list}</span>
           </StyledFakeInputField>
         )}
         <Button
           icon="deleteIcon"
-          clickBehavior={() =>
-            this.deleteList()
-          }
+          clickBehavior={() => this.deleteList()}
           text="Delete"
         />
         <Sort
@@ -111,17 +110,15 @@ class ToDos extends React.Component {
         />
         <StyledTodoHolder>
           <StyledFilterChecked onClick={() => this.props.filterCheckedFunc()}>
-            {this.props.filterChecked ? 
-              `Show checked items - (${this.numberOfCheckedItems()})`
-              :
-              `Hide checked items - (${this.numberOfCheckedItems()})`
-            }
+            {this.props.filterChecked
+              ? `Show checked items - (${this.numberOfCheckedItems()})`
+              : `Hide checked items - (${this.numberOfCheckedItems()})`}
           </StyledFilterChecked>
           <StyledToDo
             id="to-dos"
             mainColor={this.props.currentList.color}
             toDoWidth={this.props.showDetails ? "55%" : "100%"}
-            >
+          >
             <ul>
               {this.props.currentList.items.map(task => (
                 <SingleToDo
@@ -182,7 +179,7 @@ const StyledFilterChecked = styled("div")`
   background: ${colors.light};
   cursor: pointer;
   transition: all 0.25s ease;
-  &:hover{
+  &:hover {
     background: ${darken(0.02, colors.light)};
   }
 `;
@@ -235,10 +232,10 @@ const StyledSimpleInput = styled(SimpleInput)`
   border-bottom: 1px solid white;
   transition: all 0.25s ease;
   &:hover,
-  &:focus{
-  border-bottom: 1px solid ${colors.lightGrey};
+  &:focus {
+    border-bottom: 1px solid ${colors.lightGrey};
   }
-`
+`;
 
 const mapDispatchToProps = dispatch => ({
   handleEditListName(listId, newName) {

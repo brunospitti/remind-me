@@ -1,10 +1,5 @@
 import React from "react";
-import styled, { keyframes } from "styled-components";
-import { connect } from "react-redux";
-
-import addItem from "../../redux/actionCreators/addItem";
-
-import { colors } from "../../assets/globalStyles";
+import styled from "styled-components";
 
 export default class SimpleInput extends React.Component {
   state = {

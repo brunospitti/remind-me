@@ -1,32 +1,29 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
-import { lighten } from "polished";
+
+import deleteItem from "../redux/actionCreators/deleteItem";
+import changeItemPriorityColor from "../redux/actionCreators/changeItemPriorityColor";
 
 import PrioritySelector from "./basics/PrioritySelector";
 import RatioButton from "./basics/RatioButton";
 import { Button } from "./basics/Button";
 
-import deleteItem from "../redux/actionCreators/deleteItem";
-import changeItemPriorityColor from "../redux/actionCreators/changeItemPriorityColor";
-
 class SingleToDo extends React.PureComponent {
-
   getClasses = () => {
-    let classes = ""
-    if (this.props.task.checked){
-      if(this.props.showItem) {
-        classes = "checked show"
+    let classes = "";
+    if (this.props.task.checked) {
+      if (this.props.showItem) {
+        classes = "checked show";
       } else {
-        classes = "checked hide"
+        classes = "checked hide";
       }
     } else {
-      classes = "not-checked show"
+      classes = "not-checked show";
     }
-    return classes
-  }
-  
+    return classes;
+  };
+
   deleteItem = (itemToDelete, listId) => {
     this.props.handleDeleteItem(itemToDelete, listId);
     setTimeout(
@@ -120,8 +117,8 @@ const StyledLi = styled("li")`
       opacity: 0.5;
     }
   }
-  &.hide{
-    display:none;
+  &.hide {
+    display: none;
   }
 `;
 

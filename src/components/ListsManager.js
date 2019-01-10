@@ -3,14 +3,14 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { lighten } from "polished";
 
-
-import ColorSelector from "./basics/ColorSelector";
-import { AddList } from "./AddList";
+import { colors } from "../assets/globalStyles";
 
 import addList from "../redux/actionCreators/addList";
 import changeListColor from "../redux/actionCreators/changeListColor";
 import selectList from "../redux/actionCreators/selectList";
-import { colors } from "../assets/globalStyles";
+
+import ColorSelector from "./basics/ColorSelector";
+import { AddList } from "./AddList";
 
 class ListsManager extends React.PureComponent {
   handleSelectList = listId => {
@@ -44,7 +44,11 @@ class ListsManager extends React.PureComponent {
               </StyledButton>
             </StyledList>
           ))}
-          <AddList clickBehavior={this.props.handleAddList} text="+" />
+          <AddList
+            autoFocus={false}
+            clickBehavior={this.props.handleAddList}
+            text="+"
+          />
         </StyledUl>
       </React.Fragment>
     );
@@ -68,7 +72,7 @@ const StyledUl = styled("ul")`
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color:  ${colors.primary};
+    background-color: ${colors.primary};
   }
 `;
 

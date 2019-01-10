@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-import { colors, listColors } from "../assets/globalStyles";
+import { listColors } from "../assets/globalStyles";
+
 import { Button } from "./basics/Button";
 import ColorSelector from "./basics/ColorSelector";
 
@@ -18,7 +19,7 @@ export class AddList extends React.PureComponent {
 
   clickBehavior = e => {
     e.preventDefault();
-    if(this.state.inputValue != "" && this.state.inputValue.length > 3 ){
+    if (this.state.inputValue != "" && this.state.inputValue.length > 3) {
       this.props.clickBehavior(this.state.inputValue, this.state.inputColor);
       this.setState({ inputValue: "", inputColor: "lightGrey" });
     }
@@ -37,6 +38,7 @@ export class AddList extends React.PureComponent {
         >
           <div className="input-holder">
             <input
+              autoFocus={this.props.autoFocus ? true : false}
               type="text"
               placeholder="Create new list"
               value={this.state.inputValue}

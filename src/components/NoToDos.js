@@ -1,48 +1,51 @@
 import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
-
-
-import { colors } from "../assets/globalStyles";
 import { lighten } from "polished";
 
-import AddIcon from "../assets/icons/add.svg";
-import { Button } from "./basics/Button";
-import { randomId } from "../assets/helpers";
-import { AddList } from "./AddList";
+import { colors } from "../assets/globalStyles";
+
 import addList from "../redux/actionCreators/addList";
+
+import { Button } from "./basics/Button";
+import { AddList } from "./AddList";
 
 class NoToDos extends React.PureComponent {
   state = {
     showAddList: false
-  }
+  };
 
   handleAddList = (newList, newColor) => {
-    this.props.handleAddList(newList, newColor)
-    this.setState({showAddList: false})
-  }
+    this.props.handleAddList(newList, newColor);
+    this.setState({ showAddList: false });
+  };
 
   render() {
     return (
       <StyledNoToDos>
-        {this.state.showAddList ?
-        <AddList clickBehavior={this.handleAddList} text="+" />
-      :
-          <React.Fragment>
-        <h2>Create your first list</h2>
-        <Button
-          className="footer-item"
-          icon="addIcon"
-          clickBehavior={() => this.setState({showAddList: true})}
-          text="Create list"
+        {this.state.showAddList ? (
+          <AddList
+            autoFocus={true}
+            clickBehavior={this.handleAddList}
+            text="+"
           />
+        ) : (
+          <React.Fragment>
+            <h2>Create your first list</h2>
+            <Button
+              className="footer-item"
+              icon="addIcon"
+              clickBehavior={() => this.setState({ showAddList: true })}
+              text="Create list"
+            />
           </React.Fragment>
-      }
+        )}
       </StyledNoToDos>
     );
   }
 }
 
+// styled components
 const StyledNoToDos = styled("div")`
   padding: 0 20px;
   border-radius: 3px;
@@ -52,22 +55,21 @@ const StyledNoToDos = styled("div")`
   overflow-x: auto;
   width: 100%;
   text-align: center;
-  h2{
+  h2 {
     margin-top: 15vh;
   }
-  button{
+  button {
     padding: 0;
     margin: 1vh auto;
     svg {
-      width: 80px; 
-    height: 80px;
+      width: 80px;
+      height: 80px;
     }
   }
-  form{
+  form {
     margin-top: 18vh;
   }
 `;
-
 
 const mapDispatchToProps = dispatch => ({
   handleAddList(newList, newColor) {

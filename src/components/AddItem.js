@@ -1,10 +1,8 @@
 import React from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { connect } from "react-redux";
 
 import addItem from "../redux/actionCreators/addItem";
-
-import { colors } from "../assets/globalStyles";
 
 class AddItem extends React.Component {
   state = {
@@ -13,11 +11,14 @@ class AddItem extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    if(this.state.inputValue != "" && this.state.inputValue.length > 3 ){
+    if (this.state.inputValue != "" && this.state.inputValue.length > 3) {
       this.props.handleAddItem(this.state.inputValue, this.props.listId);
-      setTimeout(function(){
-        this.props.completeListLayout()
-      }.bind(this), 0);
+      setTimeout(
+        function() {
+          this.props.completeListLayout();
+        }.bind(this),
+        0
+      );
       this.setState({ inputValue: "" });
     }
   };

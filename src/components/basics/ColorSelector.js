@@ -1,11 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from "react";
-import { connect } from "react-redux";
 import styled from "styled-components";
 import { lighten } from "polished";
 
 import { listColors, colors } from "../../assets/globalStyles";
-
 import ChangeColorIcon from "../../assets/icons/paint-board-and-brush.svg";
 
 class ColorSelector extends React.PureComponent {
