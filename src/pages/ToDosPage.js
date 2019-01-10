@@ -8,7 +8,7 @@ import ToDos from "../components/ToDos";
 import ListsManager from "../components/ListsManager";
 import NoToDos from "../components/NoToDos";
 
-class HomePage extends React.PureComponent {
+class ToDosPage extends React.PureComponent {
   state = {
     completeListLayoutNum: 0,
     showDetails: false,
@@ -190,4 +190,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(HomePage);
+)(ToDosPage);

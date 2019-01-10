@@ -17,8 +17,8 @@ import { GlobalStyles } from "../assets/globalStyles";
 
 const loading = () => <h1>loading split code...</h1>;
 
-const LoadableHomePage = Loadable({
-  loader: () => import("../pages/HomePage"),
+const LoadableToDosPage = Loadable({
+  loader: () => import("../pages/ToDosPage"),
   loading
 });
 
@@ -29,7 +29,7 @@ class App extends React.PureComponent {
         <Header />
         <Provider store={store}>
           <Router>
-            <LoadableHomePage path="/" />
+            <LoadableToDosPage path="/" />
           </Router>
         </Provider>
         <Footer />
