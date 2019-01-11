@@ -9,8 +9,8 @@ import editListName from "../redux/actionCreators/editListName";
 import deleteList from "../redux/actionCreators/deleteList";
 
 import Sort from "./basics/Sort";
-import SimpleInput from "./basics/SimpleInput";
 import { Button } from "./basics/Button";
+import DivThanInput from "./basics/DivThanInput";
 import SingleToDo from "./SingleToDo";
 import SingleToDoDetails from "./SingleToDoDetails";
 import AddItem from "./AddItem";
@@ -19,8 +19,7 @@ class ToDos extends React.PureComponent {
   state = {
     detailsTask: "",
     showToDoOptions: false,
-    showDetailsEditItems: false,
-    showEditListName: false
+    showDetailsEditItems: false
   };
 
   componentDidMount() {
@@ -36,7 +35,6 @@ class ToDos extends React.PureComponent {
     } else {
       alert("List name should be longer than 3 letters");
     }
-    this.setState({ showEditListName: false });
   };
 
   deleteList = () => {
@@ -86,19 +84,12 @@ class ToDos extends React.PureComponent {
   render() {
     return (
       <React.Fragment>
-        {this.state.showEditListName ? (
-          <StyledSimpleInput
-            className={this.props.className}
-            autoFocus={true}
-            getInputValue={this.handleEditList}
-            initialValue={this.props.currentList.list}
-            inputPlaceholder="List name"
-          />
-        ) : (
-          <StyledFakeInputField onClick={() => this.showEditListNameFunc()}>
-            <span>{this.props.currentList.list}</span>
-          </StyledFakeInputField>
-        )}
+        <StyledEditableDiv
+          className={this.props.className}
+          value={this.props.currentList.list}
+          getInputValue={this.handleEditList}
+          inputPlaceholder="List name"
+        />
         <Button
           icon="deleteIcon"
           clickBehavior={() => this.deleteList()}
@@ -184,6 +175,19 @@ const StyledFilterChecked = styled("div")`
   }
 `;
 
+const StyledEditableDiv = styled(DivThanInput)`
+  display: inline-block;
+  width: 250px;
+  font-size: 2em;
+  text-transform: capitalize;
+  border-bottom: 1px solid white;
+  transition: all 0.25s ease;
+  &:hover,
+  &:focus {
+    border-bottom: 1px solid ${colors.lightGrey};
+  }
+`;
+
 const StyledToDo = styled("div")`
   padding: 0 20px;
   border-radius: 3px;
@@ -214,28 +218,9 @@ const StyledToDo = styled("div")`
   }
 `;
 
-const StyledFakeInputField = styled("div")`
-  display: inline-block;
-  width: 250px;
-  margin-bottom: 29px;
-  span {
-    font-size: 2em;
-    text-transform: capitalize;
-    cursor: pointer;
-  }
-`;
-
-const StyledSimpleInput = styled(SimpleInput)`
-  width: 250px;
-  font-size: 2em;
-  text-transform: capitalize;
-  border-bottom: 1px solid white;
-  transition: all 0.25s ease;
-  &:hover,
-  &:focus {
-    border-bottom: 1px solid ${colors.lightGrey};
-  }
-`;
+const mapStateToProps = ({ lists }) => ({
+  lists
+});
 
 const mapDispatchToProps = dispatch => ({
   handleEditListName(listId, newName) {
@@ -247,6 +232,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(ToDos);

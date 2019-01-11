@@ -8,8 +8,7 @@ import { colors } from "../assets/globalStyles";
 import editItemName from "../redux/actionCreators/editItemName";
 import editItemNotes from "../redux/actionCreators/editItemNotes";
 
-import SimpleInput from "./basics/SimpleInput";
-import SimpleTextArea from "./basics/SimpleTextArea";
+import DivThanInput from "./basics/DivThanInput";
 
 class SingleToDoDetailsEdit extends React.PureComponent {
   state = {
@@ -35,33 +34,17 @@ class SingleToDoDetailsEdit extends React.PureComponent {
   render() {
     return (
       <React.Fragment>
-        {this.props.showDetailsEditItems ? (
-          <form onSubmit={e => this.handleSubmit(e)}>
-            <StyledSimpleInput
-              className={this.props.className}
-              autoFocus={true}
-              getInputValue={this.getInputValue}
-              initialValue={this.props.task.task}
-              inputPlaceholder="Insert new item"
-            />
-            <SimpleTextArea
-              getTextAreaValue={this.getTextAreaValue}
-              initialValue={this.props.task.notes}
-              inputPlaceholder="Add notes"
-            />
-          </form>
-        ) : (
-          <StyledFakeInputFields
-            onClick={() => this.props.showDetailsEditItemsFunc()}
-          >
-            <span>{this.props.task.task}</span>
-            <span>
-              {this.props.task.notes != ""
-                ? this.props.task.notes
-                : "Add notes"}
-            </span>
-          </StyledFakeInputFields>
-        )}
+        <StyledEditableDiv
+          value={this.props.task.task}
+          getInputValue={this.getInputValue}
+          inputPlaceholder="Edit task"
+        />
+        <StyledEditableDivTextArea
+          dontSaveOnEnter={true}
+          value={this.props.task.notes}
+          getInputValue={this.getTextAreaValue}
+          inputPlaceholder="Edit task"
+        />
       </React.Fragment>
     );
   }
@@ -69,7 +52,7 @@ class SingleToDoDetailsEdit extends React.PureComponent {
 
 // styled components
 
-const StyledSimpleInput = styled(SimpleInput)`
+const StyledEditableDiv = styled(DivThanInput)`
   position: relative;
   text-align: left;
   background: ${colors.light};
@@ -79,23 +62,17 @@ const StyledSimpleInput = styled(SimpleInput)`
   padding: 15px 10px;
 `;
 
-const StyledFakeInputFields = styled("div")`
-  span {
-    display: block;
-    position: relative;
-    text-align: left;
-    background: #f7f7f7;
-    width: 100%;
-    margin-bottom: 15px;
-    border: 0;
-    padding: 18px 10px;
-    cursor: pointer;
-  }
-  span + span {
-    padding: 12px 10px;
-    margin: 10px 0;
-    height: 120px;
-  }
+const StyledEditableDivTextArea = styled(DivThanInput)`
+  position: relative;
+  text-align: left;
+  background: ${colors.light};
+  width: 100%;
+  margin-bottom: 5px;
+  border: 0;
+  padding: 12px 10px;
+  margin: 10px 0;
+  height: 120px;
+  overflow-x: auto;
 `;
 
 const mapDispatchToProps = dispatch => ({
