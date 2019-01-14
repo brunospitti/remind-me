@@ -172,6 +172,10 @@ function lists(state = mock_lists, action) {
       return newState;
     }
 
+    case "FETCH_TO_DOS":
+      console.log("​lists -> action.payload", action.payload);
+      return action.payload;
+
     default:
       return state;
   }

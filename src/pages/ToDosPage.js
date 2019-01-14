@@ -19,7 +19,7 @@ class ToDosPage extends React.PureComponent {
 
   componentWillMount() {
     console.log("​ToDosPage -> componentWillMount -> fetchToDos", "fetchToDos");
-    this.props.fetchToDos();
+    this.props.handleFetchToDos();
   }
 
   componentDidMount() {
@@ -195,7 +195,9 @@ const mapDispatchToProps = dispatch => ({
   handleSelectList(listId) {
     dispatch(selectList(listId));
   },
-  fetchToDos
+  handleFetchToDos() {
+    dispatch(fetchToDos());
+  }
 });
 
 export default connect(
