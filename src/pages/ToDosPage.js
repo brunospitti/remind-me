@@ -3,6 +3,7 @@ import styled, { keyframes } from "styled-components";
 import { connect } from "react-redux";
 
 import selectList from "../redux/actionCreators/selectList";
+import { fetchToDos }  from "../redux/actionCreators/fetchToDos";
 
 import ToDos from "../components/ToDos";
 import ListsManager from "../components/ListsManager";
@@ -16,17 +17,21 @@ class ToDosPage extends React.PureComponent {
     filterChecked: false
   };
 
+  componentWillMount() {
+    this.props.fetchToDos();
+  }
+
   componentDidMount() {
-    if (this.props.lists.length > 0) {
+    if (Object.keys(this.props.lists.lists).length > 0) {
       this.completeListLayout();
       this.getNextListIdToShowAfterDeleteCurrentList();
     }
   }
 
   getCurrentList = () => {
-    let lists = [...this.props.lists];
-    let currList = lists.filter(list => list.id === this.props.activeList)[0];
-    let items = currList.items;
+    let lists = {...this.props.lists.lists};
+    let currList = Object.keys(lists).filter(list => lists[list].id === this.props.activeList);
+    let items = lists[currList].items;
     if (this.state.sortBy === "most-important") {
       items.sort(function(a, b) {
         return b.priority - a.priority;
@@ -60,37 +65,38 @@ class ToDosPage extends React.PureComponent {
         return new Date(a.start_date) - new Date(b.start_date);
       });
     }
-    return currList;
+    
+    console.log(lists[currList])
+    return lists[currList];
   };
 
   getNextListIdToShowAfterDeleteCurrentList = () => {
-    let lists = this.props.lists;
-    let currList = lists.filter(list => list.id === this.props.activeList)[0];
-    let listsLength = lists.length - 1;
-    let nextListIndex = lists.indexOf(currList) + 1;
-
+    let lists = {...this.props.lists.lists};
+    let currList = Object.keys(lists).filter(list => lists[list].id === this.props.activeList)[0];
+    let listsLength = Object.keys(this.props.lists.lists).length - 1;
+    let nextListIndex = Object.keys(lists).indexOf(currList) + 1;
     let nextList =
       nextListIndex > listsLength
-        ? lists.filter((list, i) => i === 0)[0].id
-        : lists.filter((list, i) => i === nextListIndex)[0].id;
+        ? lists[Object.keys(lists)[0]].id
+        : lists[Object.keys(lists)[nextListIndex]].id;
 
     return nextList;
   };
 
   completeListLayout = () => {
-    let currState = this.getCurrentList();
-    let containerHeight = document.querySelector("#to-dos").clientHeight;
-    let itemHeight =
-      currState.items.length > 0
-        ? document.querySelector("#single-to-do").clientHeight
-        : 61;
-    let maxItems = Math.floor(containerHeight / itemHeight) - 1;
-    if (currState.items.length < maxItems) {
-      let completeListLayoutNum = maxItems - currState.items.length;
-      this.setState({ completeListLayoutNum }, () => {});
-    } else {
-      this.setState({ completeListLayoutNum: 0 }, () => {});
-    }
+    // let currState = this.getCurrentList();
+    // let containerHeight = document.querySelector("#to-dos").clientHeight;
+    // let itemHeight =
+    //   currState.items.length > 0
+    //     ? document.querySelector("#single-to-do").clientHeight
+    //     : 61;
+    // let maxItems = Math.floor(containerHeight / itemHeight) - 1;
+    // if (currState.items.length < maxItems) {
+    //   let completeListLayoutNum = maxItems - currState.items.length;
+    //   this.setState({ completeListLayoutNum }, () => {});
+    // } else {
+    //   this.setState({ completeListLayoutNum: 0 }, () => {});
+    // }
   };
 
   showDetailsFunc = showDetails => {
@@ -114,7 +120,7 @@ class ToDosPage extends React.PureComponent {
         <StyledContainer
           className={this.state.showDetails ? "expanded" : "compressed"}
         >
-          {this.props.lists.length > 0 ? (
+          {Object.keys(this.props.lists.lists).length > 0 ? (
             <React.Fragment>
               <ToDos
                 currentList={this.getCurrentList()}
@@ -184,7 +190,8 @@ const mapStateToProps = ({ lists, activeList }) => ({
 const mapDispatchToProps = dispatch => ({
   handleSelectList(listId) {
     dispatch(selectList(listId));
-  }
+  },
+  fetchToDos
 });
 
 export default connect(
