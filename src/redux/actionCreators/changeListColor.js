@@ -1,7 +1,7 @@
-export default function changeListColor(listName, newColor) {
+export default function changeListColor(listId, newColor) {
   return {
     type: "CHANGE_LIST_COLOR",
-    listName,
+    listId,
     newColor
   };
 }

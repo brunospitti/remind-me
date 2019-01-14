@@ -86,7 +86,7 @@ class ToDos extends React.PureComponent {
       <React.Fragment>
         <StyledEditableDiv
           className={this.props.className}
-          value={this.props.currentList.list}
+          value={this.props.currentList.name}
           getInputValue={this.handleEditList}
           inputPlaceholder="List name"
         />

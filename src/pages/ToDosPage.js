@@ -3,7 +3,7 @@ import styled, { keyframes } from "styled-components";
 import { connect } from "react-redux";
 
 import selectList from "../redux/actionCreators/selectList";
-import { fetchToDos }  from "../redux/actionCreators/fetchToDos";
+import { fetchToDos } from "../redux/actionCreators/fetchToDos";
 
 import ToDos from "../components/ToDos";
 import ListsManager from "../components/ListsManager";
@@ -18,19 +18,22 @@ class ToDosPage extends React.PureComponent {
   };
 
   componentWillMount() {
+    console.log("​ToDosPage -> componentWillMount -> fetchToDos", "fetchToDos");
     this.props.fetchToDos();
   }
 
   componentDidMount() {
-    if (Object.keys(this.props.lists.lists).length > 0) {
+    if (Object.keys(this.props.lists).length > 0) {
       this.completeListLayout();
       this.getNextListIdToShowAfterDeleteCurrentList();
     }
   }
 
   getCurrentList = () => {
-    let lists = {...this.props.lists.lists};
-    let currList = Object.keys(lists).filter(list => lists[list].id === this.props.activeList);
+    let lists = { ...this.props.lists };
+    let currList = Object.keys(lists).filter(
+      list => lists[list].id === this.props.activeList
+    );
     let items = lists[currList].items;
     if (this.state.sortBy === "most-important") {
       items.sort(function(a, b) {
@@ -65,15 +68,16 @@ class ToDosPage extends React.PureComponent {
         return new Date(a.start_date) - new Date(b.start_date);
       });
     }
-    
-    console.log(lists[currList])
+
     return lists[currList];
   };
 
   getNextListIdToShowAfterDeleteCurrentList = () => {
-    let lists = {...this.props.lists.lists};
-    let currList = Object.keys(lists).filter(list => lists[list].id === this.props.activeList)[0];
-    let listsLength = Object.keys(this.props.lists.lists).length - 1;
+    let lists = { ...this.props.lists };
+    let currList = Object.keys(lists).filter(
+      list => lists[list].id === this.props.activeList
+    )[0];
+    let listsLength = Object.keys(this.props.lists).length - 1;
     let nextListIndex = Object.keys(lists).indexOf(currList) + 1;
     let nextList =
       nextListIndex > listsLength
@@ -84,19 +88,19 @@ class ToDosPage extends React.PureComponent {
   };
 
   completeListLayout = () => {
-    // let currState = this.getCurrentList();
-    // let containerHeight = document.querySelector("#to-dos").clientHeight;
-    // let itemHeight =
-    //   currState.items.length > 0
-    //     ? document.querySelector("#single-to-do").clientHeight
-    //     : 61;
-    // let maxItems = Math.floor(containerHeight / itemHeight) - 1;
-    // if (currState.items.length < maxItems) {
-    //   let completeListLayoutNum = maxItems - currState.items.length;
-    //   this.setState({ completeListLayoutNum }, () => {});
-    // } else {
-    //   this.setState({ completeListLayoutNum: 0 }, () => {});
-    // }
+    let currList = this.getCurrentList();
+    let containerHeight = document.querySelector("#to-dos").clientHeight;
+    let itemHeight =
+      currList.items.length > 0
+        ? document.querySelector("#single-to-do").clientHeight
+        : 61;
+    let maxItems = Math.floor(containerHeight / itemHeight) - 1;
+    if (currList.items.length < maxItems) {
+      let completeListLayoutNum = maxItems - currList.items.length;
+      this.setState({ completeListLayoutNum }, () => {});
+    } else {
+      this.setState({ completeListLayoutNum: 0 }, () => {});
+    }
   };
 
   showDetailsFunc = showDetails => {
@@ -120,7 +124,7 @@ class ToDosPage extends React.PureComponent {
         <StyledContainer
           className={this.state.showDetails ? "expanded" : "compressed"}
         >
-          {Object.keys(this.props.lists.lists).length > 0 ? (
+          {Object.keys(this.props.lists).length > 0 ? (
             <React.Fragment>
               <ToDos
                 currentList={this.getCurrentList()}

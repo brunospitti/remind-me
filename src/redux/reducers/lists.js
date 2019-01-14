@@ -4,15 +4,14 @@
 
 import { mock_lists } from "../../assets/mock_data";
 import { listColors } from "../../assets/globalStyles";
-import { randomId } from "../../assets/helpers";
+import { randomId, currTime } from "../../assets/helpers";
 
 function lists(state = mock_lists, action) {
   switch (action.type) {
     case "ADD_LIST": {
-      const newState = [...state];
-
-      newState.push({
-        list: action.newList,
+      const newState = { ...state };
+      newState[randomId()] = Object.assign({
+        name: action.newList,
         id: action.newId,
         color: listColors[action.newColor],
         items: []
@@ -22,37 +21,46 @@ function lists(state = mock_lists, action) {
     }
 
     case "CHANGE_LIST_COLOR": {
-      const newState = [...state];
+      const newState = { ...state };
 
-      newState[newState.findIndex(key => key.list == action.listName)].color =
-        listColors[action.newColor];
+      newState[
+        Object.keys(newState).filter(
+          list => newState[list].id === action.listId
+        )
+      ].color = listColors[action.newColor];
 
       return newState;
     }
 
     case "ADD_ITEM_TO_LIST": {
-      const newState = [...state];
+      const newState = { ...state };
 
-      let currTime = new Date(new Date().toString().split("GMT")[0] + " UTC")
-        .toISOString()
-        .split(".")[0];
-
-      newState.filter(list => list.id === action.listId)[0].items.push({
+      newState[
+        Object.keys(newState).filter(
+          list => newState[list].id === action.listId
+        )
+      ].items.push({
         id: randomId(),
         task: action.itemToAdd,
-        start_date: currTime,
+        start_date: currTime(),
         checked: false,
         priority: 1
       });
+
+      console.log(newState);
 
       return newState;
     }
 
     case "DELETE_ITEM_FROM_LIST": {
-      const newState = [...state];
+      const newState = { ...state };
 
-      let currListItems = newState.filter(list => list.id === action.listId)[0]
-        .items;
+      let currListItems =
+        newState[
+          Object.keys(newState).filter(
+            list => newState[list].id === action.listId
+          )
+        ].items;
       let currItem = currListItems.filter(
         item => item.id === action.itemToDelete
       )[0];
@@ -66,80 +74,99 @@ function lists(state = mock_lists, action) {
     }
 
     case "CHECK_ITEM": {
-      const newState = [...state];
+      const newState = { ...state };
 
-      let currList = newState.filter(list => list.id === action.listId)[0];
+      let currList =
+        newState[
+          Object.keys(newState).filter(
+            list => newState[list].id === action.listId
+          )
+        ];
+
       let currTask = currList.items.find(x => x.id === action.itemToCheck);
       currTask.checked = !currTask.checked;
       currList.currTask;
-
-      newState[newState.findIndex(key => key.id == currList.id)].id =
-        currList.id;
 
       return newState;
     }
 
     case "CHANGE_ITEM_PRIORITY_COLOR": {
-      const newState = [...state];
+      const newState = { ...state };
 
-      let currList = newState.filter(list => list.id === action.listId)[0];
+      let currList =
+        newState[
+          Object.keys(newState).filter(
+            list => newState[list].id === action.listId
+          )
+        ];
+
       let currTask = currList.items.find(x => x.id === action.taskId);
       currTask.priority = action.newPriority;
       currList.currTask;
-
-      newState[newState.findIndex(key => key.id == currList.id)].id =
-        currList.id;
 
       return newState;
     }
 
     case "EDIT_ITEM_NAME": {
-      const newState = [...state];
+      const newState = { ...state };
 
-      let currList = newState.filter(list => list.id === action.listId)[0];
+      let currList =
+        newState[
+          Object.keys(newState).filter(
+            list => newState[list].id === action.listId
+          )
+        ];
+
       let currTask = currList.items.find(x => x.id === action.taskId);
       currTask.task = action.newName;
       currList.currTask;
-
-      newState[newState.findIndex(key => key.id == currList.id)].id =
-        currList.id;
 
       return newState;
     }
 
     case "EDIT_ITEM_NOTES": {
-      const newState = [...state];
+      const newState = { ...state };
 
-      let currList = newState.filter(list => list.id === action.listId)[0];
+      let currList =
+        newState[
+          Object.keys(newState).filter(
+            list => newState[list].id === action.listId
+          )
+        ];
+
       let currTask = currList.items.find(x => x.id === action.taskId);
       currTask.notes = action.newNotes;
       currList.currTask;
-
-      newState[newState.findIndex(key => key.id == currList.id)].id =
-        currList.id;
 
       return newState;
     }
 
     case "EDIT_LIST_NAME": {
-      const newState = [...state];
+      const newState = { ...state };
 
-      let currList = newState.filter(list => list.id === action.listId)[0];
+      let currList =
+        newState[
+          Object.keys(newState).filter(
+            list => newState[list].id === action.listId
+          )
+        ];
 
-      currList.list = action.newName;
-
-      newState[newState.findIndex(key => key.id == currList.id)].id =
-        currList.id;
+      currList.name = action.newName;
 
       return newState;
     }
 
     case "DELETE_LIST": {
-      const newState = [...state];
-      let currList = newState.filter(list => list.id === action.listId)[0];
-      let listIndex = newState.indexOf(currList);
-      if (listIndex > -1) {
-        newState.splice(listIndex, 1);
+      const newState = { ...state };
+
+      let currListIndex = Object.keys(newState).findIndex(
+        list => newState[list].id === action.listId
+      );
+
+      if (currListIndex > -1) {
+        delete newState[
+          Object.keys(newState).filter((list, i) => i === currListIndex)
+        ];
       }
 
       return newState;

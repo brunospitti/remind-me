@@ -35,9 +35,9 @@ class ListsManager extends React.PureComponent {
                 onClick={() => this.handleSelectList(this.props.lists[list].id)}
               >
                 <div className="info-wrapper">
-                  <span>{this.props.lists[list].list}</span>
+                  <span>{this.props.lists[list].name}</span>
                   <ColorSelector
-                    list={this.props.lists[list].list}
+                    list={this.props.lists[list]}
                     handleColorChange={this.props.handleColorChange}
                   />
                 </div>
@@ -111,8 +111,8 @@ const mapDispatchToProps = dispatch => ({
   handleAddList(newList, newColor) {
     dispatch(addList(newList, newColor));
   },
-  handleColorChange(listName, newColor) {
-    dispatch(changeListColor(listName, newColor));
+  handleColorChange(listId, newColor) {
+    dispatch(changeListColor(listId, newColor));
   },
   handleSelectList: listId => {
     dispatch(selectList(listId));

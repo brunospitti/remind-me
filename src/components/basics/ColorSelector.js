@@ -11,8 +11,12 @@ class ColorSelector extends React.PureComponent {
     showColorSelector: false
   };
 
-  handleColorChange = (list, listColor) => {
-    this.props.handleColorChange(list, listColor);
+  handleColorChange = (listId, listColor) => {
+    console.log(
+      "​ColorSelector -> handleColorChange -> listId",
+      this.props.list
+    );
+    this.props.handleColorChange(listId, listColor);
     this.setState({
       showColorSelector: !this.state.showColorSelector
     });
@@ -43,7 +47,7 @@ class ColorSelector extends React.PureComponent {
                 key={i}
                 style={{ backgroundColor: listColors[listColor] }}
                 onClick={() =>
-                  this.handleColorChange(this.props.list, listColor)
+                  this.handleColorChange(this.props.list.id, listColor)
                 }
               />
             ))}

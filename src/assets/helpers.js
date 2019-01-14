@@ -11,3 +11,8 @@ export const dateTransformation = dateTime => {
     return null;
   }
 };
+
+export const currTime = () =>
+  new Date(new Date().toString().split("GMT")[0] + " UTC")
+    .toISOString()
+    .split(".")[0];
