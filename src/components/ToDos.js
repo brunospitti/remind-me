@@ -22,13 +22,6 @@ class ToDos extends React.PureComponent {
     showDetailsEditItems: false
   };
 
-  componentDidMount() {
-    let items = [...this.props.currentList.items];
-    items.sort(function(a, b) {
-      return new Date(b.start_date) - new Date(a.start_date);
-    });
-  }
-
   handleEditList = inputValue => {
     if (inputValue.length > 3) {
       this.props.handleEditListName(this.props.currentList.id, inputValue);

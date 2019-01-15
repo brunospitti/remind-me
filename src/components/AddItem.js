@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 
-import addItem from "../redux/actionCreators/addItem";
+import { addItem } from "../redux/actionCreators/addItem";
 
 class AddItem extends React.PureComponent {
   state = {

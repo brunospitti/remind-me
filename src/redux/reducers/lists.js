@@ -2,7 +2,7 @@
 // 1. copy of current state
 // 2. the action (info about what happened)
 
-import { todosRef } from "../../config/firebase";
+import { todosRef, databaseRef } from "../../config/firebase";
 
 import { listColors } from "../../assets/globalStyles";
 import { randomId, currTime } from "../../assets/helpers";
@@ -17,24 +17,6 @@ function lists(state = "loading", action) {
           list => newState[list].id === action.listId
         )
       ].color = listColors[action.newColor];
-
-      return newState;
-    }
-
-    case "ADD_ITEM_TO_LIST": {
-      const newState = { ...state };
-
-      newState[
-        Object.keys(newState).filter(
-          list => newState[list].id === action.listId
-        )
-      ].items.push({
-        id: randomId(),
-        task: action.itemToAdd,
-        start_date: currTime(),
-        checked: false,
-        priority: 1
-      });
 
       return newState;
     }

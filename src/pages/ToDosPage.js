@@ -20,19 +20,22 @@ class ToDosPage extends React.PureComponent {
 
   componentDidMount() {
     this.props.handleFetchToDos();
-    if(this.props.lists != "loading" && Object.keys(this.props.lists).length > 0) {
+    if (
+      this.props.lists != "loading" &&
+      Object.keys(this.props.lists).length > 0
+    ) {
       this.completeListLayout();
       this.getNextListIdToShowAfterDeleteCurrentList();
     }
   }
-
 
   getCurrentList = () => {
     let lists = { ...this.props.lists };
     let currList = Object.keys(lists).filter(
       list => lists[list].id === this.props.activeList
     );
-    let items = lists[currList].items;
+    let items = lists[currList].items.filter(item => item.ignoreMe != true);
+    console.log("​ToDosPage -> getCurrentList -> items", items);
     if (this.state.sortBy === "most-important") {
       items.sort(function(a, b) {
         return b.priority - a.priority;
@@ -66,6 +69,8 @@ class ToDosPage extends React.PureComponent {
         return new Date(a.start_date) - new Date(b.start_date);
       });
     }
+
+    lists[currList].items = items;
 
     return lists[currList];
   };
@@ -124,27 +129,25 @@ class ToDosPage extends React.PureComponent {
         >
           {this.props.lists === "loading" ? (
             <Loading />
-          ) : ( Object.keys(this.props.lists).length > 0 ? (
-                <React.Fragment>
-                  <ToDos
-                    currentList={this.getCurrentList()}
-                    nextListId={this.getNextListIdToShowAfterDeleteCurrentList()}
-                    filterCheckedFunc={this.filterCheckedFunc}
-                    filterChecked={this.state.filterChecked}
-                    completeListLayoutNum={this.state.completeListLayoutNum}
-                    completeListLayout={this.completeListLayout}
-                    showDetails={this.state.showDetails}
-                    showDetailsFunc={this.showDetailsFunc}
-                    sortBy={this.state.sortBy}
-                    handleSortByChange={this.handleSortByChange}
-                  />
-                  <ListsManager completeListLayout={this.completeListLayout} />
-                </React.Fragment>
-              ) : (
-                <NoToDos />
-              )
-            )
-          }
+          ) : Object.keys(this.props.lists).length > 0 ? (
+            <React.Fragment>
+              <ToDos
+                currentList={this.getCurrentList()}
+                nextListId={this.getNextListIdToShowAfterDeleteCurrentList()}
+                filterCheckedFunc={this.filterCheckedFunc}
+                filterChecked={this.state.filterChecked}
+                completeListLayoutNum={this.state.completeListLayoutNum}
+                completeListLayout={this.completeListLayout}
+                showDetails={this.state.showDetails}
+                showDetailsFunc={this.showDetailsFunc}
+                sortBy={this.state.sortBy}
+                handleSortByChange={this.handleSortByChange}
+              />
+              <ListsManager completeListLayout={this.completeListLayout} />
+            </React.Fragment>
+          ) : (
+            <NoToDos />
+          )}
         </StyledContainer>
       </div>
     );

@@ -16,3 +16,13 @@ export const currTime = () =>
   new Date(new Date().toString().split("GMT")[0] + " UTC")
     .toISOString()
     .split(".")[0];
+
+export const slugify = text =>
+  text
+    .toString()
+    .toLowerCase()
+    .replace(/\s+/g, "-")
+    .replace(/[^\w-]+/g, "")
+    .replace(/--+/g, "-")
+    .replace(/^-+/, "")
+    .replace(/-+$/, "");
