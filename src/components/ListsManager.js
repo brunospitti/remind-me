@@ -5,7 +5,7 @@ import { lighten } from "polished";
 
 import { colors } from "../assets/globalStyles";
 
-import addList from "../redux/actionCreators/addList";
+import {addList} from "../redux/actionCreators/addList";
 import changeListColor from "../redux/actionCreators/changeListColor";
 import selectList from "../redux/actionCreators/selectList";
 

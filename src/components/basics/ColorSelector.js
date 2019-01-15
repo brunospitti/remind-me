@@ -12,10 +12,6 @@ class ColorSelector extends React.PureComponent {
   };
 
   handleColorChange = (listId, listColor) => {
-    console.log(
-      "​ColorSelector -> handleColorChange -> listId",
-      this.props.list
-    );
     this.props.handleColorChange(listId, listColor);
     this.setState({
       showColorSelector: !this.state.showColorSelector

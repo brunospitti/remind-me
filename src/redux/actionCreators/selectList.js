@@ -1,6 +1,6 @@
-export const selectList = listId => async dispatch => {
-  dispatch({
+export default function selectList(listId) {
+  return {
     type: "CHANGE_ACTIVE_LIST",
     listId
-  });
-};
+  };
+}

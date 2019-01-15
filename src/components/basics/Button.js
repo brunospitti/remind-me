@@ -31,10 +31,10 @@ export class Button extends React.PureComponent {
               <DeleteIcon alt="delete item" id="deleteIcon" />
             ) : (
               ((this.props.icon === "priorityIcon" ? (
-                <StyledPriorityIcon
+                <PriorityIcon
                   alt="priority item"
                   id="priorityIcon"
-                  mainColor={this.props.mainColor}
+                  style={{fill: this.props.mainColor}}
                 />
               ) : this.props.icon === "collapseIcon" ? (
                 <CollapseIcon alt="collapse item" id="collapseIcon" />
@@ -95,8 +95,4 @@ const StyledButtonIcon = styled("button")`
       }
     }
   }
-`;
-
-const StyledPriorityIcon = styled(PriorityIcon)`
-  fill: ${props => props.mainColor};
 `;

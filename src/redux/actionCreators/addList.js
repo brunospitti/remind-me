@@ -1,10 +1,14 @@
-import { randomId } from "../../assets/helpers";
+import { todosRef } from "../../config/firebase";
 
-export default function addList(newList, newColor) {
-  return {
-    type: "ADD_LIST",
-    newList,
-    newColor,
-    newId: randomId()
-  };
-}
+import { randomId, currTime } from "../../assets/helpers";
+import { listColors } from "../../assets/globalStyles";
+
+export const addList = (newList, newColor) => async dispatch => {
+  let newListObject = {
+    name: newList,
+    id: randomId(),
+    color: listColors[newColor],
+    items: [{ignoreMe: true}]
+  }
+  todosRef.push().set(newListObject)
+};

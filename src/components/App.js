@@ -12,10 +12,11 @@ import { Footer } from "./Footer";
 
 // global css styles
 import { GlobalStyles } from "../assets/globalStyles";
+import Loading from "./basics/Loading";
 
 // Code splitting section
 
-const loading = () => <h1>loading split code...</h1>;
+const loading = () => <Loading />
 
 const LoadableToDosPage = Loadable({
   loader: () => import("../pages/ToDosPage"),

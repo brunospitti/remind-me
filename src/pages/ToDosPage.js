@@ -8,6 +8,7 @@ import { fetchToDos } from "../redux/actionCreators/fetchToDos";
 import ToDos from "../components/ToDos";
 import ListsManager from "../components/ListsManager";
 import NoToDos from "../components/NoToDos";
+import Loading from "../components/basics/Loading";
 
 class ToDosPage extends React.PureComponent {
   state = {
@@ -17,17 +18,14 @@ class ToDosPage extends React.PureComponent {
     filterChecked: false
   };
 
-  componentWillMount() {
-    console.log("​ToDosPage -> componentWillMount -> fetchToDos", "fetchToDos");
-    this.props.handleFetchToDos();
-  }
-
   componentDidMount() {
-    if (Object.keys(this.props.lists).length > 0) {
+    this.props.handleFetchToDos();
+    if(this.props.lists != "loading" && Object.keys(this.props.lists).length > 0) {
       this.completeListLayout();
       this.getNextListIdToShowAfterDeleteCurrentList();
     }
   }
+
 
   getCurrentList = () => {
     let lists = { ...this.props.lists };
@@ -124,25 +122,29 @@ class ToDosPage extends React.PureComponent {
         <StyledContainer
           className={this.state.showDetails ? "expanded" : "compressed"}
         >
-          {Object.keys(this.props.lists).length > 0 ? (
-            <React.Fragment>
-              <ToDos
-                currentList={this.getCurrentList()}
-                nextListId={this.getNextListIdToShowAfterDeleteCurrentList()}
-                filterCheckedFunc={this.filterCheckedFunc}
-                filterChecked={this.state.filterChecked}
-                completeListLayoutNum={this.state.completeListLayoutNum}
-                completeListLayout={this.completeListLayout}
-                showDetails={this.state.showDetails}
-                showDetailsFunc={this.showDetailsFunc}
-                sortBy={this.state.sortBy}
-                handleSortByChange={this.handleSortByChange}
-              />
-              <ListsManager completeListLayout={this.completeListLayout} />
-            </React.Fragment>
-          ) : (
-            <NoToDos />
-          )}
+          {this.props.lists === "loading" ? (
+            <Loading />
+          ) : ( Object.keys(this.props.lists).length > 0 ? (
+                <React.Fragment>
+                  <ToDos
+                    currentList={this.getCurrentList()}
+                    nextListId={this.getNextListIdToShowAfterDeleteCurrentList()}
+                    filterCheckedFunc={this.filterCheckedFunc}
+                    filterChecked={this.state.filterChecked}
+                    completeListLayoutNum={this.state.completeListLayoutNum}
+                    completeListLayout={this.completeListLayout}
+                    showDetails={this.state.showDetails}
+                    showDetailsFunc={this.showDetailsFunc}
+                    sortBy={this.state.sortBy}
+                    handleSortByChange={this.handleSortByChange}
+                  />
+                  <ListsManager completeListLayout={this.completeListLayout} />
+                </React.Fragment>
+              ) : (
+                <NoToDos />
+              )
+            )
+          }
         </StyledContainer>
       </div>
     );

@@ -2,24 +2,13 @@
 // 1. copy of current state
 // 2. the action (info about what happened)
 
-import { mock_lists } from "../../assets/mock_data";
+import { todosRef } from "../../config/firebase";
+
 import { listColors } from "../../assets/globalStyles";
 import { randomId, currTime } from "../../assets/helpers";
 
-function lists(state = mock_lists, action) {
+function lists(state = "loading", action) {
   switch (action.type) {
-    case "ADD_LIST": {
-      const newState = { ...state };
-      newState[randomId()] = Object.assign({
-        name: action.newList,
-        id: action.newId,
-        color: listColors[action.newColor],
-        items: []
-      });
-
-      return newState;
-    }
-
     case "CHANGE_LIST_COLOR": {
       const newState = { ...state };
 
@@ -46,8 +35,6 @@ function lists(state = mock_lists, action) {
         checked: false,
         priority: 1
       });
-
-      console.log(newState);
 
       return newState;
     }
@@ -173,7 +160,6 @@ function lists(state = mock_lists, action) {
     }
 
     case "FETCH_TO_DOS":
-      console.log("​lists -> action.payload", action.payload);
       return action.payload;
 
     default:
