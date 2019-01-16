@@ -5,7 +5,7 @@ import { lighten } from "polished";
 
 import { colors } from "../assets/globalStyles";
 
-import {addList} from "../redux/actionCreators/addList";
+import { addList } from "../redux/actionCreators/addList";
 
 import { Button } from "./basics/Button";
 import { AddList } from "./AddList";
@@ -34,7 +34,7 @@ class NoToDos extends React.PureComponent {
             <h2>Create your first list</h2>
             <Button
               className="footer-item"
-              icon="addIcon"
+              icon="add"
               clickBehavior={() => this.setState({ showAddList: true })}
               text="Create list"
             />

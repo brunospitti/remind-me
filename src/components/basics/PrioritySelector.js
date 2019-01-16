@@ -45,7 +45,7 @@ class PrioritySelector extends React.PureComponent {
       <React.Fragment>
         <span className="priority">
           <Button
-            icon="priorityIcon"
+            icon="priority"
             clickBehavior={() => this.setState({ showChangePriority: true })}
             text="Priority"
             mainColor={this.priorityColor()}

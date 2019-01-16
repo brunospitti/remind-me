@@ -84,7 +84,7 @@ class ToDos extends React.PureComponent {
           inputPlaceholder="List name"
         />
         <Button
-          icon="deleteIcon"
+          icon="delete"
           clickBehavior={() => this.deleteList()}
           text="Delete"
         />

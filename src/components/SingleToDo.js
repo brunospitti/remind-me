@@ -73,7 +73,7 @@ class SingleToDo extends React.PureComponent {
             {this.props.showToDoOptions && (
               <span>
                 <Button
-                  icon="deleteIcon"
+                  icon="delete"
                   clickBehavior={() =>
                     this.deleteItem(this.props.task.id, this.props.listId)
                   }

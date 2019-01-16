@@ -59,7 +59,7 @@ class SingleToDoDetails extends React.PureComponent {
         <StyledFooter mainColor={this.props.mainColor}>
           <Button
             className="footer-item"
-            icon="collapseIcon"
+            icon="collapse"
             clickBehavior={this.props.closeDetails}
             text="Close me"
           />
@@ -69,7 +69,7 @@ class SingleToDoDetails extends React.PureComponent {
           </div>
           <Button
             className="footer-item"
-            icon="deleteIcon"
+            icon="delete"
             clickBehavior={() =>
               this.deleteItem(this.props.task.id, this.props.listId)
             }
