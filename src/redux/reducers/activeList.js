@@ -4,6 +4,25 @@
 
 function activeList(state = 0, action) {
   switch (action.type) {
+    case "FETCH_TO_DOS": {
+      let lists = {...action.payload}
+      if (
+        lists != "loading" &&
+        Object.keys(lists).length > 0
+      ) {
+        let listsArray = [];
+        Object.keys(lists).map(list => listsArray.push(lists[list]));
+
+        listsArray.sort(function(a, b) {
+          return new Date(a.creationDate) - new Date(b.creationDate);
+        });
+
+        return listsArray[0].id;
+      }
+
+      return state
+    }
+
     case "CHANGE_ACTIVE_LIST": {
       return action.listId;
     }

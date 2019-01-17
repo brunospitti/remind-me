@@ -13,6 +13,7 @@ import ColorSelector from "./basics/ColorSelector";
 import { AddList } from "./AddList";
 
 class ListsManager extends React.PureComponent {
+
   handleSelectList = listId => {
     this.props.handleSelectList(listId);
     setTimeout(
@@ -22,22 +23,35 @@ class ListsManager extends React.PureComponent {
       0
     );
   };
+
+  sortByCreationDate = () => {
+    let {lists} = this.props;
+    let listsArray = [];
+    Object.keys(lists).map(list => listsArray.push(lists[list]));
+
+    listsArray.sort(function(a, b) {
+      return new Date(a.creationDate) - new Date(b.creationDate);
+    });
+
+    return listsArray;
+  }
+
   render() {
     return (
       <React.Fragment>
         <h3>Lists:</h3>
         <StyledUl>
-          {Object.keys(this.props.lists).map((list, i) => (
+          {this.sortByCreationDate().map((list, i) => (
             <StyledList key={i}>
               <StyledButton
                 className="color-wrapper"
-                mainColor={this.props.lists[list].color}
-                onClick={() => this.handleSelectList(this.props.lists[list].id)}
+                mainColor={list.color}
+                onClick={() => this.handleSelectList(list.id)}
               >
                 <div className="info-wrapper">
-                  <span>{this.props.lists[list].name}</span>
+                  <span>{list.name}</span>
                   <ColorSelector
-                    list={this.props.lists[list]}
+                    list={list}
                     handleColorChange={this.props.handleColorChange}
                   />
                 </div>
