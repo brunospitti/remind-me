@@ -1,41 +1,19 @@
 import React from "react";
 import { render } from "react-dom";
-import { Router } from "@reach/router";
-import Loadable from "react-loadable";
 import { Provider } from "react-redux";
-require("babel-polyfill");
 
 import store from "../redux/store";
 
-import { Header } from "./Header";
-import { Footer } from "./Footer";
+import MainApp from "./MainApp";
 
-// global css styles
-import { GlobalStyles } from "../assets/globalStyles";
-import Loading from "./basics/Loading";
-
-// Code splitting section
-
-const loading = () => <Loading />
-
-const LoadableToDosPage = Loadable({
-  loader: () => import("../pages/ToDosPage"),
-  loading
-});
 
 class App extends React.PureComponent {
+
   render() {
     return (
-      <div>
-        <Header />
-        <Provider store={store}>
-          <Router>
-            <LoadableToDosPage path="/" />
-          </Router>
-        </Provider>
-        <Footer />
-        <GlobalStyles />
-      </div>
+      <Provider store={store}>
+        <MainApp />
+      </Provider>
     );
   }
 }

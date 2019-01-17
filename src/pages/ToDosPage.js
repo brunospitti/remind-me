@@ -10,6 +10,7 @@ import ListsManager from "../components/ListsManager";
 import NoToDos from "../components/NoToDos";
 import Loading from "../components/basics/Loading";
 import { currTime } from "../assets/helpers";
+import { requireAuth } from "../hocs/requireAuth";
 
 class ToDosPage extends React.PureComponent {
   state = {
@@ -132,6 +133,8 @@ class ToDosPage extends React.PureComponent {
   };
 
   render() {
+    let ToDosWithAuth = requireAuth(ToDos);
+
     return (
       <StyledContainer
         className={this.state.showDetails ? "expanded" : "compressed"}
@@ -140,7 +143,7 @@ class ToDosPage extends React.PureComponent {
           <Loading />
         ) : Object.keys(this.props.lists).length > 0 ? (
           <React.Fragment>
-            <ToDos
+            <ToDosWithAuth
               currentList={this.getCurrentList()}
               nextListId={this.getNextListIdToShowAfterDeleteCurrentList()}
               filterCheckedFunc={this.filterCheckedFunc}

@@ -14,7 +14,7 @@ function activeList(state = 0, action) {
         Object.keys(lists).map(list => listsArray.push(lists[list]));
 
         listsArray.sort(function(a, b) {
-          return new Date(a.creationDate) - new Date(b.creationDate);
+          return new Date(a.creation_date) - new Date(b.creation_date);
         });
 
         return listsArray[0].id;

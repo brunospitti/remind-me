@@ -49,7 +49,7 @@ export default function button(WrappedComponent) {
       let { icon } = this.props;
       if (icon) {
         return (
-          <WrappedComponent onClick={this.props.clickBehavior}>
+          <WrappedComponent onClick={this.props.clickBehavior} className={this.props.className}>
             {renderIconButton()}
           </WrappedComponent>
         );
@@ -58,6 +58,7 @@ export default function button(WrappedComponent) {
           <WrappedComponent
             onClick={this.props.clickBehavior}
             mainColor={this.getMainColor()}
+            className={this.props.className}
           >
             {this.props.text}
           </WrappedComponent>

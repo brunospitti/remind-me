@@ -10,7 +10,7 @@ export const addList = (newList, newColor) => async dispatch => {
     name: newList,
     id: listId,
     color: listColors[newColor],
-    creationDate: currTime(),
+    creation_date: currTime(),
     items: { ignoreMe: { ignoreMe: true } }
   };
   updates[`lists/${listId}`] = newListObject;

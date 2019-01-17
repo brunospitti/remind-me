@@ -1,79 +1,101 @@
 {
   "lists" : {
-    "ulat3p1yj5" : {
-      "id" : "ulat3p1yj5",
-      "name" : "work",
-      "color" : "#247BA0",
-      "items" : {
-        "9jxst3iep4": {
-          "checked" : false,
-          "id" : "9jxst3iep4",
-          "notes" : "",
-          "priority" : 3,
-          "start_date" : "2018-03-20T13:28:09",
-          "task" : "Fill report"
-        }, "y9he3lko4j": {
-          "checked" : false,
-          "id" : "y9he3lko4j",
-          "notes" : "",
-          "priority" : 1,
-          "start_date" : "2017-12-18T10:42:37",
-          "task" : "Talk to boss about raise"
-        }, "xwkyes265f": {
-          "checked" : false,
-          "id" : "xwkyes265f",
-          "notes" : "",
-          "priority" : 2,
-          "start_date" : "2018-06-13T23:35:46",
-          "task" : "Start dashboard project"
-        }, "sc201ekq08": {
-          "checked" : false,
-          "id" : "sc201ekq08",
-          "notes" : "",
-          "priority" : 1,
-          "start_date" : "2018-10-11T13:35:09",
-          "task" : "Get package at reception"
-        }
-      }
-    },
     "dzupcuav2g" : {
+      "color" : "#FFA69E",
+      "creation_date" : "2019-01-12T11:47:35",
       "id" : "dzupcuav2g",
-      "name" : "leisure",
-      "color" : "#247BA0",
       "items" : {
-        "l4ypfaxwq8": {
-          "checked" : false,
-          "id" : "l4ypfaxwq8",
-          "notes" : "",
-          "priority" : 1,
-          "start_date" : "2018-03-20T13:28:09",
-          "task" : "Take kids to park"
-        }, "krap9eg837": {
-          "checked" : false,
-          "id" : "krap9eg837",
-          "notes" : "",
-          "priority" : 1,
-          "start_date" : "2018-10-08T09:15:29",
-          "task" : "Go to that JS meet-up"
-        }, "bddnmkdnlj": {
+        "bddnmkdnlj" : {
           "checked" : false,
           "id" : "bddnmkdnlj",
           "notes" : "",
           "priority" : 1,
           "start_date" : "2018-01-17T13:35:27",
+          "end_date": "2019-01-17T13:35:27",
           "task" : "Watch new episode of Westworld"
+        },
+        "krap9eg837" : {
+          "checked" : false,
+          "id" : "krap9eg837",
+          "notes" : "",
+          "priority" : 1,
+          "start_date" : "2018-10-08T09:15:29",
+          "end_date": "2019-10-08T09:15:29",
+          "task" : "Go to that JS meet-up"
+        },
+        "l4ypfaxwq8" : {
+          "checked" : false,
+          "id" : "l4ypfaxwq8",
+          "notes" : "",
+          "priority" : 1,
+          "start_date" : "2018-03-20T13:28:09",
+          "end_date": "2019-03-20T13:28:09",
+          "task" : "Take kids to park"
         }
-      }
+      },
+      "name" : "leisure"
+    },
+    "ulat3p1yj5" : {
+      "color" : "#247BA0",
+      "creation_date" : "2019-01-10T22:00:35",
+      "id" : "ulat3p1yj5",
+      "items" : {
+        "9jxst3iep4" : {
+          "checked" : false,
+          "id" : "9jxst3iep4",
+          "notes" : "",
+          "priority" : 3,
+          "start_date" : "2018-03-20T13:28:09",
+          "end_date": "2019-03-20T13:28:09",
+          "task" : "Fill report"
+        },
+        "sc201ekq08" : {
+          "checked" : false,
+          "id" : "sc201ekq08",
+          "notes" : "",
+          "priority" : 1,
+          "start_date" : "2018-10-11T13:35:09",
+          "end_date": "2019-10-11T13:35:09",
+          "task" : "Get package at reception"
+        },
+        "xwkyes265f" : {
+          "checked" : false,
+          "id" : "xwkyes265f",
+          "notes" : "",
+          "priority" : 2,
+          "start_date" : "2018-06-13T23:35:46",
+          "end_date": "2019-06-13T23:35:46",
+          "task" : "Start dashboard project"
+        },
+        "y9he3lko4j" : {
+          "checked" : false,
+          "id" : "y9he3lko4j",
+          "notes" : "",
+          "priority" : 1,
+          "start_date" : "2017-12-18T10:42:37",
+          "end_date": "2019-12-18T10:42:37",
+          "task" : "Talk to boss about raise"
+        }
+      },
+      "name" : "work"
     },
     "wsxk4dw0cj" : {
+      "color" : "#B5838D",
       "id" : "wsxk4dw0cj",
-      "name" : "ddddd",
-      "color" : "#C1C1C1",
       "items" : {
         "ignoreMe" : {
           "ignoreMe" : true
         }
-      }
+      },
+      "name" : "shopping"
+    }
+  },
+  "users" : {
+    "jdCwe3z0WGdLIwtQCKURBXnsT8q2" : {
+      "email" : "brunoolivares12@gmail.com",
+      "name" : "Bruno Olivares",
+      "photo" : "https://lh6.googleusercontent.com/-se9DH-k-MKI/AAAAAAAAAAI/AAAAAAAAaoc/fpi7-KEBjj4/photo.jpg",
+      "uid" : "jdCwe3z0WGdLIwtQCKURBXnsT8q2"
     }
   }
 }
