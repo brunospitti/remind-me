@@ -4,7 +4,7 @@ import { lighten, darken } from "polished";
 
 import { priorityColors, colors } from "../../assets/globalStyles";
 
-import { Button } from "./Button";
+import { Button } from "./Button.jsx";
 
 class PrioritySelector extends React.PureComponent {
   state = {

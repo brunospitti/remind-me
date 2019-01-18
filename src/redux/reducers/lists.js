@@ -2,13 +2,21 @@
 // 1. copy of current state
 // 2. the action (info about what happened)
 
-import { todosRef, databaseRef } from "../../config/firebase";
-
 import { listColors } from "../../assets/globalStyles";
-import { randomId, currTime } from "../../assets/helpers";
 
 function lists(state = "loading", action) {
   switch (action.type) {
+    case "FETCH_TO_DOS": {
+      let lists = {...action.lists}
+      let listsOwned = Object.keys(lists).filter(
+        list => lists[list].owner === action.userId
+      )
+
+      lists = listsOwned.reduce((result, key) => ({ ...result, [key]: lists[key] }), {});
+
+      return lists;
+    }
+
     case "CHANGE_LIST_COLOR": {
       const newState = { ...state };
 
@@ -140,9 +148,6 @@ function lists(state = "loading", action) {
 
       return newState;
     }
-
-    case "FETCH_TO_DOS":
-      return action.payload;
 
     default:
       return state;

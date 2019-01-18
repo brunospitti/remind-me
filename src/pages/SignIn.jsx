@@ -1,39 +1,63 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { redirectTo } from "@reach/router"
+import Loadable from "react-loadable";
 import styled from "styled-components";
 import { lighten } from "polished";
 
 import { colors } from "../assets/globalStyles";
 import UserIcon from "../assets/icons/user.svg";
-import GoogleIcon from "../assets/icons/google.svg";
 
 import { userLogin } from "../redux/actionCreators/userLogin";
+
+import Loading from "../components/basics/Loading";
 import { Button } from "../components/basics/Button";
 
+const loading = () => <Loading />
 
-class SignIn extends Component {
+const LoadableToDosPage = Loadable({
+  loader: () => import("../components/ToDosPage"),
+  loading
+});
+
+
+class SignIn extends React.PureComponent {
+  state = {
+    signIn : true
+  }
+
   static contextTypes = {
     router: PropTypes.object
   };
 
   componentWillUpdate(nextProps) {
     if (nextProps.user) {
-      redirectTo("/todos")
+      this.setState({signIn : false})
+    } else {
+      this.setState({signIn : true})
     }
   }
 
   render() {
     return (
-      <StyledContainer>
-            <h2>Sign In to start</h2>
-            <StyledButton
-              clickBehavior={this.props.userLogin}
-              // icon="delete"
-              text="Sign in with Google"
-            />
-      </StyledContainer>
+      <React.Fragment>
+        {this.props.user === "loading" ? (
+          <Loading />
+          ) : (
+            this.state.signIn ? (
+              <StyledContainer>
+              <h2>Sign In to start</h2>
+              <StyledButton
+                clickBehavior={this.props.userLogin}
+                text="Sign in with Google"
+              />
+            </StyledContainer>
+            ) : (
+              <LoadableToDosPage />
+            )
+          )
+        }
+      </React.Fragment>
     );
   }
 }
@@ -83,13 +107,6 @@ const StyledButton = styled(Button)`
     background: ${lighten(0.08, "#4081ec")};
     border: 1px solid ${lighten(0.08, "#4081ec")};
   }
-`
-
-const StyledUserIcon = styled(UserIcon)`
-      width: 60px;
-    height: 60px;
-    display: inline-block;
-    margin-right: 20px;
 `
 
 function mapStateToProps({ user }) {

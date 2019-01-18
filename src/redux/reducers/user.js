@@ -1,4 +1,4 @@
-function user(state = false, action) {
+function user(state = "loading", action) {
   switch (action.type) {
     case "FETCH_USER":
       return action.payload || null;

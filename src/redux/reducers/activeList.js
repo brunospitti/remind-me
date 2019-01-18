@@ -5,7 +5,7 @@
 function activeList(state = 0, action) {
   switch (action.type) {
     case "FETCH_TO_DOS": {
-      let lists = {...action.payload}
+      let lists = {...action.lists}
       if (
         lists != "loading" &&
         Object.keys(lists).length > 0

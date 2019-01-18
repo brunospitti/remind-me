@@ -8,15 +8,15 @@ import { colors } from "../assets/globalStyles";
 import { addList } from "../redux/actionCreators/addList";
 
 import { Button } from "./basics/Button";
-import { AddList } from "./AddList";
+import AddList from "./AddList";
 
 class NoToDos extends React.PureComponent {
   state = {
     showAddList: false
   };
 
-  handleAddList = (newList, newColor) => {
-    this.props.handleAddList(newList, newColor);
+  handleAddList = (newList, newColor, userId) => {
+    this.props.handleAddList(newList, newColor, userId);
     this.setState({ showAddList: false });
   };
 
@@ -72,8 +72,8 @@ const StyledNoToDos = styled("div")`
 `;
 
 const mapDispatchToProps = dispatch => ({
-  handleAddList(newList, newColor) {
-    dispatch(addList(newList, newColor));
+  handleAddList(newList, newColor, userId) {
+    dispatch(addList(newList, newColor, userId));
   }
 });
 

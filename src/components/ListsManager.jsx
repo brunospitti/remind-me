@@ -10,7 +10,7 @@ import changeListColor from "../redux/actionCreators/changeListColor";
 import selectList from "../redux/actionCreators/selectList";
 
 import ColorSelector from "./basics/ColorSelector";
-import { AddList } from "./AddList";
+import AddList from "./AddList";
 
 class ListsManager extends React.PureComponent {
 
@@ -122,8 +122,8 @@ const mapStateToProps = ({ lists }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleAddList(newList, newColor) {
-    dispatch(addList(newList, newColor));
+  handleAddList(newList, newColor, userId) {
+    dispatch(addList(newList, newColor, userId));
   },
   handleColorChange(listId, newColor) {
     dispatch(changeListColor(listId, newColor));

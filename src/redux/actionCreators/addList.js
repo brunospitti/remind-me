@@ -3,7 +3,7 @@ import { databaseRef } from "../../config/firebase";
 import { randomId, currTime } from "../../assets/helpers";
 import { listColors } from "../../assets/globalStyles";
 
-export const addList = (newList, newColor) => async dispatch => {
+export const addList = (newList, newColor, userId) => async dispatch => {
   let listId = randomId();
   let updates = {};
   let newListObject = {
@@ -11,6 +11,7 @@ export const addList = (newList, newColor) => async dispatch => {
     id: listId,
     color: listColors[newColor],
     creation_date: currTime(),
+    owner: userId || "",
     items: { ignoreMe: { ignoreMe: true } }
   };
   updates[`lists/${listId}`] = newListObject;

@@ -4,7 +4,7 @@ export const colors = {
   primary: "#00b8a9",
   secondary: "#ffde7d",
   tertiary: "#f6416c",
-  complementary: "#f8f3d4",
+  complementary: "#6a7faf",
   dark: "#333",
   light: "#f7f7f7",
   lightGrey: "#C1C1C1",

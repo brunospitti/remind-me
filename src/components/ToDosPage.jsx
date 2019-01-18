@@ -2,15 +2,15 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import { connect } from "react-redux";
 
-import selectList from "../redux/actionCreators/selectList";
 import { fetchToDos } from "../redux/actionCreators/fetchToDos";
+import selectList from "../redux/actionCreators/selectList";
 
-import ToDos from "../components/ToDos";
-import ListsManager from "../components/ListsManager";
-import NoToDos from "../components/NoToDos";
-import Loading from "../components/basics/Loading";
-import { currTime } from "../assets/helpers";
 import { requireAuth } from "../hocs/requireAuth";
+
+import ToDos from "./ToDos";
+import ListsManager from "./ListsManager";
+import NoToDos from "./NoToDos";
+import Loading from "./basics/Loading";
 
 class ToDosPage extends React.PureComponent {
   state = {
@@ -21,8 +21,7 @@ class ToDosPage extends React.PureComponent {
   };
 
   componentDidMount() {
-    console.log(currTime())
-    this.props.handleFetchToDos();
+    this.props.handleFetchToDos(this.props.user.uid);
     if (
       this.props.lists != "loading" &&
       Object.keys(this.props.lists).length > 0
@@ -202,17 +201,18 @@ const StyledContainer = styled("div")`
   }
 `;
 
-const mapStateToProps = ({ lists, activeList }) => ({
+const mapStateToProps = ({ lists, activeList, user }) => ({
   lists,
-  activeList
+  activeList,
+  user
 });
 
 const mapDispatchToProps = dispatch => ({
   handleSelectList(listId) {
     dispatch(selectList(listId));
   },
-  handleFetchToDos() {
-    dispatch(fetchToDos());
+  handleFetchToDos(userId) {
+    dispatch(fetchToDos(userId));
   }
 });
 

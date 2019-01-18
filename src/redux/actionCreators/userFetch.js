@@ -3,7 +3,7 @@ import { authRef, databaseRef } from "../../config/firebase";
 
 export const userFetch = () => dispatch => {
   authRef.onAuthStateChanged(user => {
-    console.log("onAuthStateChanged", user)
+    
     if (user) {
       let updates = {};
       let newUserObject = {
