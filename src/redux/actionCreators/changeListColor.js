@@ -1,7 +1,12 @@
-export default function changeListColor(listId, newColor) {
-  return {
-    type: "CHANGE_LIST_COLOR",
-    listId,
-    newColor
-  };
-}
+import { databaseRef } from "../../config/firebase";
+
+import { listColors } from "../../assets/globalStyles";
+
+export const changeListColor = (listId, newColor) => async dispatch => {
+  let updates = {};
+  let color = listColors[newColor];
+
+  updates[`lists/${listId}/color`] = color;
+
+  databaseRef.update(updates);
+};

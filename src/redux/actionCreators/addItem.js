@@ -3,15 +3,19 @@ import { databaseRef } from "../../config/firebase";
 import { randomId, currTime } from "../../assets/helpers";
 
 export const addItem = (itemToAdd, listId) => async dispatch => {
-  let taskId = randomId();
   let updates = {};
+  let taskId = randomId();
+
   let newItemObject = {
     id: taskId,
     task: itemToAdd,
     start_date: currTime(),
+    end_date: "",
     checked: false,
     priority: 1
   };
 
-  databaseRef.child(`lists/${listId}/items/`).push(newItemObject);
+  updates[`lists/${listId}/items/${taskId}`] = newItemObject;
+
+  databaseRef.update(updates);
 };

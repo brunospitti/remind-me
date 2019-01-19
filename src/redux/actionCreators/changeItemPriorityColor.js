@@ -1,8 +1,13 @@
-export default function changeItemPriorityColor(listId, taskId, newPriority) {
-  return {
-    type: "CHANGE_ITEM_PRIORITY_COLOR",
-    listId,
-    taskId,
-    newPriority
-  };
-}
+import { databaseRef } from "../../config/firebase";
+
+export const changeItemPriorityColor = (
+  listId,
+  taskId,
+  newPriority
+) => async dispatch => {
+  let updates = {};
+
+  updates[`lists/${listId}/items/${taskId}/priority`] = newPriority;
+
+  databaseRef.update(updates);
+};

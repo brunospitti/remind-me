@@ -5,15 +5,14 @@ import { lighten } from "polished";
 
 import { colors } from "../assets/globalStyles";
 
-import {addList} from "../redux/actionCreators/addList";
-import changeListColor from "../redux/actionCreators/changeListColor";
+import { addList } from "../redux/actionCreators/addList";
+import { changeListColor } from "../redux/actionCreators/changeListColor";
 import selectList from "../redux/actionCreators/selectList";
 
 import ColorSelector from "./basics/ColorSelector";
 import AddList from "./AddList";
 
 class ListsManager extends React.PureComponent {
-
   handleSelectList = listId => {
     this.props.handleSelectList(listId);
     setTimeout(
@@ -25,7 +24,7 @@ class ListsManager extends React.PureComponent {
   };
 
   sortByCreationDate = () => {
-    let {lists} = this.props;
+    let { lists } = this.props;
     let listsArray = [];
     Object.keys(lists).map(list => listsArray.push(lists[list]));
 
@@ -34,7 +33,7 @@ class ListsManager extends React.PureComponent {
     });
 
     return listsArray;
-  }
+  };
 
   render() {
     return (

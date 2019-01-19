@@ -6,7 +6,7 @@ import { lighten, darken } from "polished";
 import { colors } from "../assets/globalStyles";
 
 import editListName from "../redux/actionCreators/editListName";
-import deleteList from "../redux/actionCreators/deleteList";
+import { deleteList } from "../redux/actionCreators/deleteList";
 
 import Sort from "./basics/Sort";
 import { Button } from "./basics/Button";
@@ -38,13 +38,16 @@ class ToDos extends React.PureComponent {
   };
 
   itemListDetails = task => {
+    console.log("​ToDos -> task", task);
     this.setState(
       {
         detailsTask: task,
         showDetailsEditItems: false
       },
       () => {
+        console.log(this.state.detailsTask);
         this.props.showDetailsFunc(true);
+        console.log(this.props.showDetails);
       }
     );
   };

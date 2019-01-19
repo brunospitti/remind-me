@@ -1,7 +1,17 @@
-export default function checkItem(itemToCheck, listId) {
-  return {
-    type: "CHECK_ITEM",
-    itemToCheck,
-    listId
-  };
-}
+import { databaseRef } from "../../config/firebase";
+
+export const checkItem = (itemToCheck, listId) => async dispatch => {
+  let updates = {};
+
+  databaseRef
+    .child(`lists/${listId}/items/${itemToCheck}`)
+    .once("value")
+    .then(function(snapshot) {
+      let checkedStatus = snapshot.val() && snapshot.val().checked;
+
+      console.log("​checkedStatus", checkedStatus);
+
+      updates[`lists/${listId}/items/${itemToCheck}/checked`] = !checkedStatus;
+      databaseRef.update(updates);
+    });
+};

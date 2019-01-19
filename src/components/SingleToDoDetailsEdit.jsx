@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import { colors } from "../assets/globalStyles";
 
-import editItemName from "../redux/actionCreators/editItemName";
+import { editItemName } from "../redux/actionCreators/editItemName";
 import editItemNotes from "../redux/actionCreators/editItemNotes";
 
 import DivThanInput from "./basics/DivThanInput";
@@ -14,6 +14,10 @@ class SingleToDoDetailsEdit extends React.PureComponent {
   state = {
     showEditItems: false
   };
+
+  componentDidMount() {
+    console.log("task as props", this.props.task);
+  }
 
   getInputValue = inputValue => {
     this.props.handleEditItemName(
@@ -34,6 +38,7 @@ class SingleToDoDetailsEdit extends React.PureComponent {
   render() {
     return (
       <React.Fragment>
+        {this.props.task.task}
         <StyledEditableDiv
           value={this.props.task.task}
           getInputValue={this.getInputValue}

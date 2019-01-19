@@ -1,117 +1,117 @@
 {
-  "lists" : {
-    "dzupcuav2g" : {
-      "color" : "#FFA69E",
-      "creation_date" : "2019-01-12T11:47:35",
-      "id" : "dzupcuav2g",
-      "items" : {
-        "bddnmkdnlj" : {
-          "checked" : false,
-          "id" : "bddnmkdnlj",
-          "notes" : "",
-          "priority" : 1,
-          "start_date" : "2018-01-17T13:35:27",
+  "lists": {
+    "dzupcuav2g": {
+      "color": "#FFA69E",
+      "creation_date": "2019-01-12T11:47:35",
+      "id": "dzupcuav2g",
+      "items": {
+        "bddnmkdnlj": {
+          "checked": false,
           "end_date": "2019-01-17T13:35:27",
-          "task" : "Watch new episode of Westworld"
+          "id": "bddnmkdnlj",
+          "notes": "",
+          "priority": 1,
+          "start_date": "2018-01-17T13:35:27",
+          "task": "Watch new episode of Westworld"
         },
-        "krap9eg837" : {
-          "checked" : false,
-          "id" : "krap9eg837",
-          "notes" : "",
-          "priority" : 1,
-          "start_date" : "2018-10-08T09:15:29",
+        "krap9eg837": {
+          "checked": false,
           "end_date": "2019-10-08T09:15:29",
-          "task" : "Go to that JS meet-up"
+          "id": "krap9eg837",
+          "notes": "",
+          "priority": 1,
+          "start_date": "2018-10-08T09:15:29",
+          "task": "Go to that JS meet-up"
         },
-        "l4ypfaxwq8" : {
-          "checked" : false,
-          "id" : "l4ypfaxwq8",
-          "notes" : "",
-          "priority" : 1,
-          "start_date" : "2018-03-20T13:28:09",
+        "l4ypfaxwq8": {
+          "checked": false,
           "end_date": "2019-03-20T13:28:09",
-          "task" : "Take kids to park"
+          "id": "l4ypfaxwq8",
+          "notes": "",
+          "priority": 1,
+          "start_date": "2018-03-20T13:28:09",
+          "task": "Take kids to park"
         }
       },
-      "name" : "leisure",
-      "owner" : "jdCwe3z0WGdLIwtQCKURBXnsT8q2"
+      "name": "leisure",
+      "owner": "jdCwe3z0WGdLIwtQCKURBXnsT8q2"
     },
-    "ulat3p1yj5" : {
-      "color" : "#247BA0",
-      "creation_date" : "2019-01-10T22:00:35",
-      "id" : "ulat3p1yj5",
-      "items" : {
-        "9jxst3iep4" : {
-          "checked" : false,
-          "id" : "9jxst3iep4",
-          "notes" : "",
-          "priority" : 3,
-          "start_date" : "2018-03-20T13:28:09",
+    "pqxesz4ed6": {
+      "color": "#C1C1C1",
+      "creation_date": "2019-01-18T11:15:08",
+      "id": "pqxesz4ed6",
+      "items": {
+        "ignoreMe": {
+          "ignoreMe": true
+        }
+      },
+      "name": "something else",
+      "owner": ""
+    },
+    "ulat3p1yj5": {
+      "color": "#247BA0",
+      "creation_date": "2019-01-10T22:00:35",
+      "id": "ulat3p1yj5",
+      "items": {
+        "9jxst3iep4": {
+          "checked": false,
           "end_date": "2019-03-20T13:28:09",
-          "task" : "Fill report"
+          "id": "9jxst3iep4",
+          "notes": "",
+          "priority": 3,
+          "start_date": "2018-03-20T13:28:09",
+          "task": "Fill report"
         },
-        "sc201ekq08" : {
-          "checked" : false,
-          "id" : "sc201ekq08",
-          "notes" : "",
-          "priority" : 1,
-          "start_date" : "2018-10-11T13:35:09",
+        "sc201ekq08": {
+          "checked": false,
           "end_date": "2019-10-11T13:35:09",
-          "task" : "Get package at reception"
+          "id": "sc201ekq08",
+          "notes": "",
+          "priority": 1,
+          "start_date": "2018-10-11T13:35:09",
+          "task": "Get package at reception"
         },
-        "xwkyes265f" : {
-          "checked" : false,
-          "id" : "xwkyes265f",
-          "notes" : "",
-          "priority" : 2,
-          "start_date" : "2018-06-13T23:35:46",
+        "xwkyes265f": {
+          "checked": false,
           "end_date": "2019-06-13T23:35:46",
-          "task" : "Start dashboard project"
+          "id": "xwkyes265f",
+          "notes": "",
+          "priority": 2,
+          "start_date": "2018-06-13T23:35:46",
+          "task": "Start dashboard project"
         },
-        "y9he3lko4j" : {
-          "checked" : false,
-          "id" : "y9he3lko4j",
-          "notes" : "",
-          "priority" : 1,
-          "start_date" : "2017-12-18T10:42:37",
+        "y9he3lko4j": {
+          "checked": false,
           "end_date": "2019-12-18T10:42:37",
-          "task" : "Talk to boss about raise"
+          "id": "y9he3lko4j",
+          "notes": "",
+          "priority": 1,
+          "start_date": "2017-12-18T10:42:37",
+          "task": "Talk to boss about raise"
         }
       },
-      "name" : "work",
-      "owner" : "jdCwe3z0WGdLIwtQCKURBXnsT8q2"
+      "name": "work",
+      "owner": "jdCwe3z0WGdLIwtQCKURBXnsT8q2"
     },
-    "wsxk4dw0cj" : {
-      "color" : "#B5838D",
-      "id" : "wsxk4dw0cj",
-      "creation_date" : "2019-01-17T11:47:35",
-      "items" : {
-        "ignoreMe" : {
-          "ignoreMe" : true
+    "wsxk4dw0cj": {
+      "color": "#B5838D",
+      "creation_date": "2019-01-17T11:47:35",
+      "id": "wsxk4dw0cj",
+      "items": {
+        "ignoreMe": {
+          "ignoreMe": true
         }
       },
-      "name" : "shopping",
-      "owner" : "jdCwe3z0WGdLIwtQCKURBXnsT8q2"
-    },
-    "pqxesz4ed6" : {
-      "color" : "#C1C1C1",
-      "id" : "pqxesz4ed6",
-      "creation_date" : "2019-01-18T11:15:08",
-      "items" : {
-        "ignoreMe" : {
-          "ignoreMe" : true
-        }
-      },
-      "name" : "something else",
-      "owner" : ""
+      "name": "shopping",
+      "owner": "jdCwe3z0WGdLIwtQCKURBXnsT8q2"
     }
   },
-  "users" : {
-    "jdCwe3z0WGdLIwtQCKURBXnsT8q2" : {
-      "email" : "brunoolivares12@gmail.com",
-      "name" : "Bruno Olivares",
-      "photo" : "https://lh6.googleusercontent.com/-se9DH-k-MKI/AAAAAAAAAAI/AAAAAAAAaoc/fpi7-KEBjj4/photo.jpg",
-      "uid" : "jdCwe3z0WGdLIwtQCKURBXnsT8q2"
+  "users": {
+    "jdCwe3z0WGdLIwtQCKURBXnsT8q2": {
+      "email": "brunoolivares12@gmail.com",
+      "name": "Bruno Olivares",
+      "photo": "https://lh6.googleusercontent.com/-se9DH-k-MKI/AAAAAAAAAAI/AAAAAAAAaoc/fpi7-KEBjj4/photo.jpg",
+      "uid": "jdCwe3z0WGdLIwtQCKURBXnsT8q2"
     }
   }
 }

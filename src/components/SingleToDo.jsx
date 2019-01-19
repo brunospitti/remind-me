@@ -2,8 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 
-import deleteItem from "../redux/actionCreators/deleteItem";
-import changeItemPriorityColor from "../redux/actionCreators/changeItemPriorityColor";
+import { deleteItem } from "../redux/actionCreators/deleteItem";
+import { changeItemPriorityColor } from "../redux/actionCreators/changeItemPriorityColor";
 
 import PrioritySelector from "./basics/PrioritySelector";
 import RatioButton from "./basics/RatioButton";

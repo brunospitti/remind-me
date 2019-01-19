@@ -9,9 +9,9 @@ import EditIcon from "../assets/icons/edit.svg";
 
 import { dateTransformation } from "../assets/helpers";
 
-import deleteItem from "../redux/actionCreators/deleteItem";
+import { deleteItem } from "../redux/actionCreators/deleteItem";
 import PrioritySelector from "./basics/PrioritySelector";
-import changeItemPriorityColor from "../redux/actionCreators/changeItemPriorityColor";
+import { changeItemPriorityColor } from "../redux/actionCreators/changeItemPriorityColor";
 
 import SingleToDoDetailsEdit from "./SingleToDoDetailsEdit";
 import { Button } from "./basics/Button";
@@ -166,10 +166,6 @@ const StyledFooter = styled("div")`
   }
 `;
 
-const mapStateToProps = ({ lists }) => ({
-  lists
-});
-
 const mapDispatchToProps = dispatch => ({
   handleDeleteItem(itemToDelete, listId) {
     dispatch(deleteItem(itemToDelete, listId));
@@ -180,6 +176,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(SingleToDoDetails);

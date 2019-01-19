@@ -16,15 +16,14 @@ import { GlobalStyles } from "../assets/globalStyles";
 
 // Code splitting section
 
-const loading = () => <Loading />
+const loading = () => <Loading />;
 
-const LoadableSignInPage = Loadable({
-  loader: () => import("../pages/SignIn"),
+const LoadableHomePagePage = Loadable({
+  loader: () => import("../pages/HomePage"),
   loading
 });
 
 class MainApp extends React.PureComponent {
-
   componentWillMount() {
     this.props.userFetch();
   }
@@ -35,7 +34,7 @@ class MainApp extends React.PureComponent {
         <Header />
         <Provider store={store}>
           <Router>
-            <LoadableSignInPage path="/" />
+            <LoadableHomePagePage path="/" />
           </Router>
         </Provider>
         <Footer />
@@ -45,5 +44,7 @@ class MainApp extends React.PureComponent {
   }
 }
 
-
-export default connect(null, { userFetch })(MainApp);
+export default connect(
+  null,
+  { userFetch }
+)(MainApp);
