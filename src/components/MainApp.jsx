@@ -2,6 +2,7 @@ import React from "react";
 import { Router } from "@reach/router";
 import Loadable from "react-loadable";
 import { Provider, connect } from "react-redux";
+import styled from "styled-components";
 require("babel-polyfill");
 
 import store from "../redux/store";
@@ -32,17 +33,25 @@ class MainApp extends React.PureComponent {
     return (
       <div>
         <Header />
+        <StyledMaxWidth>
         <Provider store={store}>
           <Router>
-            <LoadableHomePagePage path="/" />
+              <LoadableHomePagePage path="/" />
           </Router>
         </Provider>
+            </StyledMaxWidth>
         <Footer />
         <GlobalStyles />
       </div>
     );
   }
 }
+
+// styled components
+const StyledMaxWidth = styled("div")`
+  max-width: 1300px;
+  margin: 0 auto;
+`
 
 export default connect(
   null,

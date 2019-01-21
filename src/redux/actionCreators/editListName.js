@@ -1,7 +1,8 @@
-export default function editListName(listId, newName) {
-  return {
-    type: "EDIT_LIST_NAME",
-    listId,
-    newName
-  };
-}
+import { databaseRef } from "../../config/firebase";
+
+export const editListName = (listId, newName) => async dispatch => {
+  let updates = {};
+
+  updates[`lists/${listId}/name`] = newName;
+  databaseRef.update(updates);
+};

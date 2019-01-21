@@ -9,8 +9,6 @@ export const checkItem = (itemToCheck, listId) => async dispatch => {
     .then(function(snapshot) {
       let checkedStatus = snapshot.val() && snapshot.val().checked;
 
-      console.log("​checkedStatus", checkedStatus);
-
       updates[`lists/${listId}/items/${itemToCheck}/checked`] = !checkedStatus;
       databaseRef.update(updates);
     });

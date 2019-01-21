@@ -5,7 +5,7 @@ import { lighten, darken } from "polished";
 
 import { colors } from "../assets/globalStyles";
 
-import editListName from "../redux/actionCreators/editListName";
+import {editListName} from "../redux/actionCreators/editListName";
 import { deleteList } from "../redux/actionCreators/deleteList";
 
 import Sort from "./basics/Sort";
@@ -17,9 +17,7 @@ import AddItem from "./AddItem";
 
 class ToDos extends React.PureComponent {
   state = {
-    detailsTask: "",
-    showToDoOptions: false,
-    showDetailsEditItems: false
+    showToDoOptions: false
   };
 
   handleEditList = inputValue => {
@@ -38,32 +36,15 @@ class ToDos extends React.PureComponent {
   };
 
   itemListDetails = task => {
-    console.log("​ToDos -> task", task);
-    this.setState(
-      {
-        detailsTask: task,
-        showDetailsEditItems: false
-      },
-      () => {
-        console.log(this.state.detailsTask);
-        this.props.showDetailsFunc(true);
-        console.log(this.props.showDetails);
-      }
-    );
+    this.props.showDetailsFunc(true, task.id);
   };
 
   closeDetails = () => {
-    this.setState({ detailsTask: {} }, () => {
-      this.props.showDetailsFunc(false);
-    });
+    this.props.showDetailsFunc(false, {});
   };
 
   showToDoOptionsFunc = (taskId, toggle) => {
     this.setState({ showToDoOptions: `${toggle},${taskId}` });
-  };
-
-  showDetailsEditItemsFunc = () => {
-    this.setState({ showDetailsEditItems: true });
   };
 
   showEditListNameFunc = () => {
@@ -135,13 +116,12 @@ class ToDos extends React.PureComponent {
           </StyledToDo>
           {this.props.showDetails && (
             <SingleToDoDetails
-              task={this.state.detailsTask}
-              showDetailsEditItems={this.state.showDetailsEditItems}
-              showDetailsEditItemsFunc={this.showDetailsEditItemsFunc}
-              itemListDetails={this.itemListDetails}
+              task={this.props.detailsTask}
+              showDetailsFunc={this.props.showDetailsFunc}
               mainColor={this.props.currentList.color}
               closeDetails={this.closeDetails}
               showToDoOptionsFunc={this.showToDoOptionsFunc}
+              itemListDetails={this.itemListDetails}
               listId={this.props.currentList.id}
               completeListLayout={this.props.completeListLayout}
             />

@@ -48,8 +48,7 @@ class SingleToDoDetails extends React.PureComponent {
         <ul>
           <SingleToDoDetailsEdit
             task={this.props.task}
-            showDetailsEditItems={this.props.showDetailsEditItems}
-            showDetailsEditItemsFunc={this.props.showDetailsEditItemsFunc}
+            showDetailsFunc={this.props.showDetailsFunc}
             itemListDetails={this.props.itemListDetails}
             mainColor={this.props.mainColor}
             showToDoOptionsFunc={this.props.showToDoOptionsFunc}

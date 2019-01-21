@@ -16,6 +16,7 @@ class ToDosPage extends React.PureComponent {
   state = {
     completeListLayoutNum: 0,
     showDetails: false,
+    detailsTask: {},
     sortBy: "most-important",
     filterChecked: false
   };
@@ -116,8 +117,14 @@ class ToDosPage extends React.PureComponent {
     return nextList;
   };
 
-  showDetailsFunc = showDetails => {
-    this.setState({ showDetails });
+  showDetailsFunc = (showDetails, detailsTaskId) => {
+    setTimeout(() => {
+      let items = this.getCurrentList().items;
+      let itemsArray = []
+      Object.keys(items).map(itemKey => itemsArray.push(items[itemKey]))
+      let detailsTask = itemsArray.filter(item => item.id === detailsTaskId)[0]
+      this.setState({ showDetails, detailsTask }, () => {});
+    }, 0);
   };
 
   handleSortByChange = sortBy => {
@@ -137,11 +144,11 @@ class ToDosPage extends React.PureComponent {
     return (
       <StyledContainer
         className={this.state.showDetails ? "expanded" : "compressed"}
-      >
+        >
         {this.props.lists === "loading" ? (
           <Loading />
-        ) : Object.keys(this.props.lists).length > 0 ? (
-          <React.Fragment>
+          ) : Object.keys(this.props.lists).length > 0 ? (
+            <React.Fragment>
             <ToDosWithAuth
               currentList={this.getCurrentList()}
               nextListId={this.getNextListIdToShowAfterDeleteCurrentList()}
@@ -151,14 +158,15 @@ class ToDosPage extends React.PureComponent {
               completeListLayout={this.completeListLayout}
               showDetails={this.state.showDetails}
               showDetailsFunc={this.showDetailsFunc}
+              detailsTask={this.state.detailsTask}
               sortBy={this.state.sortBy}
               handleSortByChange={this.handleSortByChange}
-            />
+              />
             <ListsManager completeListLayout={this.completeListLayout} />
           </React.Fragment>
         ) : (
           <NoToDos />
-        )}
+          )}
       </StyledContainer>
     );
   }

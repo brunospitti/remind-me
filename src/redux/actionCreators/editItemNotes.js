@@ -1,8 +1,9 @@
-export default function editItemNotes(listId, taskId, newNotes) {
-  return {
-    type: "EDIT_ITEM_NOTES",
-    listId,
-    taskId,
-    newNotes
-  };
-}
+import { databaseRef } from "../../config/firebase";
+
+export const editItemNotes = (listId, taskId, newNotes) => async dispatch => {
+  let updates = {};
+
+  updates[`lists/${listId}/items/${taskId}/notes`] = newNotes;
+
+  databaseRef.update(updates);
+};

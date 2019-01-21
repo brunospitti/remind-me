@@ -37,21 +37,6 @@ function lists(state = "loading", action) {
       return newState;
     }
 
-    case "EDIT_LIST_NAME": {
-      const newState = { ...state };
-
-      let currList =
-        newState[
-          Object.keys(newState).filter(
-            list => newState[list].id === action.listId
-          )
-        ];
-
-      currList.name = action.newName;
-
-      return newState;
-    }
-
     default:
       return state;
   }
