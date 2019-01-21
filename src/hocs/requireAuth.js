@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { redirectTo } from "@reach/router"
+import { redirectTo } from "@reach/router";
 
 export function requireAuth(ComposedComponent) {
   class Authentication extends Component {

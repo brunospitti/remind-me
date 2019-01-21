@@ -8,16 +8,15 @@ import { userLogout } from "../redux/actionCreators/userLogout";
 
 import { Button } from "./basics/Button";
 
-
 class Header extends React.PureComponent {
   render() {
     return (
       <StyledContainer>
         <StyledH1>To do list</StyledH1>
         <StyledButton
-            clickBehavior={() => this.props.userLogout()}
-            text={"Sign out"}
-          />
+          clickBehavior={() => this.props.userLogout()}
+          text={"Sign out"}
+        />
       </StyledContainer>
     );
   }
@@ -55,4 +54,7 @@ function mapStateToProps({ user }) {
   return { user };
 }
 
-export default connect(mapStateToProps, { userLogout })(Header);
+export default connect(
+  mapStateToProps,
+  { userLogout }
+)(Header);

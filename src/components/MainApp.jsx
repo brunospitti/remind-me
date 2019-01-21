@@ -34,12 +34,12 @@ class MainApp extends React.PureComponent {
       <div>
         <Header />
         <StyledMaxWidth>
-        <Provider store={store}>
-          <Router>
+          <Provider store={store}>
+            <Router>
               <LoadableHomePagePage path="/" />
-          </Router>
-        </Provider>
-            </StyledMaxWidth>
+            </Router>
+          </Provider>
+        </StyledMaxWidth>
         <Footer />
         <GlobalStyles />
       </div>
@@ -51,7 +51,7 @@ class MainApp extends React.PureComponent {
 const StyledMaxWidth = styled("div")`
   max-width: 1300px;
   margin: 0 auto;
-`
+`;
 
 export default connect(
   null,

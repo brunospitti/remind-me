@@ -5,6 +5,6 @@ function user(state = "loading", action) {
     default:
       return state;
   }
-};
+}
 
 export default user;

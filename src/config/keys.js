@@ -5,4 +5,4 @@ export const FirebaseConfig = {
   projectId: "todo-list-bspitti",
   storageBucket: "todo-list-bspitti.appspot.com",
   messagingSenderId: "375602577615"
-  };
+};

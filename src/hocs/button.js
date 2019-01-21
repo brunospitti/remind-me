@@ -49,7 +49,10 @@ export default function button(WrappedComponent) {
       let { icon } = this.props;
       if (icon) {
         return (
-          <WrappedComponent onClick={this.props.clickBehavior} className={this.props.className}>
+          <WrappedComponent
+            onClick={this.props.clickBehavior}
+            className={this.props.className}
+          >
             {renderIconButton()}
           </WrappedComponent>
         );

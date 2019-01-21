@@ -5,11 +5,8 @@
 function activeList(state = 0, action) {
   switch (action.type) {
     case "FETCH_TO_DOS": {
-      let lists = {...action.lists}
-      if (
-        lists != "loading" &&
-        Object.keys(lists).length > 0
-      ) {
+      let lists = { ...action.lists };
+      if (lists != "loading" && Object.keys(lists).length > 0) {
         let listsArray = [];
         Object.keys(lists).map(list => listsArray.push(lists[list]));
 
@@ -20,7 +17,7 @@ function activeList(state = 0, action) {
         return listsArray[0].id;
       }
 
-      return state
+      return state;
     }
 
     case "CHANGE_ACTIVE_LIST": {

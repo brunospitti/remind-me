@@ -1,4 +1,3 @@
-
 import { authRef, provider } from "../../config/firebase";
 
 export const userLogin = () => dispatch => {

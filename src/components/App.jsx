@@ -6,9 +6,7 @@ import store from "../redux/store";
 
 import MainApp from "./MainApp";
 
-
 class App extends React.PureComponent {
-
   render() {
     return (
       <Provider store={store}>

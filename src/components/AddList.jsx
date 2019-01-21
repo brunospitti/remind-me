@@ -21,7 +21,11 @@ class AddList extends React.PureComponent {
   clickBehavior = e => {
     e.preventDefault();
     if (this.state.inputValue != "" && this.state.inputValue.length > 3) {
-      this.props.clickBehavior(this.state.inputValue, this.state.inputColor, this.props.user.uid);
+      this.props.clickBehavior(
+        this.state.inputValue,
+        this.state.inputColor,
+        this.props.user.uid
+      );
       this.setState({ inputValue: "", inputColor: "lightGrey" });
     }
   };
@@ -98,8 +102,6 @@ const StyledForm = styled("form")`
     height: ${props => props.buttonHeight};
   }
 `;
-
-
 
 const mapStateToProps = ({ user }) => ({
   user

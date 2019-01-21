@@ -35,7 +35,7 @@ class SingleToDoDetails extends React.PureComponent {
       >
         <div className="header-container">
           <StyledH3 mainColor={this.props.mainColor}>Task details</StyledH3>
-          <StyledEditIcon mainColor={this.props.mainColor} />
+          <StyledEditIcon style={{ fill: this.props.mainColor }} />
           <PrioritySelector
             handleChangeItemPriorityColor={
               this.props.handleChangeItemPriorityColor
@@ -115,10 +115,8 @@ const StyledDetailsContainer = styled("div")`
 `;
 
 const StyledEditIcon = styled(EditIcon)`
-  display: inline-block;
   float: right;
   width: 33px;
-  fill: ${props => props.mainColor};
 `;
 
 const StyledH3 = styled("h3")`

@@ -5,7 +5,7 @@ import { lighten, darken } from "polished";
 
 import { colors } from "../assets/globalStyles";
 
-import {editListName} from "../redux/actionCreators/editListName";
+import { editListName } from "../redux/actionCreators/editListName";
 import { deleteList } from "../redux/actionCreators/deleteList";
 
 import Sort from "./basics/Sort";
