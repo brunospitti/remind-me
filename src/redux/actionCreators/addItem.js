@@ -12,7 +12,8 @@ export const addItem = (itemToAdd, listId) => async dispatch => {
     start_date: currTime(),
     end_date: "",
     checked: false,
-    priority: 1
+    priority: 1,
+    list_id: listId
   };
 
   updates[`lists/${listId}/items/${taskId}`] = newItemObject;

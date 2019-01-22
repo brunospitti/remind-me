@@ -12,7 +12,8 @@
           "notes": "",
           "priority": 1,
           "start_date": "2018-01-17T13:35:27",
-          "task": "Watch new episode of Westworld"
+          "task": "Watch new episode of Westworld",
+          "list_id": "dzupcuav2g"
         },
         "krap9eg837": {
           "checked": false,
@@ -21,7 +22,8 @@
           "notes": "",
           "priority": 1,
           "start_date": "2018-10-08T09:15:29",
-          "task": "Go to that JS meet-up"
+          "task": "Go to that JS meet-up",
+          "list_id": "dzupcuav2g"
         },
         "l4ypfaxwq8": {
           "checked": false,
@@ -30,7 +32,8 @@
           "notes": "",
           "priority": 1,
           "start_date": "2018-03-20T13:28:09",
-          "task": "Take kids to park"
+          "task": "Take kids to park",
+          "list_id": "dzupcuav2g"
         }
       },
       "name": "leisure",
@@ -49,18 +52,19 @@
       "owner": ""
     },
     "ulat3p1yj5": {
-      "color": "#247BA0",
+      "color": "#9881d0",
       "creation_date": "2019-01-10T22:00:35",
       "id": "ulat3p1yj5",
       "items": {
         "9jxst3iep4": {
           "checked": false,
-          "end_date": "2019-03-20T13:28:09",
+          "end_date": "2019-02-27T17:55:00",
           "id": "9jxst3iep4",
-          "notes": "",
+          "notes": "Relax: Get some coffee",
           "priority": 3,
           "start_date": "2018-03-20T13:28:09",
-          "task": "Fill report"
+          "task": "Fill report and then relax!",
+          "list_id": "ulat3p1yj5"
         },
         "sc201ekq08": {
           "checked": false,
@@ -69,16 +73,18 @@
           "notes": "",
           "priority": 1,
           "start_date": "2018-10-11T13:35:09",
-          "task": "Get package at reception"
+          "task": "Get package at reception",
+          "list_id": "ulat3p1yj5"
         },
         "xwkyes265f": {
-          "checked": false,
+          "checked": true,
           "end_date": "2019-06-13T23:35:46",
           "id": "xwkyes265f",
           "notes": "",
           "priority": 2,
           "start_date": "2018-06-13T23:35:46",
-          "task": "Start dashboard project"
+          "task": "Start dashboard project",
+          "list_id": "ulat3p1yj5"
         },
         "y9he3lko4j": {
           "checked": false,
@@ -87,7 +93,8 @@
           "notes": "",
           "priority": 1,
           "start_date": "2017-12-18T10:42:37",
-          "task": "Talk to boss about raise"
+          "task": "Talk to boss about raise",
+          "list_id": "ulat3p1yj5"
         }
       },
       "name": "work",

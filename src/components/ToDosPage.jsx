@@ -7,10 +7,11 @@ import selectList from "../redux/actionCreators/selectList";
 
 import { requireAuth } from "../hocs/requireAuth";
 
+import Loading from "./basics/Loading";
+import Notification from "./Notification";
 import ToDos from "./ToDos";
 import ListsManager from "./ListsManager";
 import NoToDos from "./NoToDos";
-import Loading from "./basics/Loading";
 
 class ToDosPage extends React.PureComponent {
   state = {
@@ -31,6 +32,24 @@ class ToDosPage extends React.PureComponent {
       this.getNextListIdToShowAfterDeleteCurrentList();
     }
   }
+
+  getCurrentList = () => {
+    let lists = { ...this.props.lists };
+    let currList = Object.keys(lists).filter(
+      list => lists[list].id === this.props.activeList
+    );
+    let items = lists[currList].items;
+    let itemsArray = [];
+    Object.keys(items)
+      .filter(item => !items[item].hasOwnProperty("ignoreMe"))
+      .map(itemKey => itemsArray.push(items[itemKey]));
+
+    this.sortBy(itemsArray);
+
+    lists[currList].items = itemsArray;
+
+    return lists[currList];
+  };
 
   sortBy = itemsArray => {
     if (this.state.sortBy === "most-important") {
@@ -68,24 +87,6 @@ class ToDosPage extends React.PureComponent {
     }
 
     return itemsArray;
-  };
-
-  getCurrentList = () => {
-    let lists = { ...this.props.lists };
-    let currList = Object.keys(lists).filter(
-      list => lists[list].id === this.props.activeList
-    );
-    let items = lists[currList].items;
-    let itemsArray = [];
-    Object.keys(items)
-      .filter(item => !items[item].hasOwnProperty("ignoreMe"))
-      .map(itemKey => itemsArray.push(items[itemKey]));
-
-    this.sortBy(itemsArray);
-
-    lists[currList].items = itemsArray;
-
-    return lists[currList];
   };
 
   completeListLayout = () => {
@@ -144,32 +145,35 @@ class ToDosPage extends React.PureComponent {
     let ToDosWithAuth = requireAuth(ToDos);
 
     return (
-      <StyledContainer
-        className={this.state.showDetails ? "expanded" : "compressed"}
-      >
-        {this.props.lists === "loading" ? (
-          <Loading />
-        ) : Object.keys(this.props.lists).length > 0 ? (
-          <React.Fragment>
-            <ToDosWithAuth
-              currentList={this.getCurrentList()}
-              nextListId={this.getNextListIdToShowAfterDeleteCurrentList()}
-              filterCheckedFunc={this.filterCheckedFunc}
-              filterChecked={this.state.filterChecked}
-              completeListLayoutNum={this.state.completeListLayoutNum}
-              completeListLayout={this.completeListLayout}
-              showDetails={this.state.showDetails}
-              showDetailsFunc={this.showDetailsFunc}
-              detailsTask={this.state.detailsTask}
-              sortBy={this.state.sortBy}
-              handleSortByChange={this.handleSortByChange}
-            />
-            <ListsManager completeListLayout={this.completeListLayout} />
-          </React.Fragment>
-        ) : (
-          <NoToDos />
-        )}
-      </StyledContainer>
+      <React.Fragment>
+        <Notification lists={this.props.lists} />
+        <StyledContainer
+          className={this.state.showDetails ? "expanded" : "compressed"}
+        >
+          {this.props.lists === "loading" ? (
+            <Loading />
+          ) : Object.keys(this.props.lists).length > 0 ? (
+            <React.Fragment>
+              <ToDosWithAuth
+                currentList={this.getCurrentList()}
+                nextListId={this.getNextListIdToShowAfterDeleteCurrentList()}
+                filterCheckedFunc={this.filterCheckedFunc}
+                filterChecked={this.state.filterChecked}
+                completeListLayoutNum={this.state.completeListLayoutNum}
+                completeListLayout={this.completeListLayout}
+                showDetails={this.state.showDetails}
+                showDetailsFunc={this.showDetailsFunc}
+                detailsTask={this.state.detailsTask}
+                sortBy={this.state.sortBy}
+                handleSortByChange={this.handleSortByChange}
+              />
+              <ListsManager completeListLayout={this.completeListLayout} />
+            </React.Fragment>
+          ) : (
+            <NoToDos />
+          )}
+        </StyledContainer>
+      </React.Fragment>
     );
   }
 }
