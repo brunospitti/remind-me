@@ -7,8 +7,8 @@ import DeleteIcon from "../assets/icons/delete.svg";
 import PriorityIcon from "../assets/icons/priority.svg";
 import CollapseIcon from "../assets/icons/collapse.svg";
 import AddIcon from "../assets/icons/add.svg";
-import CalendarIcon from "../assets/icons/calendar.svg"
-import ClearIcon from "../assets/icons/clear.svg"
+import CalendarIcon from "../assets/icons/calendar.svg";
+import ClearIcon from "../assets/icons/clear.svg";
 
 export default function button(WrappedComponent) {
   return class extends React.PureComponent {
