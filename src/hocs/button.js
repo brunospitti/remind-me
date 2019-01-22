@@ -7,6 +7,8 @@ import DeleteIcon from "../assets/icons/delete.svg";
 import PriorityIcon from "../assets/icons/priority.svg";
 import CollapseIcon from "../assets/icons/collapse.svg";
 import AddIcon from "../assets/icons/add.svg";
+import CalendarIcon from "../assets/icons/calendar.svg"
+import ClearIcon from "../assets/icons/clear.svg"
 
 export default function button(WrappedComponent) {
   return class extends React.PureComponent {
@@ -42,6 +44,10 @@ export default function button(WrappedComponent) {
           return <CollapseIcon alt="collapse item" id="collapseIcon" />;
         } else if (icon === "add") {
           return <AddIcon alt="add item" id="addIcon" />;
+        } else if (icon === "calendar") {
+          return <CalendarIcon alt="calendar item" id="calendarIcon" />;
+        } else if (icon === "clear") {
+          return <ClearIcon alt="clear item" id="clearIcon" />;
         } else {
           return null;
         }

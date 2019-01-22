@@ -4,7 +4,11 @@ import { connect } from "react-redux";
 import Datetime from "react-datetime";
 
 import { listColors } from "../assets/globalStyles";
+
+
 import { currTime, dateTransformation } from "../assets/helpers";
+
+import { Button } from "./basics/Button";
 
 class DateTimePicker extends React.PureComponent {
   addDays = (date, days) => {
@@ -28,11 +32,31 @@ class DateTimePicker extends React.PureComponent {
       ? new Date(this.props.defaultEndDate)
       : "";
   };
+
+  renderInput = (props, openCalendar, closeCalendar) => {
+    return (
+      <StyledInputHolder mainColor={this.props.mainColor}>
+        <input {...props} />
+        <Button
+          icon="calendar"
+          clickBehavior={openCalendar}
+          text="Open Calendar"
+        />
+        <Button
+          icon="clear"
+          clickBehavior={() => this.props.getNewDate("")}
+          text="Remove reminder"
+        />
+      </StyledInputHolder>
+    );
+  }
+
   render() {
     return (
       <React.Fragment>
         <StyledDateTimeContainer>
           <Datetime
+            renderInput={ this.renderInput }
             inputProps={{
               placeholder: "pick a date and time"
             }}
@@ -42,7 +66,6 @@ class DateTimePicker extends React.PureComponent {
             onBlur={this.props.getNewDate}
             isValidDate={this.isDateValid}
           />
-          <div onClick={() => this.props.getNewDate("")}> remove reminder </div>
         </StyledDateTimeContainer>
       </React.Fragment>
     );
@@ -50,6 +73,31 @@ class DateTimePicker extends React.PureComponent {
 }
 
 // styled components
+const StyledInputHolder = styled("div")`
+  input{
+    cursor: pointer;
+  }
+  button{
+    cursor: pointer;
+    background: none;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    svg{
+      width: 25px;
+      margin-bottom: -4px;
+      &#calendarIcon{
+        margin-left: 0;
+      }
+      &#clearIcon{
+        fill: ${props => props.mainColor};
+      }
+    }
+  }
+`
+
+
+
 const StyledDateTimeContainer = styled("div")`
   /*!
  * https://github.com/YouCanBookMe/react-datetime
@@ -57,50 +105,68 @@ const StyledDateTimeContainer = styled("div")`
 
   .rdt {
     position: relative;
-  }
-  .rdtPicker {
-    display: none;
-    position: absolute;
-    width: 250px;
-    padding: 4px;
-    margin-top: 1px;
-    z-index: 99999 !important;
-    background: #fff;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    border: 1px solid #f9f9f9;
-  }
-  .rdtOpen .rdtPicker {
-    display: block;
-  }
-  .rdtStatic .rdtPicker {
-    box-shadow: none;
-    position: static;
-  }
-
-  .rdtPicker .rdtTimeToggle {
+    &.rdtOpen{
+      .rdtPicker {
+      display: block;
+    }
+    }
+    &.rdtStatic{
+      .rdtPicker {
+        box-shadow: none;
+        position: static;
+      }
+    }
+    .rdtPicker {
+      display: none;
+      position: absolute;
+      width: 250px;
+      padding: 4px;
+      margin-top: 1px;
+      z-index: 99999 !important;
+      background: #fff;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      border: 1px solid #f9f9f9;
+      .rdtTimeToggle {
     text-align: center;
   }
-
-  .rdtPicker table {
+  table {
     width: 100%;
     margin: 0;
   }
-  .rdtPicker td,
-  .rdtPicker th {
+  thead {
+    tr:first-child{
+      height: 45px;
+      background: #f3f3f3;
+    }
+  }
+  td,
+  th {
     text-align: center;
     height: 28px;
   }
-  .rdtPicker td {
+  td {
     cursor: pointer;
+    &.rdtDay,
+    &.rdtHour,
+    &.rdtMinute,
+    &.rdtSecond{
+      &:hover{
+          cursor: pointer;
+        background: #eeeeee;
+      }
+    }
   }
-  .rdtPicker td.rdtDay:hover,
-  .rdtPicker td.rdtHour:hover,
-  .rdtPicker td.rdtMinute:hover,
-  .rdtPicker td.rdtSecond:hover,
-  .rdtPicker .rdtTimeToggle:hover {
-    background: #eeeeee;
-    cursor: pointer;
+  .rdtTimeToggle{
+    &:hover{
+      cursor: pointer;
+        background: #eeeeee;
+      }
   }
+    }
+  }
+
+
+  
   .rdtPicker td.rdtOld,
   .rdtPicker td.rdtNew {
     color: #999999;
@@ -153,11 +219,16 @@ const StyledDateTimeContainer = styled("div")`
   }
   .rdtPicker th.rdtSwitch {
     width: 100px;
+    vertical-align: middle;
   }
   .rdtPicker th.rdtNext,
   .rdtPicker th.rdtPrev {
     font-size: 21px;
-    vertical-align: top;
+    vertical-align: middle;
+    span{
+      font-size: 21px;
+      margin-top: -5px;
+    }
   }
 
   .rdtPrev span,

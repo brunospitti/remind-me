@@ -51,20 +51,24 @@ class SingleToDoDetailsEdit extends React.PureComponent {
   render() {
     return (
       <React.Fragment>
+        <StyledH4>Task name:</StyledH4>
         <StyledEditableDiv
           value={this.props.task.task}
           getInputValue={this.getInputValue}
           inputPlaceholder="Edit task"
         />
+        <StyledH4>Task notes:</StyledH4>
         <StyledEditableDivTextArea
           dontSaveOnEnter={true}
           value={this.props.task.notes}
           getInputValue={this.getTextAreaValue}
           inputPlaceholder="Edit task"
         />
+        <StyledH4>Remind me at:</StyledH4>
         <DateTimePicker
           defaultEndDate={this.props.task.end_date}
           getNewDate={this.getNewDate}
+          mainColor={this.props.mainColor}
         />
       </React.Fragment>
     );
@@ -72,6 +76,9 @@ class SingleToDoDetailsEdit extends React.PureComponent {
 }
 
 // styled components
+const StyledH4 = styled("h4")`
+  margin: 15px 0 5px;
+`;
 
 const StyledEditableDiv = styled(DivThanInput)`
   position: relative;
@@ -91,7 +98,6 @@ const StyledEditableDivTextArea = styled(DivThanInput)`
   margin-bottom: 5px;
   border: 0;
   padding: 12px 10px;
-  margin: 10px 0;
   height: 120px;
   overflow-x: auto;
 `;
