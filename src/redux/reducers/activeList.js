@@ -6,6 +6,16 @@ function activeList(state = 0, action) {
   switch (action.type) {
     case "FETCH_TO_DOS": {
       let lists = { ...action.lists };
+
+      let listsOwned = Object.keys(lists).filter(
+        list => lists[list].owner === action.userId
+      );
+
+      lists = listsOwned.reduce(
+        (result, key) => ({ ...result, [key]: lists[key] }),
+        {}
+      );
+
       if (lists != "loading" && Object.keys(lists).length > 0) {
         let listsArray = [];
         Object.keys(lists).map(list => listsArray.push(lists[list]));

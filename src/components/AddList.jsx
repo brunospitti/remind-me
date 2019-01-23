@@ -49,7 +49,9 @@ class AddList extends React.PureComponent {
               value={this.state.inputValue}
               onChange={e => this.handleChange(e)}
             />
-            <ColorSelector handleColorChange={this.handleColorAdd} />
+            {!this.props.hideColorSelector && (
+              <ColorSelector handleColorChange={this.handleColorAdd} />
+            )}
           </div>
           <Button
             style={{ backgroundColor: "blue" }}

@@ -25,6 +25,7 @@ class NoToDos extends React.PureComponent {
       <StyledNoToDos>
         {this.state.showAddList ? (
           <AddList
+            hideColorSelector
             autoFocus={true}
             clickBehavior={this.handleAddList}
             text="+"

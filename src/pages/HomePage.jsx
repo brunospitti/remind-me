@@ -24,7 +24,7 @@ class HomePage extends React.PureComponent {
     router: PropTypes.object
   };
 
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     if (nextProps.user) {
       this.setState({ signIn: false });
     } else {

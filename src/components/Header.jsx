@@ -12,11 +12,14 @@ class Header extends React.PureComponent {
   render() {
     return (
       <StyledContainer>
-        <StyledH1>To do list</StyledH1>
-        <StyledButton
-          clickBehavior={() => this.props.userLogout()}
-          text={"Sign out"}
-        />
+        <StyledH1>Remind me...</StyledH1>
+        {this.props.user != null &&
+          (this.props.user != "loading" && (
+            <StyledButton
+              clickBehavior={() => this.props.userLogout()}
+              text={"Sign out"}
+            />
+          ))}
       </StyledContainer>
     );
   }

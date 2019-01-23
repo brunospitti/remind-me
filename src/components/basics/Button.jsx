@@ -33,7 +33,7 @@ const StyledButton = styled("button")`
   color: ${colors.light};
   margin: 10px auto;
   transition: all 0.25s ease;
-  &:hover{
+  &:hover {
     background: ${props => lighten(0.04, props.mainColor)};
   }
 `;

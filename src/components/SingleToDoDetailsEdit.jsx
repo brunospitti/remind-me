@@ -3,8 +3,6 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 
-import { dateTransformation } from "../assets/helpers";
-
 import { colors } from "../assets/globalStyles";
 
 import { editItemName } from "../redux/actionCreators/editItemName";

@@ -15,13 +15,12 @@ export const dateTransformation = dateTime => {
 export const dateTimeTransformation = dateTime => {
   if (dateTime) {
     let date = new Date(dateTime);
-    let dateTransformed = date.toUTCString()
+    let dateTransformed = date.toUTCString();
     return dateTransformed.substring(0, dateTransformed.length - 7);
   } else {
     return null;
   }
 };
-
 
 export const currTime = () =>
   new Date(new Date().toString().split("GMT")[0] + " UTC")

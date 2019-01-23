@@ -5,8 +5,6 @@ import { connect } from "react-redux";
 import { fetchToDos } from "../redux/actionCreators/fetchToDos";
 import selectList from "../redux/actionCreators/selectList";
 
-import { requireAuth } from "../hocs/requireAuth";
-
 import Loading from "./basics/Loading";
 import Notification from "./Notification";
 import ToDos from "./ToDos";
@@ -35,9 +33,11 @@ class ToDosPage extends React.PureComponent {
 
   getCurrentList = () => {
     let lists = { ...this.props.lists };
+
     let currList = Object.keys(lists).filter(
       list => lists[list].id === this.props.activeList
     );
+
     let items = lists[currList].items;
     let itemsArray = [];
     Object.keys(items)
@@ -93,7 +93,7 @@ class ToDosPage extends React.PureComponent {
     let currList = this.getCurrentList();
     let containerHeight = document.querySelector("#to-dos").clientHeight;
     let itemHeight = 77;
-    let maxItems = Math.floor(containerHeight / itemHeight) ;
+    let maxItems = Math.floor(containerHeight / itemHeight);
     if (currList.items.length < maxItems) {
       let completeListLayoutNum = maxItems - currList.items.length;
       this.setState({ completeListLayoutNum }, () => {});
@@ -139,8 +139,6 @@ class ToDosPage extends React.PureComponent {
   };
 
   render() {
-    let ToDosWithAuth = requireAuth(ToDos);
-
     return (
       <React.Fragment>
         <Notification lists={this.props.lists} />
@@ -151,7 +149,7 @@ class ToDosPage extends React.PureComponent {
             <Loading />
           ) : Object.keys(this.props.lists).length > 0 ? (
             <React.Fragment>
-              <ToDosWithAuth
+              <ToDos
                 currentList={this.getCurrentList()}
                 nextListId={this.getNextListIdToShowAfterDeleteCurrentList()}
                 filterCheckedFunc={this.filterCheckedFunc}

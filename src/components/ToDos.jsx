@@ -2,18 +2,26 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { lighten, darken } from "polished";
+import Loadable from "react-loadable";
 
 import { colors } from "../assets/globalStyles";
 
 import { editListName } from "../redux/actionCreators/editListName";
 import { deleteList } from "../redux/actionCreators/deleteList";
 
+import Loading from "./basics/Loading";
 import Sort from "./basics/Sort";
 import { Button } from "./basics/Button";
 import DivThanInput from "./basics/DivThanInput";
 import SingleToDo from "./SingleToDo";
-import SingleToDoDetails from "./SingleToDoDetails";
 import AddItem from "./AddItem";
+
+const loading = () => <Loading />;
+
+const LoadableSingleToDoDetails = Loadable({
+  loader: () => import("./SingleToDoDetails"),
+  loading
+});
 
 class ToDos extends React.PureComponent {
   state = {
@@ -115,7 +123,7 @@ class ToDos extends React.PureComponent {
             </ul>
           </StyledToDo>
           {this.props.showDetails && (
-            <SingleToDoDetails
+            <LoadableSingleToDoDetails
               task={this.props.detailsTask}
               showDetailsFunc={this.props.showDetailsFunc}
               mainColor={this.props.currentList.color}
@@ -187,7 +195,7 @@ const StyledToDo = styled("div")`
   > ul > li {
     position: relative;
     border-bottom: 1px solid ${lighten(0.2, colors.lightGrey)};
-    &.fake{
+    &.fake {
       height: 77px;
       &.first-fake {
         border-top: 1px solid ${lighten(0.2, colors.lightGrey)};

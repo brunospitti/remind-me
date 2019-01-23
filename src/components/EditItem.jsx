@@ -1,10 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { connect } from "react-redux";
 
-import addItem from "../redux/actionCreators/addItem";
-
-class EditItem extends React.PureComponent {
+export default class EditItem extends React.PureComponent {
   state = {
     inputValue: this.props.initialValue
   };
@@ -42,14 +39,3 @@ const StyledInput = styled("input")`
   background: transparent;
   padding: 20px 0;
 `;
-
-const mapDispatchToProps = dispatch => ({
-  handleAddItem(newItem, listId) {
-    dispatch(addItem(newItem, listId));
-  }
-});
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(EditItem);

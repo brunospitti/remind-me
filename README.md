@@ -1,3 +1,3 @@
-To do app
+Remind me app
 
-Using react, redux, emotion, jest and loadable
+Using react, redux, firebase, styled-components, jest and loadable

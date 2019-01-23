@@ -3,14 +3,18 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 import Datetime from "react-datetime";
 
-import { listColors, colors } from "../assets/globalStyles";
+import { colors } from "../assets/globalStyles";
 
-import { currTime, dateTransformation } from "../assets/helpers";
+import { currTime } from "../assets/helpers";
 
 import { Button } from "./basics/Button";
 import { rgba } from "polished";
 
 class DateTimePicker extends React.PureComponent {
+  state = {
+    showRealCalendar: false
+  };
+
   addDays = (date, days) => {
     let result = new Date(date);
     result.setDate(result.getDate() + days);
@@ -33,22 +37,27 @@ class DateTimePicker extends React.PureComponent {
       : "";
   };
 
-  renderInput = (props, openCalendar, closeCalendar) => {
+  renderInput = (props, openCalendar) => {
     return (
-      <StyledInputHolder mainColor={this.props.mainColor}>
-        <div>
-          <input {...props} />
-          <Button
-            icon="calendar"
-            clickBehavior={openCalendar}
-            text="Open Calendar"
-          />
-        </div>
-        <Button
-          clickBehavior={() => this.props.getNewDate("")}
-          text="Remove reminder"
-        />
-      </StyledInputHolder>
+      <React.Fragment>
+        <StyledInputHolder mainColor={this.props.mainColor}>
+          <div>
+            <input {...props} />
+
+            <Button
+              icon="calendar"
+              clickBehavior={openCalendar}
+              text="Open Calendar"
+            />
+          </div>
+          {this.props.defaultEndDate != "" && (
+            <Button
+              clickBehavior={() => this.props.getNewDate("")}
+              text="Remove reminder"
+            />
+          )}
+        </StyledInputHolder>
+      </React.Fragment>
     );
   };
 

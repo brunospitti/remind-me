@@ -6,18 +6,28 @@ export const addItem = (itemToAdd, listId) => async dispatch => {
   let updates = {};
   let taskId = randomId();
 
-  let newItemObject = {
-    id: taskId,
-    task: itemToAdd,
-    start_date: currTime(),
-    end_date: "",
-    reminder_set: false,
-    checked: false,
-    priority: 1,
-    list_id: listId
-  };
+  databaseRef
+    .child(`lists/${listId}/items/`)
+    .once("value")
+    .then(function(snapshot) {
+      let ignoreMeValue = snapshot.val() && snapshot.val().ignoreMe;
+      if (ignoreMeValue != undefined) {
+        updates[`lists/${listId}/items/ignoreMe`] = null;
+      }
 
-  updates[`lists/${listId}/items/${taskId}`] = newItemObject;
+      let newItemObject = {
+        id: taskId,
+        task: itemToAdd,
+        start_date: currTime(),
+        end_date: "",
+        reminder_set: false,
+        checked: false,
+        priority: 1,
+        list_id: listId
+      };
 
-  databaseRef.update(updates);
+      updates[`lists/${listId}/items/${taskId}`] = newItemObject;
+
+      databaseRef.update(updates);
+    });
 };

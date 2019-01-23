@@ -4,6 +4,8 @@ import styled from "styled-components";
 
 import { colors } from "../assets/globalStyles";
 
+import notificationSound from "../assets/audio/notification.mp3";
+
 import { currTime, dateTimeTransformation } from "../assets/helpers";
 
 import { checkItem } from "../redux/actionCreators/checkItem";
@@ -15,8 +17,23 @@ import { Button } from "./basics/Button";
 class Notification extends React.PureComponent {
   state = {
     showNotification: false,
-    item: {}
-  }
+    item: {},
+    pageTitle: "Remind me..."
+  };
+
+  cleanState = () => {
+    this.setState(
+      {
+        showNotification: false,
+        item: {},
+        pageTitle: "Remind me..."
+      },
+      () => {
+        document.title = this.state.pageTitle;
+      }
+    );
+  };
+
   componentDidMount() {
     this.notificationFirstTime();
     this.notificationTimer();
@@ -24,34 +41,41 @@ class Notification extends React.PureComponent {
 
   notificationFirstTime = () => {
     setTimeout(() => {
-      this.notificationRun()
+      this.notificationRun();
     }, 1000);
   };
 
   notificationTimer = () => {
     setInterval(() => {
-      this.notificationRun()
+      this.notificationRun();
     }, 60 * 1000);
   };
 
   notificationRun = () => {
     let notificationData = this.allItems();
     let dateNow = new Date(currTime()).getTime();
+    const audio = new Audio(notificationSound);
     notificationData.map(item => {
       let itemEndDate = new Date(item.end_date).getTime();
-      if (item.reminder_set){
-        if (dateNow < itemEndDate) {
-          console.log(item.task, "now is higher");
-        } else {
-          console.log(item.task, "<- SET STATE");
-          this.setState({
-            showNotification: true,
-            item
-          })
+      if (item.reminder_set) {
+        if (dateNow >= itemEndDate) {
+          if (!this.state.showNotification) {
+            audio.play();
+          }
+          this.setState(
+            {
+              showNotification: true,
+              item,
+              pageTitle: `Reminder: ${item.task}`
+            },
+            () => {
+              document.title = this.state.pageTitle;
+            }
+          );
         }
       }
-    })
-  }
+    });
+  };
 
   allItems = () => {
     let lists = { ...this.props.lists };
@@ -77,31 +101,32 @@ class Notification extends React.PureComponent {
   };
 
   handleComplete = () => {
-    this.setState({showNotification: false, item: {}});
+    this.cleanState();
+
     this.props.handleCheckItem(this.state.item.id, this.state.item.list_id);
     this.props.handleEditItemEndDate(
       this.state.item.list_id,
       this.state.item.id,
       ""
     );
-  }
+  };
   handleIgnore = () => {
-    this.setState({showNotification: false, item: {}});
-    this.props.handleIgnoreReminderItem(this.state.item.id, this.state.item.list_id)
-  }
+    this.cleanState();
+    this.props.handleIgnoreReminderItem(
+      this.state.item.id,
+      this.state.item.list_id
+    );
+  };
 
   render() {
     return (
       <React.Fragment>
-        {this.state.showNotification
-          ?
-          <StyledNotification mainColor={this.props.lists[this.state.item.list_id].color}>
-            <h1>
-              {this.state.item.task}
-            </h1>
-            <span>
-              {dateTimeTransformation(this.state.item.end_date)}
-            </span>
+        {this.state.showNotification ? (
+          <StyledNotification
+            mainColor={this.props.lists[this.state.item.list_id].color}
+          >
+            <h1>{this.state.item.task}</h1>
+            <span>{dateTimeTransformation(this.state.item.end_date)}</span>
             <Button
               primary
               clickBehavior={() => this.handleComplete()}
@@ -112,9 +137,7 @@ class Notification extends React.PureComponent {
               text={"Ignore for now"}
             />
           </StyledNotification>
-          :
-          null
-        }
+        ) : null}
       </React.Fragment>
     );
   }
@@ -135,12 +158,12 @@ const StyledNotification = styled("header")`
     color: ${props => props.mainColor};
     margin-bottom: 5px;
   }
-  span{
+  span {
     display: block;
     margin-bottom: 10px;
     color: ${colors.lightGrey};
   }
-  button{
+  button {
     display: inline-block;
   }
   button + button {

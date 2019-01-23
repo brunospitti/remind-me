@@ -25,7 +25,7 @@ const LoadableHomePagePage = Loadable({
 });
 
 class MainApp extends React.PureComponent {
-  componentWillMount() {
+  componentDidMount() {
     this.props.userFetch();
   }
 
