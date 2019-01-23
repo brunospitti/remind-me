@@ -2,12 +2,17 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 
+import { dateTimeTransformation } from "../assets/helpers";
+
 import { deleteItem } from "../redux/actionCreators/deleteItem";
 import { changeItemPriorityColor } from "../redux/actionCreators/changeItemPriorityColor";
+
+import BellIcon from "../assets/icons/bell.svg"
 
 import PrioritySelector from "./basics/PrioritySelector";
 import RatioButton from "./basics/RatioButton";
 import { Button } from "./basics/Button";
+import { colors } from "../assets/globalStyles";
 
 class SingleToDo extends React.PureComponent {
   getClasses = () => {
@@ -61,6 +66,14 @@ class SingleToDo extends React.PureComponent {
               tabIndex="0"
             >
               {this.props.task.task}
+              {
+                this.props.task.end_date != ""
+                &&
+                <StyledTime mainColor={this.props.task.reminder_set ? colors.primary : colors.lightGrey}>
+                  <BellIcon/>
+                  {dateTimeTransformation(this.props.task.end_date)}
+                </StyledTime>
+              }
             </StyledTask>
             <PrioritySelector
               handleChangeItemPriorityColor={
@@ -91,7 +104,7 @@ class SingleToDo extends React.PureComponent {
 // styled components
 const StyledLi = styled("li")`
   position: relative;
-  padding: 20px;
+  padding: 15px 20px;
   text-align: left;
   > div {
     width: 100%;
@@ -127,6 +140,23 @@ const StyledTask = styled("div")`
   padding-left: 15px;
   vertical-align: middle !important;
 `;
+
+const StyledTime = styled("span")`
+  position: relative !important;
+  display: block;
+  font-size: 0.8em;
+  margin-top: 6px;
+  color: ${props => props.mainColor};
+  svg{
+    width: 16px;
+    stroke-width: 13px;
+    stroke: ${props => props.mainColor};
+    fill: ${props => props.mainColor};
+    margin-bottom: -3px;
+    margin-right: 5px;
+  }
+`
+
 
 const mapStateToProps = ({ lists }) => ({
   lists

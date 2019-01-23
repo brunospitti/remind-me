@@ -92,11 +92,8 @@ class ToDosPage extends React.PureComponent {
   completeListLayout = () => {
     let currList = this.getCurrentList();
     let containerHeight = document.querySelector("#to-dos").clientHeight;
-    let itemHeight =
-      currList.items.length > 0
-        ? document.querySelector("#single-to-do").clientHeight
-        : 61;
-    let maxItems = Math.floor(containerHeight / itemHeight) - 1;
+    let itemHeight = 77;
+    let maxItems = Math.floor(containerHeight / itemHeight) ;
     if (currList.items.length < maxItems) {
       let completeListLayoutNum = maxItems - currList.items.length;
       this.setState({ completeListLayoutNum }, () => {});

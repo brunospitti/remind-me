@@ -10,6 +10,7 @@ export const checkItem = (itemToCheck, listId) => async dispatch => {
       let checkedStatus = snapshot.val() && snapshot.val().checked;
 
       updates[`lists/${listId}/items/${itemToCheck}/checked`] = !checkedStatus;
+      updates[`lists/${listId}/items/${itemToCheck}/reminder_set`] = false;
       databaseRef.update(updates);
     });
 };

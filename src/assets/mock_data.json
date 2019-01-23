@@ -7,7 +7,8 @@
       "items": {
         "bddnmkdnlj": {
           "checked": false,
-          "end_date": "2019-01-17T13:35:27",
+          "end_date": "",
+          "reminder_set": false,
           "id": "bddnmkdnlj",
           "notes": "",
           "priority": 1,
@@ -17,7 +18,8 @@
         },
         "krap9eg837": {
           "checked": false,
-          "end_date": "2019-10-08T09:15:29",
+          "end_date": "",
+          "reminder_set": false,
           "id": "krap9eg837",
           "notes": "",
           "priority": 1,
@@ -27,7 +29,8 @@
         },
         "l4ypfaxwq8": {
           "checked": false,
-          "end_date": "2019-03-20T13:28:09",
+          "end_date": "2019-03-20T13:28:00",
+          "reminder_set": true,
           "id": "l4ypfaxwq8",
           "notes": "",
           "priority": 1,
@@ -58,7 +61,8 @@
       "items": {
         "9jxst3iep4": {
           "checked": false,
-          "end_date": "2019-02-27T17:55:00",
+          "end_date": "",
+          "reminder_set": false,
           "id": "9jxst3iep4",
           "notes": "Relax: Get some coffee",
           "priority": 3,
@@ -68,7 +72,8 @@
         },
         "sc201ekq08": {
           "checked": false,
-          "end_date": "2019-10-11T13:35:09",
+          "end_date": "2019-01-23T15:50:00",
+          "reminder_set": true,
           "id": "sc201ekq08",
           "notes": "",
           "priority": 1,
@@ -78,7 +83,8 @@
         },
         "xwkyes265f": {
           "checked": true,
-          "end_date": "2019-06-13T23:35:46",
+          "end_date": "2019-06-13T23:35:00",
+          "reminder_set": false,
           "id": "xwkyes265f",
           "notes": "",
           "priority": 2,
@@ -88,7 +94,8 @@
         },
         "y9he3lko4j": {
           "checked": false,
-          "end_date": "2019-12-18T10:42:37",
+          "end_date": "",
+          "reminder_set": false,
           "id": "y9he3lko4j",
           "notes": "",
           "priority": 1,

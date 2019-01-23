@@ -110,7 +110,7 @@ class ToDos extends React.PureComponent {
                 completeListLayout={this.props.completeListLayout}
               />
               {[...Array(this.props.completeListLayoutNum)].map((e, i) => (
-                <li key={i} className={i === 0 ? "first-fake" : null} />
+                <li key={i} className={i === 0 ? "fake first-fake" : "fake"} />
               ))}
             </ul>
           </StyledToDo>
@@ -186,10 +186,12 @@ const StyledToDo = styled("div")`
   }
   > ul > li {
     position: relative;
-    height: 61px;
     border-bottom: 1px solid ${lighten(0.2, colors.lightGrey)};
-    &.first-fake {
-      border-top: 1px solid ${lighten(0.2, colors.lightGrey)};
+    &.fake{
+      height: 77px;
+      &.first-fake {
+        border-top: 1px solid ${lighten(0.2, colors.lightGrey)};
+      }
     }
   }
 `;

@@ -11,6 +11,7 @@ export const addItem = (itemToAdd, listId) => async dispatch => {
     task: itemToAdd,
     start_date: currTime(),
     end_date: "",
+    reminder_set: false,
     checked: false,
     priority: 1,
     list_id: listId

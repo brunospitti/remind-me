@@ -8,6 +8,7 @@ export const editItemEndDate = (
   let updates = {};
 
   updates[`lists/${listId}/items/${taskId}/end_date`] = newEndDate;
+  updates[`lists/${listId}/items/${taskId}/reminder_set`] = true;
 
   databaseRef.update(updates);
 };

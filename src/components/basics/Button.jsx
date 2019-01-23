@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { lighten } from "polished";
 
 import { colors } from "../../assets/globalStyles";
 
@@ -31,6 +32,10 @@ const StyledButton = styled("button")`
   border-radius: 3px;
   color: ${colors.light};
   margin: 10px auto;
+  transition: all 0.25s ease;
+  &:hover{
+    background: ${props => lighten(0.04, props.mainColor)};
+  }
 `;
 
 const StyledButtonIcon = styled("button")`

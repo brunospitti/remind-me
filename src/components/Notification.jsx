@@ -4,36 +4,59 @@ import styled from "styled-components";
 
 import { colors } from "../assets/globalStyles";
 
-import { currTime } from "../assets/helpers";
+import { currTime, dateTimeTransformation } from "../assets/helpers";
 
-import { userLogout } from "../redux/actionCreators/userLogout";
+import { checkItem } from "../redux/actionCreators/checkItem";
+import { ignoreReminderItem } from "../redux/actionCreators/ignoreReminderItem";
+import { editItemEndDate } from "../redux/actionCreators/editItemEndDate";
 
 import { Button } from "./basics/Button";
 
 class Notification extends React.PureComponent {
+  state = {
+    showNotification: false,
+    item: {}
+  }
   componentDidMount() {
-    this.notificationCheck();
+    this.notificationFirstTime();
+    this.notificationTimer();
   }
 
-  notificationCheck = () => {
-    setInterval(() => {
-      let notificationData = this.allItems();
-      let dateNow = new Date(currTime()).getTime();
-      let test = new Date(notificationData[1].itemEndDate).getTime();
-      if (dateNow <= test) {
-        console.log("now is lower");
-      } else {
-        console.log("now is higher or equal");
-      }
-      // console.log("​ToDosPage -> notificationCheck -> dateNow", dateNow, test);
+  notificationFirstTime = () => {
+    setTimeout(() => {
+      this.notificationRun()
     }, 1000);
   };
+
+  notificationTimer = () => {
+    setInterval(() => {
+      this.notificationRun()
+    }, 60 * 1000);
+  };
+
+  notificationRun = () => {
+    let notificationData = this.allItems();
+    let dateNow = new Date(currTime()).getTime();
+    notificationData.map(item => {
+      let itemEndDate = new Date(item.end_date).getTime();
+      if (item.reminder_set){
+        if (dateNow < itemEndDate) {
+          console.log(item.task, "now is higher");
+        } else {
+          console.log(item.task, "<- SET STATE");
+          this.setState({
+            showNotification: true,
+            item
+          })
+        }
+      }
+    })
+  }
 
   allItems = () => {
     let lists = { ...this.props.lists };
     let items = [];
     let allItemsUgly = [];
-    let cleanItems = [];
     if (
       this.props.lists != "loading" &&
       Object.keys(this.props.lists).length > 0
@@ -48,22 +71,51 @@ class Notification extends React.PureComponent {
       });
 
       items = items.filter(item => !item.ignoreMe);
-      cleanItems = items.map(item => ({
-        itemId: item.id,
-        itemEndDate: item.end_date,
-        itemListId: item.list_id
-      }));
 
-      return cleanItems;
+      return items;
     }
   };
 
+  handleComplete = () => {
+    this.setState({showNotification: false, item: {}});
+    this.props.handleCheckItem(this.state.item.id, this.state.item.list_id);
+    this.props.handleEditItemEndDate(
+      this.state.item.list_id,
+      this.state.item.id,
+      ""
+    );
+  }
+  handleIgnore = () => {
+    this.setState({showNotification: false, item: {}});
+    this.props.handleIgnoreReminderItem(this.state.item.id, this.state.item.list_id)
+  }
+
   render() {
     return (
-      <StyledNotification>
-        This is the Notification
-        <span />
-      </StyledNotification>
+      <React.Fragment>
+        {this.state.showNotification
+          ?
+          <StyledNotification mainColor={this.props.lists[this.state.item.list_id].color}>
+            <h1>
+              {this.state.item.task}
+            </h1>
+            <span>
+              {dateTimeTransformation(this.state.item.end_date)}
+            </span>
+            <Button
+              primary
+              clickBehavior={() => this.handleComplete()}
+              text={"Complete"}
+            />
+            <Button
+              clickBehavior={() => this.handleIgnore()}
+              text={"Ignore for now"}
+            />
+          </StyledNotification>
+          :
+          null
+        }
+      </React.Fragment>
     );
   }
 }
@@ -71,38 +123,48 @@ class Notification extends React.PureComponent {
 // styled components
 const StyledNotification = styled("header")`
   background: ${colors.light};
-  border-bottom: 1px solid ${colors.primary};
+  border-bottom: 3px solid ${props => props.mainColor};
   position: fixed;
   right: 0;
   top: 10%;
-  width: 25%;
+  width: 350px;
   z-index: 10;
   padding: 20px;
+  h1 {
+    font-size: 17px;
+    color: ${props => props.mainColor};
+    margin-bottom: 5px;
+  }
+  span{
+    display: block;
+    margin-bottom: 10px;
+    color: ${colors.lightGrey};
+  }
+  button{
+    display: inline-block;
+  }
+  button + button {
+    margin-left: 25px;
+  }
 `;
 
-const StyledH1 = styled("h1")`
-  font-size: 24px;
-  display: inline-block;
-  color: ${colors.primary};
-`;
-
-const StyledButton = styled(Button)`
-  float: right;
-  margin: -5px 0 0;
-  padding: 0 15px 5px;
-  font-size: 1.3em;
-  font-weight: 600;
-  color: ${colors.complementary};
-  background-color: transparent;
-  border-bottom: 1px solid;
-  border-radius: 0;
-`;
-
-function mapStateToProps({ user }) {
-  return { user };
+function mapStateToProps({ lists }) {
+  return { lists };
 }
+
+const mapDispatchToProps = dispatch => ({
+  handleCheckItem(itemToCheck, listId) {
+    dispatch(checkItem(itemToCheck, listId));
+  },
+  handleIgnoreReminderItem(itemToCheck, listId) {
+    dispatch(ignoreReminderItem(itemToCheck, listId));
+  },
+  handleEditItemEndDate(listId, taskId, newDate) {
+    dispatch(editItemEndDate(listId, taskId, newDate));
+  }
+});
 
 export default connect(
   mapStateToProps,
-  { userLogout }
+  mapDispatchToProps
 )(Notification);

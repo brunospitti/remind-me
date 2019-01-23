@@ -354,6 +354,7 @@ const StyledDateTimeContainer = styled("div")`
 const mapStateToProps = state => ({
   state
 });
+
 export default connect(
   mapStateToProps,
   null
