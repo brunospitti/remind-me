@@ -36,7 +36,7 @@ class ToDosPage extends React.PureComponent {
 
     let currList = Object.keys(lists).filter(
       list => lists[list].id === this.props.activeList
-    );
+      );
 
     let items = lists[currList].items;
     let itemsArray = [];

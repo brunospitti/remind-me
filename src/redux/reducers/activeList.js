@@ -17,18 +17,26 @@ function activeList(state = 0, action) {
       );
 
       if (lists != "loading" && Object.keys(lists).length > 0) {
-        let listsArray = [];
-        Object.keys(lists).map(list => listsArray.push(lists[list]));
 
-        listsArray.sort(function(a, b) {
-          return new Date(a.creation_date) - new Date(b.creation_date);
-        });
+        if(action.activeList != 0) {
 
-        return listsArray[0].id;
+          return action.activeList
+          
+        } else {
+          let listsArray = [];
+          Object.keys(lists).map(list => listsArray.push(lists[list]));
+
+          listsArray.sort(function(a, b) {
+            return new Date(a.creation_date) - new Date(b.creation_date);
+          });
+
+          return listsArray[0].id;
+        }
+
       }
-
-      return state;
-    }
+      
+        return state;
+      }
 
     case "CHANGE_ACTIVE_LIST": {
       return action.listId;

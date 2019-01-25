@@ -143,7 +143,9 @@ const StyledFooter = styled("div")`
     }
     svg {
       margin-left: 0;
-      fill: ;
+      &#collapseIcon{
+        transform: rotate(180deg);
+      }
     }
   }
   div {

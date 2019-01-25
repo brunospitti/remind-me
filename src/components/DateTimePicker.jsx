@@ -5,7 +5,7 @@ import Datetime from "react-datetime";
 
 import { colors } from "../assets/globalStyles";
 
-import { currTime } from "../assets/helpers";
+import { currTime, dateCalendarTransformation } from "../assets/helpers";
 
 import { Button } from "./basics/Button";
 import { rgba } from "polished";
@@ -37,7 +37,8 @@ class DateTimePicker extends React.PureComponent {
       : "";
   };
 
-  handleBlur = () => {
+  handleBlur = (newDate) => {
+    this.props.getNewDate(newDate)
     this.setState({showRealCalendar: false})
   }
 
@@ -47,7 +48,15 @@ class DateTimePicker extends React.PureComponent {
         <StyledInputHolder mainColor={this.props.mainColor}>
           <div>
             {!this.state.showRealCalendar ?
-              <div onClick={() => this.setState({showRealCalendar: true})}>{this.props.defaultEndDate}</div>
+              <StyledFakeInput onClick={() => this.setState({showRealCalendar: true})}>
+                {
+                  this.props.defaultEndDate != ""
+                  ?
+                    dateCalendarTransformation(this.props.defaultEndDate)
+                  :
+                    "pick a date and time"
+                }
+              </StyledFakeInput>
             :
               <input {...props} autoFocus={true}/>
             }
@@ -75,13 +84,9 @@ class DateTimePicker extends React.PureComponent {
         <StyledDateTimeContainer>
           <Datetime
             renderInput={this.renderInput}
-            inputProps={{
-              placeholder: "pick a date and time"
-            }}
             defaultValue={this.defaultDate()}
             dateFormat="DD/MMM/YYYY"
             timeFormat="HH:mm"
-            onChange={this.props.getNewDate}
             onBlur={this.handleBlur}
             isValidDate={this.isDateValid}
           />
@@ -92,8 +97,17 @@ class DateTimePicker extends React.PureComponent {
 }
 
 // styled components
+const StyledFakeInput = styled("div")`
+  border: none;
+  display: inline-block;
+  cursor: pointer;
+  width: calc(100% - 25px);
+  padding: 7px 0;
+  margin-top: 6px;
+`
+
 const StyledInputHolder = styled("div")`
-  div {
+  > div {
     border-bottom: 1px solid ${colors.lightGrey};
     display: block;
     margin-bottom: 5px;
