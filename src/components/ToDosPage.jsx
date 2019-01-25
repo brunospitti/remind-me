@@ -10,6 +10,7 @@ import Notification from "./Notification";
 import ToDos from "./ToDos";
 import ListsManager from "./ListsManager";
 import NoToDos from "./NoToDos";
+import { mobileBreakpoint } from "../assets/globalStyles";
 
 class ToDosPage extends React.PureComponent {
   state = {
@@ -192,6 +193,24 @@ const compressToDoOuter = keyframes`
   }
 `;
 
+const expandsToDoOuterMobile = keyframes`
+  0% {
+    width: 80%;
+  }
+  100% {
+    width: 90%;
+  }
+`;
+
+const compressToDoOuterMobile = keyframes`
+  0% {
+    width: 90%;
+  }
+  100% {
+    width: 80%;
+  }
+`;
+
 const StyledContainer = styled("div")`
   width: 60%;
   margin: 30px auto;
@@ -202,6 +221,15 @@ const StyledContainer = styled("div")`
   }
   &.compressed {
     animation: ${compressToDoOuter} 0.25s ease forwards;
+  }
+  @media (${mobileBreakpoint}){
+    width: 90%;
+    &.expanded {
+      animation: none;
+    }
+    &.compressed {
+      animation: none;
+    }
   }
   h2 {
     text-transform: capitalize;

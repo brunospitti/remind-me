@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { lighten, darken } from "polished";
 import Loadable from "react-loadable";
 
-import { colors } from "../assets/globalStyles";
+import { colors, mobileBreakpoint } from "../assets/globalStyles";
 
 import { editListName } from "../redux/actionCreators/editListName";
 import { deleteList } from "../redux/actionCreators/deleteList";
@@ -180,6 +180,9 @@ const StyledToDo = styled("div")`
   height: 55vh;
   overflow-x: auto;
   width: ${props => props.toDoWidth};
+  @media (${mobileBreakpoint}){
+    width: 100%;
+  }
   &::-webkit-scrollbar-track {
     background-color: ${props => lighten(0.5, props.mainColor)};
   }

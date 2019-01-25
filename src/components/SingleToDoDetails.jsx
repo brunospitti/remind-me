@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { lighten } from "polished";
 
-import { colors } from "../assets/globalStyles";
+import { colors, mobileBreakpoint } from "../assets/globalStyles";
 import EditIcon from "../assets/icons/edit.svg";
 
 import { dateTransformation } from "../assets/helpers";
@@ -90,6 +90,9 @@ const StyledDetailsContainer = styled("div")`
   bottom: 0;
   background: white;
   box-shadow: -1px 2px 4px ${colors.lightGrey};
+  @media (${mobileBreakpoint}){
+    width: 100%;
+  }
   &.active {
     width: 40%;
   }

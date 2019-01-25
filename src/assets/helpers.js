@@ -17,8 +17,8 @@ export const dateCalendarTransformation = dateTime => {
     let date = new Date(dateTime);
     let dateYear = date.getFullYear()
     let dateDate = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
-    let dateHours = date.getHours() === 0 ? "00" : date.getHours();
-    let dateMinutes = date.getMinutes() === 0 ? "00" : date.getMinutes();
+    let dateHours = date.getHours() < 10 ? `0${date.getHours()}` : date.getHours();
+    let dateMinutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
 
     let months = new Array();
     months[0] = "Jan";
