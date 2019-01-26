@@ -90,8 +90,12 @@ const StyledDetailsContainer = styled("div")`
   bottom: 0;
   background: white;
   box-shadow: -1px 2px 4px ${colors.lightGrey};
-  @media (${mobileBreakpoint}){
+  @media (${mobileBreakpoint}) {
     width: 100%;
+    right: 0;
+    padding: 10px;
+    top: -100px;
+    height: 500px;
   }
   &.active {
     width: 40%;
@@ -146,7 +150,7 @@ const StyledFooter = styled("div")`
     }
     svg {
       margin-left: 0;
-      &#collapseIcon{
+      &#collapseIcon {
         transform: rotate(180deg);
       }
     }
@@ -165,6 +169,12 @@ const StyledFooter = styled("div")`
   }
   .footer-item {
     display: inline-block;
+    b {
+      @media (${mobileBreakpoint}) {
+        display: block;
+        margin-bottom: 5px;
+      }
+    }
   }
 `;
 

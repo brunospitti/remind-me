@@ -17,4 +17,9 @@ export const addList = (newList, newColor, userId) => async dispatch => {
   updates[`lists/${listId}`] = newListObject;
 
   databaseRef.update(updates);
+
+  dispatch({
+    type: "ADD_LIST",
+    newId: listId
+  });
 };

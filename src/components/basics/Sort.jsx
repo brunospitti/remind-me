@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { lighten } from "polished";
 
-import { colors } from "../../assets/globalStyles";
+import { colors, mobileBreakpoint } from "../../assets/globalStyles";
 
 export default class Sort extends React.PureComponent {
   render() {
@@ -14,6 +14,7 @@ export default class Sort extends React.PureComponent {
           onChange={e => this.props.handleSortByChange(e.target.value)}
         >
           <option value="most-important">Most Important</option>
+          <option value="remind-me">Reminder date</option>
           <option value="alphabetically-a-z">Alphabetically (A-Z)</option>
           <option value="alphabetically-z-a">Alphabetically (Z-A)</option>
           <option value="newest">Newest</option>
@@ -28,6 +29,11 @@ export default class Sort extends React.PureComponent {
 const StyledSortBy = styled("div")`
   float: right;
   margin-top: 10px;
+  @media (${mobileBreakpoint}) {
+    float: none;
+    margin: 0 auto 10px;
+    text-align: center;
+  }
   span {
     font-size: 1.1em;
   }

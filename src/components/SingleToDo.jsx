@@ -12,7 +12,7 @@ import BellIcon from "../assets/icons/bell.svg";
 import PrioritySelector from "./basics/PrioritySelector";
 import RatioButton from "./basics/RatioButton";
 import { Button } from "./basics/Button";
-import { colors } from "../assets/globalStyles";
+import { colors, mobileBreakpoint } from "../assets/globalStyles";
 
 class SingleToDo extends React.PureComponent {
   getClasses = () => {
@@ -124,8 +124,20 @@ const StyledLi = styled("li")`
     position: absolute;
     right: 0;
     top: 0;
+    button {
+      svg {
+        &#deleteIcon {
+          @media (${mobileBreakpoint}) {
+            display: none;
+          }
+        }
+      }
+    }
     &.priority {
       right: 40px;
+      @media (${mobileBreakpoint}) {
+        right: 0;
+      }
     }
   }
   &.checked {
@@ -143,6 +155,9 @@ const StyledTask = styled("div")`
   width: calc(100% - 90px);
   padding-left: 15px;
   vertical-align: middle !important;
+  @media (${mobileBreakpoint}) {
+    width: calc(100% - 40px);
+  }
 `;
 
 const StyledTime = styled("span")`

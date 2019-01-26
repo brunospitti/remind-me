@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 
-import { colors } from "../assets/globalStyles";
+import { colors, mobileBreakpoint } from "../assets/globalStyles";
 
 import notificationSound from "../assets/audio/notification.mp3";
 
@@ -153,6 +153,12 @@ const StyledNotification = styled("header")`
   width: 350px;
   z-index: 10;
   padding: 20px;
+  @media (${mobileBreakpoint}) {
+    width: 100%;
+    top: auto;
+    bottom: 34px;
+    padding: 10px;
+  }
   h1 {
     font-size: 17px;
     color: ${props => props.mainColor};

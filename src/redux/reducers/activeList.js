@@ -4,6 +4,14 @@
 
 function activeList(state = 0, action) {
   switch (action.type) {
+    case "DELETE_LIST": {
+      return action.nextListId;
+    }
+
+    case "ADD_LIST": {
+      return action.newId;
+    }
+
     case "FETCH_TO_DOS": {
       let lists = { ...action.lists };
 
@@ -17,11 +25,8 @@ function activeList(state = 0, action) {
       );
 
       if (lists != "loading" && Object.keys(lists).length > 0) {
-
-        if(action.activeList != 0) {
-
-          return action.activeList
-          
+        if (action.activeList != 0) {
+          return action.activeList;
         } else {
           let listsArray = [];
           Object.keys(lists).map(list => listsArray.push(lists[list]));
@@ -32,22 +37,13 @@ function activeList(state = 0, action) {
 
           return listsArray[0].id;
         }
+      }
 
-      }
-      
-        return state;
-      }
+      return state;
+    }
 
     case "CHANGE_ACTIVE_LIST": {
       return action.listId;
-    }
-
-    case "DELETE_LIST": {
-      return action.nextListId;
-    }
-
-    case "ADD_LIST": {
-      return action.newId;
     }
 
     default:

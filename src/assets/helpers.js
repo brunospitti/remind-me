@@ -15,10 +15,12 @@ export const dateTransformation = dateTime => {
 export const dateCalendarTransformation = dateTime => {
   if (dateTime) {
     let date = new Date(dateTime);
-    let dateYear = date.getFullYear()
+    let dateYear = date.getFullYear();
     let dateDate = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate();
-    let dateHours = date.getHours() < 10 ? `0${date.getHours()}` : date.getHours();
-    let dateMinutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
+    let dateHours =
+      date.getHours() < 10 ? `0${date.getHours()}` : date.getHours();
+    let dateMinutes =
+      date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
 
     let months = new Array();
     months[0] = "Jan";
@@ -35,7 +37,7 @@ export const dateCalendarTransformation = dateTime => {
     months[11] = "Dec";
     let dateMonth = months[date.getMonth()];
 
-    let dateFinal = `${dateDate}/${dateMonth}/${dateYear} ${dateHours}:${dateMinutes}`
+    let dateFinal = `${dateDate}/${dateMonth}/${dateYear} ${dateHours}:${dateMinutes}`;
 
     return dateFinal;
   } else {

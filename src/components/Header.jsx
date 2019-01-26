@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 
-import { colors } from "../assets/globalStyles";
+import { colors, mobileBreakpoint } from "../assets/globalStyles";
 
 import { userLogout } from "../redux/actionCreators/userLogout";
 
@@ -51,6 +51,10 @@ const StyledButton = styled(Button)`
   background-color: transparent;
   border-bottom: 1px solid;
   border-radius: 0;
+  @media (${mobileBreakpoint}) {
+    font-size: 1em;
+    margin-top: 0;
+  }
 `;
 
 function mapStateToProps({ user }) {

@@ -1,6 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 
-export const mobileBreakpoint = "max-width: 767px"
+export const mobileBreakpoint = "max-width: 767px";
 
 export const colors = {
   primary: "#00b8a9",

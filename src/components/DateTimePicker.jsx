@@ -37,29 +37,27 @@ class DateTimePicker extends React.PureComponent {
       : "";
   };
 
-  handleBlur = (newDate) => {
-    this.props.getNewDate(newDate)
-    this.setState({showRealCalendar: false})
-  }
+  handleBlur = newDate => {
+    this.props.getNewDate(newDate);
+    this.setState({ showRealCalendar: false });
+  };
 
   renderInput = (props, openCalendar) => {
     return (
       <React.Fragment>
         <StyledInputHolder mainColor={this.props.mainColor}>
           <div>
-            {!this.state.showRealCalendar ?
-              <StyledFakeInput onClick={() => this.setState({showRealCalendar: true})}>
-                {
-                  this.props.defaultEndDate != ""
-                  ?
-                    dateCalendarTransformation(this.props.defaultEndDate)
-                  :
-                    "pick a date and time"
-                }
+            {!this.state.showRealCalendar ? (
+              <StyledFakeInput
+                onClick={() => this.setState({ showRealCalendar: true })}
+              >
+                {this.props.defaultEndDate != ""
+                  ? dateCalendarTransformation(this.props.defaultEndDate)
+                  : "pick a date and time"}
               </StyledFakeInput>
-            :
-              <input {...props} autoFocus={true}/>
-            }
+            ) : (
+              <input {...props} autoFocus={true} />
+            )}
 
             <Button
               icon="calendar"
@@ -104,7 +102,7 @@ const StyledFakeInput = styled("div")`
   width: calc(100% - 25px);
   padding: 7px 0;
   margin-top: 6px;
-`
+`;
 
 const StyledInputHolder = styled("div")`
   > div {

@@ -29,11 +29,7 @@ class ToDos extends React.PureComponent {
   };
 
   handleEditList = inputValue => {
-    if (inputValue.length > 3) {
-      this.props.handleEditListName(this.props.currentList.id, inputValue);
-    } else {
-      alert("List name should be longer than 3 letters");
-    }
+    this.props.handleEditListName(this.props.currentList.id, inputValue);
   };
 
   deleteList = () => {
@@ -166,6 +162,9 @@ const StyledEditableDiv = styled(DivThanInput)`
   text-transform: capitalize;
   border-bottom: 1px solid white;
   transition: all 0.25s ease;
+  @media (${mobileBreakpoint}) {
+    width: calc(100% - 50px);
+  }
   &:hover,
   &:focus {
     border-bottom: 1px solid ${colors.lightGrey};
@@ -180,8 +179,9 @@ const StyledToDo = styled("div")`
   height: 55vh;
   overflow-x: auto;
   width: ${props => props.toDoWidth};
-  @media (${mobileBreakpoint}){
+  @media (${mobileBreakpoint}) {
     width: 100%;
+    padding: 0;
   }
   &::-webkit-scrollbar-track {
     background-color: ${props => lighten(0.5, props.mainColor)};

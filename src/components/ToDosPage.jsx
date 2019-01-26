@@ -37,7 +37,7 @@ class ToDosPage extends React.PureComponent {
 
     let currList = Object.keys(lists).filter(
       list => lists[list].id === this.props.activeList
-      );
+    );
 
     let items = lists[currList].items;
     let itemsArray = [];
@@ -45,7 +45,7 @@ class ToDosPage extends React.PureComponent {
       .filter(item => !items[item].hasOwnProperty("ignoreMe"))
       .map(itemKey => itemsArray.push(items[itemKey]));
 
-    this.sortBy(itemsArray);
+    itemsArray = this.sortBy(itemsArray);
 
     lists[currList].items = itemsArray;
 
@@ -53,40 +53,58 @@ class ToDosPage extends React.PureComponent {
   };
 
   sortBy = itemsArray => {
-    if (this.state.sortBy === "most-important") {
-      itemsArray.sort(function(a, b) {
-        return b.priority - a.priority;
-      });
-    } else if (this.state.sortBy === "alphabetically-a-z") {
-      itemsArray.sort(function(a, b) {
-        var nameA = a.task.toLowerCase(),
-          nameB = b.task.toLowerCase();
-        if (nameA < nameB)
-          //sort string ascending
-          return -1;
-        if (nameA > nameB) return 1;
-        return 0; //default return value (no sorting)
-      });
-    } else if (this.state.sortBy === "alphabetically-z-a") {
-      itemsArray.sort(function(a, b) {
-        var nameA = a.task.toLowerCase(),
-          nameB = b.task.toLowerCase();
-        if (nameA < nameB)
-          //sort string ascending
-          return 1;
-        if (nameA > nameB) return -1;
-        return 0; //default return value (no sorting)
-      });
-    } else if (this.state.sortBy === "newest") {
-      itemsArray.sort(function(a, b) {
-        return new Date(b.start_date) - new Date(a.start_date);
-      });
-    } else if (this.state.sortBy === "oldest") {
-      itemsArray.sort(function(a, b) {
-        return new Date(a.start_date) - new Date(b.start_date);
-      });
-    }
+    switch (this.state.sortBy) {
+      case "most-important": {
+        itemsArray.sort(function(a, b) {
+          return b.priority - a.priority;
+        });
+        break;
+      }
+      case "remind-me": {
+        let noEndDate = itemsArray.filter(item => item.end_date === "");
+        let withEndDate = itemsArray.filter(item => item.end_date != "");
+        withEndDate.sort(function(a, b) {
+          return new Date(a.end_date) - new Date(b.end_date);
+        });
+        itemsArray = withEndDate.concat(noEndDate);
+        break;
+      }
+      case "alphabetically-a-z": {
+        itemsArray.sort(function(a, b) {
+          var nameA = a.task.toLowerCase(),
+            nameB = b.task.toLowerCase();
+          if (nameA < nameB) return -1;
+          if (nameA > nameB) return 1;
+          return 0;
+        });
+        break;
+      }
+      case "alphabetically-z-a": {
+        itemsArray.sort(function(a, b) {
+          var nameA = a.task.toLowerCase(),
+            nameB = b.task.toLowerCase();
+          if (nameA < nameB) return 1;
+          if (nameA > nameB) return -1;
+          return 0;
+        });
+        break;
+      }
+      case "newest": {
+        itemsArray.sort(function(a, b) {
+          return new Date(b.start_date) - new Date(a.start_date);
+        });
+        break;
+      }
+      case "oldest": {
+        itemsArray.sort(function(a, b) {
+          return new Date(a.start_date) - new Date(b.start_date);
+        });
+        break;
+      }
 
+      default:
+        itemsArray;
+    }
     return itemsArray;
   };
 
@@ -193,36 +211,21 @@ const compressToDoOuter = keyframes`
   }
 `;
 
-const expandsToDoOuterMobile = keyframes`
-  0% {
-    width: 80%;
-  }
-  100% {
-    width: 90%;
-  }
-`;
-
-const compressToDoOuterMobile = keyframes`
-  0% {
-    width: 90%;
-  }
-  100% {
-    width: 80%;
-  }
-`;
-
 const StyledContainer = styled("div")`
   width: 60%;
   margin: 30px auto;
   position: relative;
   transition: all 0.25s ease;
+  @media (${mobileBreakpoint}) {
+    margin: 10px auto;
+  }
   &.expanded {
     animation: ${expandsToDoOuter} 0.25s ease forwards;
   }
   &.compressed {
     animation: ${compressToDoOuter} 0.25s ease forwards;
   }
-  @media (${mobileBreakpoint}){
+  @media (${mobileBreakpoint}) {
     width: 90%;
     &.expanded {
       animation: none;

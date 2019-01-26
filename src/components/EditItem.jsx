@@ -17,7 +17,6 @@ export default class EditItem extends React.PureComponent {
   render() {
     return (
       <StyledInput
-        maxLength="35"
         type="text"
         placeholder="Insert new item"
         value={this.state.inputValue}

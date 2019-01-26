@@ -11,7 +11,7 @@ class AddItem extends React.PureComponent {
 
   handleSubmit = e => {
     e.preventDefault();
-    if (this.state.inputValue != "" && this.state.inputValue.length > 3) {
+    if (this.state.inputValue != "") {
       this.props.handleAddItem(this.state.inputValue, this.props.listId);
       setTimeout(
         function() {
@@ -31,7 +31,6 @@ class AddItem extends React.PureComponent {
     return (
       <form onSubmit={e => this.handleSubmit(e)}>
         <StyledInput
-          maxLength="35"
           type="text"
           placeholder="Insert new item"
           value={this.state.inputValue}

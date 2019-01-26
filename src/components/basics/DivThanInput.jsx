@@ -10,7 +10,6 @@ export default class DivThanInput extends React.PureComponent {
     return (
       <EditableDiv
         className={this.props.className}
-        maxLength="35"
         type="text"
         placeholder={this.props.inputPlaceholder}
         value={this.props.value}

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { colors } from "../assets/globalStyles";
+import { colors, mobileBreakpoint } from "../assets/globalStyles";
 
 export class Footer extends React.PureComponent {
   render() {
@@ -24,6 +24,9 @@ const Container = styled("header")`
   z-index: 10;
   padding: 20px;
   text-align: right;
+  @media (${mobileBreakpoint}) {
+    padding: 10px 20px;
+  }
 `;
 
 const OuterLink = styled("a")`

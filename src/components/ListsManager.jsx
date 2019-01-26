@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { lighten } from "polished";
 
-import { colors } from "../assets/globalStyles";
+import { colors, mobileBreakpoint } from "../assets/globalStyles";
 
 import { addList } from "../redux/actionCreators/addList";
 import { changeListColor } from "../redux/actionCreators/changeListColor";
@@ -75,6 +75,9 @@ const StyledUl = styled("ul")`
   white-space: nowrap;
   height: 100px;
   padding-top: 15px;
+  @media (${mobileBreakpoint}) {
+    margin-bottom: 20vh;
+  }
   &::-webkit-scrollbar-track {
     background-color: ${lighten(0.5, colors.primary)};
   }

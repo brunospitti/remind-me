@@ -20,13 +20,15 @@ class AddList extends React.PureComponent {
 
   clickBehavior = e => {
     e.preventDefault();
-    if (this.state.inputValue != "" && this.state.inputValue.length > 3) {
+    if (this.state.inputValue != "") {
       this.props.clickBehavior(
         this.state.inputValue,
         this.state.inputColor,
         this.props.user.uid
       );
       this.setState({ inputValue: "", inputColor: "lightGrey" });
+    } else {
+      this._input.focus();
     }
   };
 
@@ -43,6 +45,7 @@ class AddList extends React.PureComponent {
         >
           <div className="input-holder">
             <input
+              ref={c => (this._input = c)}
               autoFocus={this.props.autoFocus ? true : false}
               type="text"
               placeholder="Create new list"
