@@ -62,11 +62,19 @@ class ToDosPage extends React.PureComponent {
       }
       case "remind-me": {
         let noEndDate = itemsArray.filter(item => item.end_date === "");
-        let withEndDate = itemsArray.filter(item => item.end_date != "");
-        withEndDate.sort(function(a, b) {
+        let withEndDateActive = itemsArray.filter(
+          item => item.end_date != "" && item.reminder_set
+        );
+        let withEndDateInactive = itemsArray.filter(
+          item => item.end_date != "" && !item.reminder_set
+        );
+        withEndDateActive.sort(function(a, b) {
           return new Date(a.end_date) - new Date(b.end_date);
         });
-        itemsArray = withEndDate.concat(noEndDate);
+        withEndDateInactive.sort(function(a, b) {
+          return new Date(a.end_date) - new Date(b.end_date);
+        });
+        itemsArray = withEndDateActive.concat(withEndDateInactive, noEndDate);
         break;
       }
       case "alphabetically-a-z": {
