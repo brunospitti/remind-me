@@ -1,3 +1,3 @@
 Remind me app
 
-Using react, redux, firebase, styled-components, jest and loadable
+Using react, redux, firebase, styled-components and loadable
