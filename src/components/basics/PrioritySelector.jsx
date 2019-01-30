@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { lighten, darken } from "polished";
+import PropTypes from 'prop-types';
 
 import { priorityColors, colors } from "../../assets/globalStyles";
 
@@ -73,6 +74,14 @@ class PrioritySelector extends React.PureComponent {
       </React.Fragment>
     );
   }
+}
+
+// propTypes
+PrioritySelector.propTypes = {
+  priority: PropTypes.number.isRequired,
+  handleChangeItemPriorityColor: PropTypes.func.isRequired,
+  listId: PropTypes.string.isRequired,
+  taskId: PropTypes.string.isRequired
 }
 
 // styled components

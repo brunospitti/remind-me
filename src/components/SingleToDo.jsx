@@ -1,6 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import PropTypes from 'prop-types';
+
+import { colors, mobileBreakpoint } from "../assets/globalStyles";
 
 import { dateTimeTransformation } from "../assets/helpers";
 
@@ -12,7 +15,6 @@ import BellIcon from "../assets/icons/bell.svg";
 import PrioritySelector from "./basics/PrioritySelector";
 import RatioButton from "./basics/RatioButton";
 import { Button } from "./basics/Button";
-import { colors, mobileBreakpoint } from "../assets/globalStyles";
 
 class SingleToDo extends React.PureComponent {
   getClasses = () => {
@@ -103,6 +105,23 @@ class SingleToDo extends React.PureComponent {
       </React.Fragment>
     );
   }
+}
+
+// propTypes
+SingleToDo.propTypes = {
+  task: PropTypes.object.isRequired,
+  showItem: PropTypes.bool.isRequired,
+  handleDeleteItem: PropTypes.func.isRequired,
+  completeListLayout: PropTypes.func.isRequired,
+  showToDoOptionsFunc: PropTypes.func.isRequired,
+  itemListDetails: PropTypes.func.isRequired,
+  handleChangeItemPriorityColor: PropTypes.func.isRequired,
+  showToDoOptions: PropTypes.oneOfType([
+    PropTypes.bool.isRequired,
+    PropTypes.string.isRequired,
+  ]),
+  listId: PropTypes.string.isRequired,
+  mainColor: PropTypes.string
 }
 
 // styled components

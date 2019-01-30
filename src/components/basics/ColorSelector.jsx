@@ -2,6 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 import { lighten } from "polished";
+import PropTypes from 'prop-types';
 
 import { listColors, colors } from "../../assets/globalStyles";
 import ChangeColorIcon from "../../assets/icons/paint-board-and-brush.svg";
@@ -52,6 +53,12 @@ class ColorSelector extends React.PureComponent {
       </React.Fragment>
     );
   }
+}
+
+// propTypes
+ColorSelector.propTypes = {
+  handleColorChange: PropTypes.func.isRequired,
+  list: PropTypes.object
 }
 
 // styled components

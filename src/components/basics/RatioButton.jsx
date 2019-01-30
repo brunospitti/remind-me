@@ -3,6 +3,7 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { lighten } from "polished";
+import PropTypes from 'prop-types';
 
 import { colors } from "../../assets/globalStyles";
 
@@ -20,6 +21,15 @@ const RatioButton = props => (
     />
   </StyledRatio>
 );
+
+// propTypes
+RatioButton.propTypes = {
+  mainColor: PropTypes.string.isRequired,
+  checked: PropTypes.bool.isRequired,
+  taskId: PropTypes.string.isRequired,
+  listId: PropTypes.string.isRequired,
+  handleCheckItem: PropTypes.func.isRequired
+}
 
 // styled components
 const StyledRatio = styled("div")`

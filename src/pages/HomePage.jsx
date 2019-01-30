@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import Loadable from "react-loadable";
+import PropTypes from "prop-types";
 
 import { userLogin } from "../redux/actionCreators/userLogin";
 
@@ -45,6 +45,15 @@ class HomePage extends React.PureComponent {
       </React.Fragment>
     );
   }
+}
+
+// propTypes
+HomePage.propTypes = {
+  user: PropTypes.oneOfType([
+    PropTypes.object.isRequired,
+    PropTypes.string,
+  ]),
+  userLogin: PropTypes.func.isRequired
 }
 
 // styled components

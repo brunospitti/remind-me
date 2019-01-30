@@ -2,6 +2,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import PropTypes from 'prop-types';
 
 import { colors } from "../assets/globalStyles";
 
@@ -71,6 +72,16 @@ class SingleToDoDetailsEdit extends React.PureComponent {
       </React.Fragment>
     );
   }
+}
+
+// propTypes
+SingleToDoDetailsEdit.propTypes = {
+  handleEditItemName: PropTypes.func.isRequired,
+  listId: PropTypes.string.isRequired,
+  task: PropTypes.object.isRequired,
+  showDetailsFunc: PropTypes.func.isRequired,
+  handleEditItemNotes: PropTypes.func.isRequired,
+  mainColor: PropTypes.string
 }
 
 // styled components

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import PropTypes from 'prop-types';
 
 export default class EditItem extends React.PureComponent {
   state = {
@@ -25,6 +26,12 @@ export default class EditItem extends React.PureComponent {
       />
     );
   }
+}
+
+// propTypes
+EditItem.propTypes = {
+  initialValue: PropTypes.string.isRequired,
+  getInputValue: PropTypes.func.isRequired
 }
 
 // styled components

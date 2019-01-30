@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import PropTypes from 'prop-types';
 
 import contentEditable from "../../hocs/contentEditable";
 
@@ -17,6 +18,15 @@ export default class DivThanInput extends React.PureComponent {
       />
     );
   }
+}
+
+// propTypes
+DivThanInput.propTypes = {
+  value: PropTypes.string.isRequired,
+  getInputValue: PropTypes.func.isRequired,
+  className: PropTypes.string,
+  inputPlaceholder: PropTypes.string,
+  dontSaveOnEnter: PropTypes.bool
 }
 
 // styled components

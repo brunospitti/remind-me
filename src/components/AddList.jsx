@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
+import PropTypes from 'prop-types';
 
 import { listColors } from "../assets/globalStyles";
 
 import { Button } from "./basics/Button";
-import ColorSelector from "./basics/ColorSelector";
 
 class AddList extends React.PureComponent {
   state = {
@@ -52,9 +52,6 @@ class AddList extends React.PureComponent {
               value={this.state.inputValue}
               onChange={e => this.handleChange(e)}
             />
-            {!this.props.hideColorSelector && (
-              <ColorSelector handleColorChange={this.handleColorAdd} />
-            )}
           </div>
           <Button
             style={{ backgroundColor: "blue" }}
@@ -65,6 +62,17 @@ class AddList extends React.PureComponent {
       </React.Fragment>
     );
   }
+}
+
+// propTypes
+AddList.propTypes = {
+  clickBehavior: PropTypes.func.isRequired,
+  user: PropTypes.oneOfType([
+    PropTypes.object.isRequired,
+    PropTypes.string,
+  ]),
+  autoFocus: PropTypes.bool,
+  text: PropTypes.string
 }
 
 // styled components

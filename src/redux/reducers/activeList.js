@@ -2,7 +2,7 @@
 // 1. copy of current state
 // 2. the action (info about what happened)
 
-function activeList(state = 0, action) {
+function activeList(state = "0", action) {
   switch (action.type) {
     case "DELETE_LIST": {
       return action.nextListId;
@@ -25,7 +25,7 @@ function activeList(state = 0, action) {
       );
 
       if (lists != "loading" && Object.keys(lists).length > 0) {
-        if (action.activeList != 0) {
+        if (action.activeList != "0") {
           return action.activeList;
         } else {
           let listsArray = [];

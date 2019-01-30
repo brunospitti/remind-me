@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { lighten, darken } from "polished";
 import Loadable from "react-loadable";
+import PropTypes from 'prop-types';
 
 import { colors, mobileBreakpoint } from "../assets/globalStyles";
 
@@ -109,7 +110,6 @@ class ToDos extends React.PureComponent {
                 />
               ))}
               <AddItem
-                addItem={this.props.addItem}
                 listId={this.props.currentList.id}
                 completeListLayout={this.props.completeListLayout}
               />
@@ -124,8 +124,6 @@ class ToDos extends React.PureComponent {
               showDetailsFunc={this.props.showDetailsFunc}
               mainColor={this.props.currentList.color}
               closeDetails={this.closeDetails}
-              showToDoOptionsFunc={this.showToDoOptionsFunc}
-              itemListDetails={this.itemListDetails}
               listId={this.props.currentList.id}
               completeListLayout={this.props.completeListLayout}
             />
@@ -134,6 +132,27 @@ class ToDos extends React.PureComponent {
       </React.Fragment>
     );
   }
+}
+
+// propTypes
+ToDos.propTypes = {
+  handleEditListName: PropTypes.func.isRequired,
+  handleDeleteList: PropTypes.func.isRequired,
+  showDetailsFunc: PropTypes.func.isRequired,
+  handleSortByChange: PropTypes.func.isRequired,
+  filterCheckedFunc: PropTypes.func.isRequired,
+  completeListLayout: PropTypes.func.isRequired,
+  currentList: PropTypes.object.isRequired,
+  sortBy: PropTypes.string.isRequired,
+  nextListId: PropTypes.string.isRequired,
+  detailsTask: PropTypes.oneOfType([
+    PropTypes.object.isRequired,
+    PropTypes.string,
+  ]),
+  filterChecked: PropTypes.bool.isRequired,
+  showDetails: PropTypes.bool.isRequired,
+  completeListLayoutNum: PropTypes.number.isRequired,
+  className: PropTypes.string
 }
 
 // styled components

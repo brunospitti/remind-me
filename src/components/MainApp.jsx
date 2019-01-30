@@ -4,6 +4,10 @@ import Loadable from "react-loadable";
 import { Provider, connect } from "react-redux";
 import styled from "styled-components";
 require("babel-polyfill");
+import PropTypes from 'prop-types';
+
+// global css styles
+import { GlobalStyles } from "../assets/globalStyles";
 
 import store from "../redux/store";
 import { userFetch } from "../redux/actionCreators/userFetch";
@@ -12,11 +16,7 @@ import Loading from "./basics/Loading";
 import Header from "./Header";
 import { Footer } from "./Footer";
 
-// global css styles
-import { GlobalStyles } from "../assets/globalStyles";
-
 // Code splitting section
-
 const loading = () => <Loading />;
 
 const LoadableHomePagePage = Loadable({
@@ -45,6 +45,11 @@ class MainApp extends React.PureComponent {
       </div>
     );
   }
+}
+
+// propTypes
+MainApp.propTypes = {
+  userFetch: PropTypes.func.isRequired
 }
 
 // styled components

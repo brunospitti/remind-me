@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { lighten } from "polished";
+import PropTypes from 'prop-types';
 
 import { colors } from "../assets/globalStyles";
 
@@ -25,7 +26,6 @@ class NoToDos extends React.PureComponent {
       <StyledNoToDos>
         {this.state.showAddList ? (
           <AddList
-            hideColorSelector
             autoFocus={true}
             clickBehavior={this.handleAddList}
             text="+"
@@ -44,6 +44,11 @@ class NoToDos extends React.PureComponent {
       </StyledNoToDos>
     );
   }
+}
+
+// propTypes
+NoToDos.propTypes = {
+  handleAddList: PropTypes.func.isRequired
 }
 
 // styled components

@@ -145,20 +145,7 @@ var fetchToDos = exports.fetchToDos = function fetchToDos(userId) {
     };
   }();
 };
-},{"../../config/firebase":"config\\firebase.js"}],"redux\\actionCreators\\selectList.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = selectList;
-function selectList(listId) {
-  return {
-    type: "CHANGE_ACTIVE_LIST",
-    listId: listId
-  };
-}
-},{}],"assets\\audio\\notification.mp3":[function(require,module,exports) {
+},{"../../config/firebase":"config\\firebase.js"}],"assets\\audio\\notification.mp3":[function(require,module,exports) {
 module.exports = "/notification.d4c4adb8.mp3";
 },{}],"assets\\helpers.js":[function(require,module,exports) {
 "use strict";
@@ -378,6 +365,10 @@ var _styledComponents = require("styled-components");
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _globalStyles = require("../assets/globalStyles");
 
 var _notification = require("../assets/audio/notification.mp3");
@@ -544,15 +535,22 @@ var Notification = function (_React$PureComponent) {
   return Notification;
 }(_react2.default.PureComponent);
 
-// styled components
+// propTypes
 
 
-var StyledNotification = (0, _styledComponents2.default)("header").withConfig({
+Notification.propTypes = {
+  lists: _propTypes2.default.oneOfType([_propTypes2.default.object.isRequired, _propTypes2.default.string]),
+  handleCheckItem: _propTypes2.default.func.isRequired,
+  handleEditItemEndDate: _propTypes2.default.func.isRequired,
+  handleIgnoreReminderItem: _propTypes2.default.func.isRequired
+
+  // styled components
+};var StyledNotification = (0, _styledComponents2.default)("header").withConfig({
   displayName: "Notification__StyledNotification",
   componentId: "sc-15yffhg-0"
-})(["background:", ";border-bottom:3px solid ", ";position:fixed;right:0;top:10%;width:350px;z-index:10;padding:20px;h1{font-size:17px;color:", ";margin-bottom:5px;}span{display:block;margin-bottom:10px;color:", ";}button{display:inline-block;}button + button{margin-left:25px;}"], _globalStyles.colors.light, function (props) {
+})(["background:", ";border-bottom:3px solid ", ";position:fixed;right:0;top:10%;width:350px;z-index:10;padding:20px;@media (", "){width:100%;top:auto;bottom:34px;padding:10px;}h1{font-size:17px;color:", ";margin-bottom:5px;}span{display:block;margin-bottom:10px;color:", ";}button{display:inline-block;}button + button{margin-left:25px;}"], _globalStyles.colors.light, function (props) {
   return props.mainColor;
-}, function (props) {
+}, _globalStyles.mobileBreakpoint, function (props) {
   return props.mainColor;
 }, _globalStyles.colors.lightGrey);
 
@@ -577,7 +575,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Notification);
-},{"react":"..\\node_modules\\react\\index.js","react-redux":"..\\node_modules\\react-redux\\es\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","../assets/globalStyles":"assets\\globalStyles.js","../assets/audio/notification.mp3":"assets\\audio\\notification.mp3","../assets/helpers":"assets\\helpers.js","../redux/actionCreators/checkItem":"redux\\actionCreators\\checkItem.js","../redux/actionCreators/ignoreReminderItem":"redux\\actionCreators\\ignoreReminderItem.js","../redux/actionCreators/editItemEndDate":"redux\\actionCreators\\editItemEndDate.js","./basics/Button":"components\\basics\\Button.jsx"}],"redux\\actionCreators\\editListName.js":[function(require,module,exports) {
+},{"react":"..\\node_modules\\react\\index.js","react-redux":"..\\node_modules\\react-redux\\es\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","prop-types":"..\\node_modules\\prop-types\\index.js","../assets/globalStyles":"assets\\globalStyles.js","../assets/audio/notification.mp3":"assets\\audio\\notification.mp3","../assets/helpers":"assets\\helpers.js","../redux/actionCreators/checkItem":"redux\\actionCreators\\checkItem.js","../redux/actionCreators/ignoreReminderItem":"redux\\actionCreators\\ignoreReminderItem.js","../redux/actionCreators/editItemEndDate":"redux\\actionCreators\\editItemEndDate.js","./basics/Button":"components\\basics\\Button.jsx"}],"redux\\actionCreators\\editListName.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -638,15 +636,15 @@ var deleteList = exports.deleteList = function deleteList(listId, nextListId) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              dispatch({
+                type: "DELETE_LIST",
+                nextListId: nextListId
+              });
+
               updates = {};
 
               updates["lists/" + listId] = null;
               _firebase.databaseRef.update(updates);
-
-              return _context.abrupt("return", {
-                type: "DELETE_LIST",
-                nextListId: nextListId
-              });
 
             case 4:
             case "end":
@@ -679,6 +677,10 @@ var _styledComponents = require("styled-components");
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 var _polished = require("polished");
+
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _globalStyles = require("../../assets/globalStyles");
 
@@ -727,6 +729,11 @@ var Sort = function (_React$PureComponent) {
           ),
           _react2.default.createElement(
             "option",
+            { value: "remind-me" },
+            "Reminder date"
+          ),
+          _react2.default.createElement(
+            "option",
             { value: "alphabetically-a-z" },
             "Alphabetically (A-Z)"
           ),
@@ -753,15 +760,20 @@ var Sort = function (_React$PureComponent) {
   return Sort;
 }(_react2.default.PureComponent);
 
-// styled components
+// propTypes
 
 
 exports.default = Sort;
-var StyledSortBy = (0, _styledComponents2.default)("div").withConfig({
+Sort.propTypes = {
+  sortBy: _propTypes2.default.string.isRequired,
+  handleSortByChange: _propTypes2.default.func.isRequired
+
+  // styled components
+};var StyledSortBy = (0, _styledComponents2.default)("div").withConfig({
   displayName: "Sort__StyledSortBy",
   componentId: "j8k2am-0"
-})(["float:right;margin-top:10px;span{font-size:1.1em;}select{border:1px solid ", ";padding:7px 2px;margin-left:5px;}"], (0, _polished.lighten)(0.15, _globalStyles.colors.lightGrey));
-},{"react":"..\\node_modules\\react\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","polished":"..\\node_modules\\polished\\dist\\polished.es.js","../../assets/globalStyles":"assets\\globalStyles.js"}],"hocs\\contentEditable.js":[function(require,module,exports) {
+})(["float:right;margin-top:10px;@media (", "){float:none;margin:0 auto 10px;text-align:center;}span{font-size:1.1em;}select{border:1px solid ", ";padding:7px 2px;margin-left:5px;}"], _globalStyles.mobileBreakpoint, (0, _polished.lighten)(0.15, _globalStyles.colors.lightGrey));
+},{"react":"..\\node_modules\\react\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","polished":"..\\node_modules\\polished\\dist\\polished.es.js","prop-types":"..\\node_modules\\prop-types\\index.js","../../assets/globalStyles":"assets\\globalStyles.js"}],"hocs\\contentEditable.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -897,6 +909,10 @@ var _styledComponents = require("styled-components");
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _contentEditable = require("../../hocs/contentEditable");
 
 var _contentEditable2 = _interopRequireDefault(_contentEditable);
@@ -925,7 +941,6 @@ var DivThanInput = function (_React$PureComponent) {
       var divProps = Object.assign({}, this.props);
       return _react2.default.createElement(EditableDiv, _extends({
         className: this.props.className,
-        maxLength: "35",
         type: "text",
         placeholder: this.props.inputPlaceholder,
         value: this.props.value
@@ -936,15 +951,23 @@ var DivThanInput = function (_React$PureComponent) {
   return DivThanInput;
 }(_react2.default.PureComponent);
 
-// styled components
+// propTypes
 
 
 exports.default = DivThanInput;
-var StyledEditableDiv = (0, _styledComponents2.default)("div").withConfig({
+DivThanInput.propTypes = {
+  value: _propTypes2.default.string.isRequired,
+  getInputValue: _propTypes2.default.func.isRequired,
+  className: _propTypes2.default.string,
+  inputPlaceholder: _propTypes2.default.string,
+  dontSaveOnEnter: _propTypes2.default.bool
+
+  // styled components
+};var StyledEditableDiv = (0, _styledComponents2.default)("div").withConfig({
   displayName: "DivThanInput__StyledEditableDiv",
   componentId: "sc-1vqqmnt-0"
 })(["cursor:text;"]);
-},{"react":"..\\node_modules\\react\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","../../hocs/contentEditable":"hocs\\contentEditable.js"}],"redux\\actionCreators\\deleteItem.js":[function(require,module,exports) {
+},{"react":"..\\node_modules\\react\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","prop-types":"..\\node_modules\\prop-types\\index.js","../../hocs/contentEditable":"hocs\\contentEditable.js"}],"redux\\actionCreators\\deleteItem.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1088,6 +1111,10 @@ var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 var _polished = require("polished");
 
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _globalStyles = require("../../assets/globalStyles");
 
 var _Button = require("./Button.jsx");
@@ -1189,10 +1216,17 @@ var PrioritySelector = function (_React$PureComponent) {
   return PrioritySelector;
 }(_react2.default.PureComponent);
 
-// styled components
+// propTypes
 
 
-var StyledColorList = (0, _styledComponents2.default)("ul").withConfig({
+PrioritySelector.propTypes = {
+  priority: _propTypes2.default.number.isRequired,
+  handleChangeItemPriorityColor: _propTypes2.default.func.isRequired,
+  listId: _propTypes2.default.string.isRequired,
+  taskId: _propTypes2.default.string.isRequired
+
+  // styled components
+};var StyledColorList = (0, _styledComponents2.default)("ul").withConfig({
   displayName: "PrioritySelector__StyledColorList",
   componentId: "gv4ld8-0"
 })(["position:absolute;top:5px;right:80px;width:240px;border-radius:3px;box-shadow:1px 1px 4px ", ";background:", ";padding:10px;"], _globalStyles.colors.lightGrey, (0, _polished.lighten)(0.025, _globalStyles.colors.light));
@@ -1207,7 +1241,7 @@ var StyledLabelColor = (0, _styledComponents2.default)("li").withConfig({
 });
 
 exports.default = PrioritySelector;
-},{"react":"..\\node_modules\\react\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","polished":"..\\node_modules\\polished\\dist\\polished.es.js","../../assets/globalStyles":"assets\\globalStyles.js","./Button.jsx":"components\\basics\\Button.jsx"}],"components\\basics\\RatioButton.jsx":[function(require,module,exports) {
+},{"react":"..\\node_modules\\react\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","polished":"..\\node_modules\\polished\\dist\\polished.es.js","prop-types":"..\\node_modules\\prop-types\\index.js","../../assets/globalStyles":"assets\\globalStyles.js","./Button.jsx":"components\\basics\\Button.jsx"}],"components\\basics\\RatioButton.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1226,13 +1260,16 @@ var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 var _polished = require("polished");
 
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _globalStyles = require("../../assets/globalStyles");
 
 var _checkItem = require("../../redux/actionCreators/checkItem");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/* eslint-disable jsx-a11y/label-has-associated-control */
 var RatioButton = function RatioButton(props) {
   return _react2.default.createElement(
     StyledRatio,
@@ -1250,8 +1287,17 @@ var RatioButton = function RatioButton(props) {
   );
 };
 
-// styled components
-var StyledRatio = (0, _styledComponents2.default)("div").withConfig({
+// propTypes
+/* eslint-disable jsx-a11y/label-has-associated-control */
+RatioButton.propTypes = {
+  mainColor: _propTypes2.default.string.isRequired,
+  checked: _propTypes2.default.bool.isRequired,
+  taskId: _propTypes2.default.string.isRequired,
+  listId: _propTypes2.default.string.isRequired,
+  handleCheckItem: _propTypes2.default.func.isRequired
+
+  // styled components
+};var StyledRatio = (0, _styledComponents2.default)("div").withConfig({
   displayName: "RatioButton__StyledRatio",
   componentId: "w06fnj-0"
 })(["display:table-cell;vertical-align:middle;width:20px;height:20px;label{width:20px;height:20px;background-color:", ";border:1px solid ", ";border-radius:50%;cursor:pointer;left:0;position:relative;display:block;transition:0.25s all ease;&:hover{background-color:", ";border:1px solid ", ";}&:after{border:5px solid ", ";border-top:none;border-right:none;content:\"\";height:6px;top:-1px;left:1px;opacity:0;position:absolute;transform:rotate(-45deg);width:16px;}}input[type=\"checkbox\"]{width:1px;height:1px;visibility:hidden;position:absolute;}&.checked{label{background-color:white;border-color:", ";&:after{opacity:1;}}}"], _globalStyles.colors.light, _globalStyles.colors.lightGrey, (0, _polished.lighten)(0.3, _globalStyles.colors.secondary), _globalStyles.colors.secondary, function (props) {
@@ -1269,7 +1315,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(RatioButton);
-},{"react":"..\\node_modules\\react\\index.js","react-redux":"..\\node_modules\\react-redux\\es\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","polished":"..\\node_modules\\polished\\dist\\polished.es.js","../../assets/globalStyles":"assets\\globalStyles.js","../../redux/actionCreators/checkItem":"redux\\actionCreators\\checkItem.js"}],"components\\SingleToDo.jsx":[function(require,module,exports) {
+},{"react":"..\\node_modules\\react\\index.js","react-redux":"..\\node_modules\\react-redux\\es\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","polished":"..\\node_modules\\polished\\dist\\polished.es.js","prop-types":"..\\node_modules\\prop-types\\index.js","../../assets/globalStyles":"assets\\globalStyles.js","../../redux/actionCreators/checkItem":"redux\\actionCreators\\checkItem.js"}],"components\\SingleToDo.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1287,6 +1333,12 @@ var _reactRedux = require("react-redux");
 var _styledComponents = require("styled-components");
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _globalStyles = require("../assets/globalStyles");
 
 var _helpers = require("../assets/helpers");
 
@@ -1307,8 +1359,6 @@ var _RatioButton = require("./basics/RatioButton");
 var _RatioButton2 = _interopRequireDefault(_RatioButton);
 
 var _Button = require("./basics/Button");
-
-var _globalStyles = require("../assets/globalStyles");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1429,18 +1479,31 @@ var SingleToDo = function (_React$PureComponent) {
   return SingleToDo;
 }(_react2.default.PureComponent);
 
-// styled components
+// propTypes
 
 
-var StyledLi = (0, _styledComponents2.default)("li").withConfig({
+SingleToDo.propTypes = {
+  task: _propTypes2.default.object.isRequired,
+  showItem: _propTypes2.default.bool.isRequired,
+  handleDeleteItem: _propTypes2.default.func.isRequired,
+  completeListLayout: _propTypes2.default.func.isRequired,
+  showToDoOptionsFunc: _propTypes2.default.func.isRequired,
+  itemListDetails: _propTypes2.default.func.isRequired,
+  handleChangeItemPriorityColor: _propTypes2.default.func.isRequired,
+  showToDoOptions: _propTypes2.default.oneOfType([_propTypes2.default.bool.isRequired, _propTypes2.default.string.isRequired]),
+  listId: _propTypes2.default.string.isRequired,
+  mainColor: _propTypes2.default.string
+
+  // styled components
+};var StyledLi = (0, _styledComponents2.default)("li").withConfig({
   displayName: "SingleToDo__StyledLi",
   componentId: "sc-23os0n-0"
-})(["position:relative;padding:15px 20px;text-align:left;> div{width:100%;}div{display:inline-block;box-sizing:border-box;transition:0.25s all ease;vertical-align:top;cursor:pointer;}span{position:absolute;right:0;top:0;&.priority{right:40px;}}&.checked{div{text-decoration:line-through;opacity:0.5;}}&.hide{display:none;}"]);
+})(["position:relative;padding:15px 20px;text-align:left;> div{width:100%;}div{display:inline-block;box-sizing:border-box;transition:0.25s all ease;vertical-align:top;cursor:pointer;}span{position:absolute;right:0;top:0;button{svg{&#deleteIcon{@media (", "){display:none;}}}}&.priority{right:40px;@media (", "){right:0;}}}&.checked{div{text-decoration:line-through;opacity:0.5;}}&.hide{display:none;}"], _globalStyles.mobileBreakpoint, _globalStyles.mobileBreakpoint);
 
 var StyledTask = (0, _styledComponents2.default)("div").withConfig({
   displayName: "SingleToDo__StyledTask",
   componentId: "sc-23os0n-1"
-})(["width:calc(100% - 90px);padding-left:15px;vertical-align:middle !important;"]);
+})(["width:calc(100% - 90px);padding-left:15px;vertical-align:middle !important;@media (", "){width:calc(100% - 40px);}"], _globalStyles.mobileBreakpoint);
 
 var StyledTime = (0, _styledComponents2.default)("span").withConfig({
   displayName: "SingleToDo__StyledTime",
@@ -1472,7 +1535,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SingleToDo);
-},{"react":"..\\node_modules\\react\\index.js","react-redux":"..\\node_modules\\react-redux\\es\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","../assets/helpers":"assets\\helpers.js","../redux/actionCreators/deleteItem":"redux\\actionCreators\\deleteItem.js","../redux/actionCreators/changeItemPriorityColor":"redux\\actionCreators\\changeItemPriorityColor.js","../assets/icons/bell.svg":"assets\\icons\\bell.svg","./basics/PrioritySelector":"components\\basics\\PrioritySelector.jsx","./basics/RatioButton":"components\\basics\\RatioButton.jsx","./basics/Button":"components\\basics\\Button.jsx","../assets/globalStyles":"assets\\globalStyles.js"}],"redux\\actionCreators\\addItem.js":[function(require,module,exports) {
+},{"react":"..\\node_modules\\react\\index.js","react-redux":"..\\node_modules\\react-redux\\es\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","prop-types":"..\\node_modules\\prop-types\\index.js","../assets/globalStyles":"assets\\globalStyles.js","../assets/helpers":"assets\\helpers.js","../redux/actionCreators/deleteItem":"redux\\actionCreators\\deleteItem.js","../redux/actionCreators/changeItemPriorityColor":"redux\\actionCreators\\changeItemPriorityColor.js","../assets/icons/bell.svg":"assets\\icons\\bell.svg","./basics/PrioritySelector":"components\\basics\\PrioritySelector.jsx","./basics/RatioButton":"components\\basics\\RatioButton.jsx","./basics/Button":"components\\basics\\Button.jsx"}],"redux\\actionCreators\\addItem.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1553,6 +1616,10 @@ var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 var _reactRedux = require("react-redux");
 
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _addItem = require("../redux/actionCreators/addItem");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -1581,7 +1648,7 @@ var AddItem = function (_React$PureComponent) {
       inputValue: ""
     }, _this.handleSubmit = function (e) {
       e.preventDefault();
-      if (_this.state.inputValue != "" && _this.state.inputValue.length > 3) {
+      if (_this.state.inputValue != "") {
         _this.props.handleAddItem(_this.state.inputValue, _this.props.listId);
         setTimeout(function () {
           this.props.completeListLayout();
@@ -1604,7 +1671,6 @@ var AddItem = function (_React$PureComponent) {
             return _this2.handleSubmit(e);
           } },
         _react2.default.createElement(StyledInput, {
-          maxLength: "35",
           type: "text",
           placeholder: "Insert new item",
           value: this.state.inputValue,
@@ -1619,10 +1685,16 @@ var AddItem = function (_React$PureComponent) {
   return AddItem;
 }(_react2.default.PureComponent);
 
-// styled components
+// propTypes
 
 
-var StyledInput = (0, _styledComponents2.default)("input").withConfig({
+AddItem.propTypes = {
+  handleAddItem: _propTypes2.default.func.isRequired,
+  listId: _propTypes2.default.string.isRequired,
+  completeListLayout: _propTypes2.default.func.isRequired
+
+  // styled components
+};var StyledInput = (0, _styledComponents2.default)("input").withConfig({
   displayName: "AddItem__StyledInput",
   componentId: "sc-1r8iyx7-0"
 })(["position:relative;text-align:left;margin-left:53px;width:60%;margin-bottom:5px;border:0;background:transparent;padding:20px 0;"]);
@@ -1636,7 +1708,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(AddItem);
-},{"react":"..\\node_modules\\react\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","react-redux":"..\\node_modules\\react-redux\\es\\index.js","../redux/actionCreators/addItem":"redux\\actionCreators\\addItem.js"}],"components\\ToDos.jsx":[function(require,module,exports) {
+},{"react":"..\\node_modules\\react\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","react-redux":"..\\node_modules\\react-redux\\es\\index.js","prop-types":"..\\node_modules\\prop-types\\index.js","../redux/actionCreators/addItem":"redux\\actionCreators\\addItem.js"}],"components\\ToDos.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1660,6 +1732,10 @@ var _polished = require("polished");
 var _reactLoadable = require("react-loadable");
 
 var _reactLoadable2 = _interopRequireDefault(_reactLoadable);
+
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _globalStyles = require("../assets/globalStyles");
 
@@ -1727,11 +1803,7 @@ var ToDos = function (_React$PureComponent) {
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ToDos.__proto__ || Object.getPrototypeOf(ToDos)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
       showToDoOptions: false
     }, _this.handleEditList = function (inputValue) {
-      if (inputValue.length > 3) {
-        _this.props.handleEditListName(_this.props.currentList.id, inputValue);
-      } else {
-        alert("List name should be longer than 3 letters");
-      }
+      _this.props.handleEditListName(_this.props.currentList.id, inputValue);
     }, _this.deleteList = function () {
       _this.props.handleDeleteList(_this.props.currentList.id, _this.props.nextListId);
     }, _this.itemListDetails = function (task) {
@@ -1809,7 +1881,6 @@ var ToDos = function (_React$PureComponent) {
                 });
               }),
               _react2.default.createElement(_AddItem2.default, {
-                addItem: this.props.addItem,
                 listId: this.props.currentList.id,
                 completeListLayout: this.props.completeListLayout
               }),
@@ -1823,8 +1894,6 @@ var ToDos = function (_React$PureComponent) {
             showDetailsFunc: this.props.showDetailsFunc,
             mainColor: this.props.currentList.color,
             closeDetails: this.closeDetails,
-            showToDoOptionsFunc: this.showToDoOptionsFunc,
-            itemListDetails: this.itemListDetails,
             listId: this.props.currentList.id,
             completeListLayout: this.props.completeListLayout
           })
@@ -1836,10 +1905,27 @@ var ToDos = function (_React$PureComponent) {
   return ToDos;
 }(_react2.default.PureComponent);
 
-// styled components
+// propTypes
 
 
-var StyledTodoHolder = (0, _styledComponents2.default)("div").withConfig({
+ToDos.propTypes = {
+  handleEditListName: _propTypes2.default.func.isRequired,
+  handleDeleteList: _propTypes2.default.func.isRequired,
+  showDetailsFunc: _propTypes2.default.func.isRequired,
+  handleSortByChange: _propTypes2.default.func.isRequired,
+  filterCheckedFunc: _propTypes2.default.func.isRequired,
+  completeListLayout: _propTypes2.default.func.isRequired,
+  currentList: _propTypes2.default.object.isRequired,
+  sortBy: _propTypes2.default.string.isRequired,
+  nextListId: _propTypes2.default.string.isRequired,
+  detailsTask: _propTypes2.default.oneOfType([_propTypes2.default.object.isRequired, _propTypes2.default.string]),
+  filterChecked: _propTypes2.default.bool.isRequired,
+  showDetails: _propTypes2.default.bool.isRequired,
+  completeListLayoutNum: _propTypes2.default.number.isRequired,
+  className: _propTypes2.default.string
+
+  // styled components
+};var StyledTodoHolder = (0, _styledComponents2.default)("div").withConfig({
   displayName: "ToDos__StyledTodoHolder",
   componentId: "sc-1ljo6wg-0"
 })(["display:block;position:relative;margin-bottom:4vh;"]);
@@ -1852,12 +1938,12 @@ var StyledFilterChecked = (0, _styledComponents2.default)("div").withConfig({
 var StyledEditableDiv = (0, _styledComponents2.default)(_DivThanInput2.default).withConfig({
   displayName: "ToDos__StyledEditableDiv",
   componentId: "sc-1ljo6wg-2"
-})(["display:inline-block;width:250px;font-size:2em;text-transform:capitalize;border-bottom:1px solid white;transition:all 0.25s ease;&:hover,&:focus{border-bottom:1px solid ", ";}"], _globalStyles.colors.lightGrey);
+})(["display:inline-block;width:250px;font-size:2em;text-transform:capitalize;border-bottom:1px solid white;transition:all 0.25s ease;@media (", "){width:calc(100% - 50px);}&:hover,&:focus{border-bottom:1px solid ", ";}"], _globalStyles.mobileBreakpoint, _globalStyles.colors.lightGrey);
 
 var StyledToDo = (0, _styledComponents2.default)("div").withConfig({
   displayName: "ToDos__StyledToDo",
   componentId: "sc-1ljo6wg-3"
-})(["padding:0 20px;border-radius:3px;box-shadow:1px 1px 4px ", ";background:", ";height:55vh;overflow-x:auto;width:", ";@media (", "){width:100%;}&::-webkit-scrollbar-track{background-color:", ";}&::-webkit-scrollbar{width:6px;background-color:", ";}&::-webkit-scrollbar-thumb{background-color:", ";}> ul > li{position:relative;border-bottom:1px solid ", ";&.fake{height:77px;&.first-fake{border-top:1px solid ", ";}}}"], _globalStyles.colors.lightGrey, (0, _polished.lighten)(0.025, _globalStyles.colors.light), function (props) {
+})(["padding:0 20px;border-radius:3px;box-shadow:1px 1px 4px ", ";background:", ";height:55vh;overflow-x:auto;width:", ";@media (", "){width:100%;padding:0;}&::-webkit-scrollbar-track{background-color:", ";}&::-webkit-scrollbar{width:6px;background-color:", ";}&::-webkit-scrollbar-thumb{background-color:", ";}> ul > li{position:relative;border-bottom:1px solid ", ";&.fake{height:77px;&.first-fake{border-top:1px solid ", ";}}}"], _globalStyles.colors.lightGrey, (0, _polished.lighten)(0.025, _globalStyles.colors.light), function (props) {
   return props.toDoWidth;
 }, _globalStyles.mobileBreakpoint, function (props) {
   return (0, _polished.lighten)(0.5, props.mainColor);
@@ -1886,7 +1972,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ToDos);
-},{"react":"..\\node_modules\\react\\index.js","react-redux":"..\\node_modules\\react-redux\\es\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","polished":"..\\node_modules\\polished\\dist\\polished.es.js","react-loadable":"..\\node_modules\\react-loadable\\lib\\index.js","../assets/globalStyles":"assets\\globalStyles.js","../redux/actionCreators/editListName":"redux\\actionCreators\\editListName.js","../redux/actionCreators/deleteList":"redux\\actionCreators\\deleteList.js","./basics/Loading":"components\\basics\\Loading.jsx","./basics/Sort":"components\\basics\\Sort.jsx","./basics/Button":"components\\basics\\Button.jsx","./basics/DivThanInput":"components\\basics\\DivThanInput.jsx","./SingleToDo":"components\\SingleToDo.jsx","./AddItem":"components\\AddItem.jsx","_bundle_loader":"..\\node_modules\\parcel-bundler\\src\\builtins\\bundle-loader.js","./SingleToDoDetails":[["SingleToDoDetails.7c8f4881.js","components\\SingleToDoDetails.jsx"],"SingleToDoDetails.7c8f4881.map","components\\SingleToDoDetails.jsx"]}],"redux\\actionCreators\\addList.js":[function(require,module,exports) {
+},{"react":"..\\node_modules\\react\\index.js","react-redux":"..\\node_modules\\react-redux\\es\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","polished":"..\\node_modules\\polished\\dist\\polished.es.js","react-loadable":"..\\node_modules\\react-loadable\\lib\\index.js","prop-types":"..\\node_modules\\prop-types\\index.js","../assets/globalStyles":"assets\\globalStyles.js","../redux/actionCreators/editListName":"redux\\actionCreators\\editListName.js","../redux/actionCreators/deleteList":"redux\\actionCreators\\deleteList.js","./basics/Loading":"components\\basics\\Loading.jsx","./basics/Sort":"components\\basics\\Sort.jsx","./basics/Button":"components\\basics\\Button.jsx","./basics/DivThanInput":"components\\basics\\DivThanInput.jsx","./SingleToDo":"components\\SingleToDo.jsx","./AddItem":"components\\AddItem.jsx","_bundle_loader":"..\\node_modules\\parcel-bundler\\src\\builtins\\bundle-loader.js","./SingleToDoDetails":[["SingleToDoDetails.7c8f4881.js","components\\SingleToDoDetails.jsx"],"SingleToDoDetails.7c8f4881.map","components\\SingleToDoDetails.jsx"]}],"redux\\actionCreators\\addList.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1926,7 +2012,12 @@ var addList = exports.addList = function addList(newList, newColor, userId) {
 
               _firebase.databaseRef.update(updates);
 
-            case 5:
+              dispatch({
+                type: "ADD_LIST",
+                newId: listId
+              });
+
+            case 6:
             case "end":
               return _context.stop();
           }
@@ -1983,7 +2074,20 @@ var changeListColor = exports.changeListColor = function changeListColor(listId,
     };
   }();
 };
-},{"../../config/firebase":"config\\firebase.js","../../assets/globalStyles":"assets\\globalStyles.js"}],"assets\\icons\\paint-board-and-brush.svg":[function(require,module,exports) {
+},{"../../config/firebase":"config\\firebase.js","../../assets/globalStyles":"assets\\globalStyles.js"}],"redux\\actionCreators\\selectList.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = selectList;
+function selectList(listId) {
+  return {
+    type: "CHANGE_ACTIVE_LIST",
+    listId: listId
+  };
+}
+},{}],"assets\\icons\\paint-board-and-brush.svg":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2167,6 +2271,10 @@ var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 var _polished = require("polished");
 
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _globalStyles = require("../../assets/globalStyles");
 
 var _paintBoardAndBrush = require("../../assets/icons/paint-board-and-brush.svg");
@@ -2249,10 +2357,15 @@ var ColorSelector = function (_React$PureComponent) {
   return ColorSelector;
 }(_react2.default.PureComponent);
 
-// styled components
+// propTypes
 
 
-var StyledImg = (0, _styledComponents2.default)(_paintBoardAndBrush2.default).withConfig({
+ColorSelector.propTypes = {
+  handleColorChange: _propTypes2.default.func.isRequired,
+  list: _propTypes2.default.object
+
+  // styled components
+};var StyledImg = (0, _styledComponents2.default)(_paintBoardAndBrush2.default).withConfig({
   displayName: "ColorSelector__StyledImg",
   componentId: "gs76ec-0"
 })(["cursor:pointer;width:20px;display:inline-block;margin-bottom:-6px;margin-left:10px;margin-right:10px;"]);
@@ -2268,7 +2381,7 @@ var StyledLabelColor = (0, _styledComponents2.default)("li").withConfig({
 })(["cursor:pointer;height:30px;width:30px;display:inline-block;&:not(:first-child){margin-left:2%;}"]);
 
 exports.default = ColorSelector;
-},{"react":"..\\node_modules\\react\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","polished":"..\\node_modules\\polished\\dist\\polished.es.js","../../assets/globalStyles":"assets\\globalStyles.js","../../assets/icons/paint-board-and-brush.svg":"assets\\icons\\paint-board-and-brush.svg"}],"components\\AddList.jsx":[function(require,module,exports) {
+},{"react":"..\\node_modules\\react\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","polished":"..\\node_modules\\polished\\dist\\polished.es.js","prop-types":"..\\node_modules\\prop-types\\index.js","../../assets/globalStyles":"assets\\globalStyles.js","../../assets/icons/paint-board-and-brush.svg":"assets\\icons\\paint-board-and-brush.svg"}],"components\\AddList.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2287,13 +2400,13 @@ var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 var _reactRedux = require("react-redux");
 
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _globalStyles = require("../assets/globalStyles");
 
 var _Button = require("./basics/Button");
-
-var _ColorSelector = require("./basics/ColorSelector");
-
-var _ColorSelector2 = _interopRequireDefault(_ColorSelector);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2325,9 +2438,11 @@ var AddList = function (_React$PureComponent) {
       _this.setState({ inputValue: inputNow });
     }, _this.clickBehavior = function (e) {
       e.preventDefault();
-      if (_this.state.inputValue != "" && _this.state.inputValue.length > 3) {
+      if (_this.state.inputValue != "") {
         _this.props.clickBehavior(_this.state.inputValue, _this.state.inputColor, _this.props.user.uid);
         _this.setState({ inputValue: "", inputColor: "lightGrey" });
+      } else {
+        _this._input.focus();
       }
     }, _this.handleColorAdd = function (list, color) {
       _this.setState({ inputColor: color });
@@ -2352,6 +2467,9 @@ var AddList = function (_React$PureComponent) {
             "div",
             { className: "input-holder" },
             _react2.default.createElement("input", {
+              ref: function ref(c) {
+                return _this2._input = c;
+              },
               autoFocus: this.props.autoFocus ? true : false,
               type: "text",
               placeholder: "Create new list",
@@ -2359,8 +2477,7 @@ var AddList = function (_React$PureComponent) {
               onChange: function onChange(e) {
                 return _this2.handleChange(e);
               }
-            }),
-            !this.props.hideColorSelector && _react2.default.createElement(_ColorSelector2.default, { handleColorChange: this.handleColorAdd })
+            })
           ),
           _react2.default.createElement(_Button.Button, {
             style: { backgroundColor: "blue" },
@@ -2377,10 +2494,17 @@ var AddList = function (_React$PureComponent) {
   return AddList;
 }(_react2.default.PureComponent);
 
-// styled components
+// propTypes
 
 
-var StyledForm = (0, _styledComponents2.default)("form").withConfig({
+AddList.propTypes = {
+  clickBehavior: _propTypes2.default.func.isRequired,
+  user: _propTypes2.default.oneOfType([_propTypes2.default.object.isRequired, _propTypes2.default.string]),
+  autoFocus: _propTypes2.default.bool,
+  text: _propTypes2.default.string
+
+  // styled components
+};var StyledForm = (0, _styledComponents2.default)("form").withConfig({
   displayName: "AddList__StyledForm",
   componentId: "sc-1szfwe5-0"
 })(["display:inline-block;position:relative;vertical-align:top;margin-left:2%;.input-holder{border-radius:3px 3px 0 0;padding:12px 0 10px;max-width:160px;input{border:0;font-size:1.2em;width:calc(100% - 40px);display:inline-block;padding:0 0 0 10px;}}img{background:white;margin:0;padding:15px 10px;margin-bottom:-20px;border-radius:0 3px 0 0;width:40px;border:1px solid ", ";border-left:0;}button{background:", ";display:block;width:100%;border-radius:0;font-size:2em;padding:0 0 7px;line-height:1em;margin:0;height:", ";}"], function (props) {
@@ -2398,7 +2522,7 @@ var mapStateToProps = function mapStateToProps(_ref2) {
   };
 };
 exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(AddList);
-},{"react":"..\\node_modules\\react\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","react-redux":"..\\node_modules\\react-redux\\es\\index.js","../assets/globalStyles":"assets\\globalStyles.js","./basics/Button":"components\\basics\\Button.jsx","./basics/ColorSelector":"components\\basics\\ColorSelector.jsx"}],"components\\ListsManager.jsx":[function(require,module,exports) {
+},{"react":"..\\node_modules\\react\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","react-redux":"..\\node_modules\\react-redux\\es\\index.js","prop-types":"..\\node_modules\\prop-types\\index.js","../assets/globalStyles":"assets\\globalStyles.js","./basics/Button":"components\\basics\\Button.jsx"}],"components\\ListsManager.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2418,6 +2542,10 @@ var _styledComponents = require("styled-components");
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 var _polished = require("polished");
+
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _globalStyles = require("../assets/globalStyles");
 
@@ -2538,13 +2666,21 @@ var ListsManager = function (_React$PureComponent) {
   return ListsManager;
 }(_react2.default.PureComponent);
 
-// styled components
+// propTypes
 
 
-var StyledUl = (0, _styledComponents2.default)("ul").withConfig({
+ListsManager.propTypes = {
+  handleSelectList: _propTypes2.default.func.isRequired,
+  completeListLayout: _propTypes2.default.func.isRequired,
+  lists: _propTypes2.default.oneOfType([_propTypes2.default.object.isRequired, _propTypes2.default.string]),
+  handleColorChange: _propTypes2.default.func.isRequired,
+  handleAddList: _propTypes2.default.func.isRequired
+
+  // styled components
+};var StyledUl = (0, _styledComponents2.default)("ul").withConfig({
   displayName: "ListsManager__StyledUl",
   componentId: "sc-9l8fuq-0"
-})(["overflow-x:auto;max-width:100%;white-space:nowrap;height:100px;padding-top:15px;&::-webkit-scrollbar-track{background-color:", ";}&::-webkit-scrollbar{height:6px;background-color:", ";}&::-webkit-scrollbar-thumb{background-color:", ";}"], (0, _polished.lighten)(0.5, _globalStyles.colors.primary), (0, _polished.lighten)(0.5, _globalStyles.colors.primary), _globalStyles.colors.primary);
+})(["overflow-x:auto;max-width:100%;white-space:nowrap;height:100px;padding-top:15px;@media (", "){margin-bottom:20vh;}&::-webkit-scrollbar-track{background-color:", ";}&::-webkit-scrollbar{height:6px;background-color:", ";}&::-webkit-scrollbar-thumb{background-color:", ";}"], _globalStyles.mobileBreakpoint, (0, _polished.lighten)(0.5, _globalStyles.colors.primary), (0, _polished.lighten)(0.5, _globalStyles.colors.primary), _globalStyles.colors.primary);
 
 var StyledList = (0, _styledComponents2.default)("li").withConfig({
   displayName: "ListsManager__StyledList",
@@ -2581,7 +2717,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ListsManager);
-},{"react":"..\\node_modules\\react\\index.js","react-redux":"..\\node_modules\\react-redux\\es\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","polished":"..\\node_modules\\polished\\dist\\polished.es.js","../assets/globalStyles":"assets\\globalStyles.js","../redux/actionCreators/addList":"redux\\actionCreators\\addList.js","../redux/actionCreators/changeListColor":"redux\\actionCreators\\changeListColor.js","../redux/actionCreators/selectList":"redux\\actionCreators\\selectList.js","./basics/ColorSelector":"components\\basics\\ColorSelector.jsx","./AddList":"components\\AddList.jsx"}],"components\\NoToDos.jsx":[function(require,module,exports) {
+},{"react":"..\\node_modules\\react\\index.js","react-redux":"..\\node_modules\\react-redux\\es\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","polished":"..\\node_modules\\polished\\dist\\polished.es.js","prop-types":"..\\node_modules\\prop-types\\index.js","../assets/globalStyles":"assets\\globalStyles.js","../redux/actionCreators/addList":"redux\\actionCreators\\addList.js","../redux/actionCreators/changeListColor":"redux\\actionCreators\\changeListColor.js","../redux/actionCreators/selectList":"redux\\actionCreators\\selectList.js","./basics/ColorSelector":"components\\basics\\ColorSelector.jsx","./AddList":"components\\AddList.jsx"}],"components\\NoToDos.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2601,6 +2737,10 @@ var _styledComponents2 = _interopRequireDefault(_styledComponents);
 var _reactRedux = require("react-redux");
 
 var _polished = require("polished");
+
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _globalStyles = require("../assets/globalStyles");
 
@@ -2651,7 +2791,6 @@ var NoToDos = function (_React$PureComponent) {
         StyledNoToDos,
         null,
         this.state.showAddList ? _react2.default.createElement(_AddList2.default, {
-          hideColorSelector: true,
           autoFocus: true,
           clickBehavior: this.handleAddList,
           text: "+"
@@ -2679,10 +2818,14 @@ var NoToDos = function (_React$PureComponent) {
   return NoToDos;
 }(_react2.default.PureComponent);
 
-// styled components
+// propTypes
 
 
-var StyledNoToDos = (0, _styledComponents2.default)("div").withConfig({
+NoToDos.propTypes = {
+  handleAddList: _propTypes2.default.func.isRequired
+
+  // styled components
+};var StyledNoToDos = (0, _styledComponents2.default)("div").withConfig({
   displayName: "NoToDos__StyledNoToDos",
   componentId: "sc-3j2u0w-0"
 })(["padding:0 20px;border-radius:3px;box-shadow:1px 1px 4px ", ";background:", ";height:55vh;overflow-x:auto;width:100%;text-align:center;h2{margin-top:15vh;}button{padding:0;margin:1vh auto;svg{width:80px;height:80px;}}form{margin-top:18vh;}"], _globalStyles.colors.lightGrey, (0, _polished.lighten)(0.025, _globalStyles.colors.light));
@@ -2696,7 +2839,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(NoToDos);
-},{"react":"..\\node_modules\\react\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","react-redux":"..\\node_modules\\react-redux\\es\\index.js","polished":"..\\node_modules\\polished\\dist\\polished.es.js","../assets/globalStyles":"assets\\globalStyles.js","../redux/actionCreators/addList":"redux\\actionCreators\\addList.js","./basics/Button":"components\\basics\\Button.jsx","./AddList":"components\\AddList.jsx"}],"components\\ToDosPage.jsx":[function(require,module,exports) {
+},{"react":"..\\node_modules\\react\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","react-redux":"..\\node_modules\\react-redux\\es\\index.js","polished":"..\\node_modules\\polished\\dist\\polished.es.js","prop-types":"..\\node_modules\\prop-types\\index.js","../assets/globalStyles":"assets\\globalStyles.js","../redux/actionCreators/addList":"redux\\actionCreators\\addList.js","./basics/Button":"components\\basics\\Button.jsx","./AddList":"components\\AddList.jsx"}],"components\\ToDosPage.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2717,11 +2860,13 @@ var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 var _reactRedux = require("react-redux");
 
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _globalStyles = require("../assets/globalStyles");
+
 var _fetchToDos = require("../redux/actionCreators/fetchToDos");
-
-var _selectList = require("../redux/actionCreators/selectList");
-
-var _selectList2 = _interopRequireDefault(_selectList);
 
 var _Loading = require("./basics/Loading");
 
@@ -2742,8 +2887,6 @@ var _ListsManager2 = _interopRequireDefault(_ListsManager);
 var _NoToDos = require("./NoToDos");
 
 var _NoToDos2 = _interopRequireDefault(_NoToDos);
-
-var _globalStyles = require("../assets/globalStyles");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2788,46 +2931,80 @@ var ToDosPage = function (_React$PureComponent) {
         return itemsArray.push(items[itemKey]);
       });
 
-      _this.sortBy(itemsArray);
+      itemsArray = _this.sortBy(itemsArray);
 
       lists[currList].items = itemsArray;
 
       return lists[currList];
     }, _this.sortBy = function (itemsArray) {
-      if (_this.state.sortBy === "most-important") {
-        itemsArray.sort(function (a, b) {
-          return b.priority - a.priority;
-        });
-      } else if (_this.state.sortBy === "alphabetically-a-z") {
-        itemsArray.sort(function (a, b) {
-          var nameA = a.task.toLowerCase(),
-              nameB = b.task.toLowerCase();
-          if (nameA < nameB)
-            //sort string ascending
-            return -1;
-          if (nameA > nameB) return 1;
-          return 0; //default return value (no sorting)
-        });
-      } else if (_this.state.sortBy === "alphabetically-z-a") {
-        itemsArray.sort(function (a, b) {
-          var nameA = a.task.toLowerCase(),
-              nameB = b.task.toLowerCase();
-          if (nameA < nameB)
-            //sort string ascending
-            return 1;
-          if (nameA > nameB) return -1;
-          return 0; //default return value (no sorting)
-        });
-      } else if (_this.state.sortBy === "newest") {
-        itemsArray.sort(function (a, b) {
-          return new Date(b.start_date) - new Date(a.start_date);
-        });
-      } else if (_this.state.sortBy === "oldest") {
-        itemsArray.sort(function (a, b) {
-          return new Date(a.start_date) - new Date(b.start_date);
-        });
-      }
+      switch (_this.state.sortBy) {
+        case "most-important":
+          {
+            itemsArray.sort(function (a, b) {
+              return b.priority - a.priority;
+            });
+            break;
+          }
+        case "remind-me":
+          {
+            var noEndDate = itemsArray.filter(function (item) {
+              return item.end_date === "";
+            });
+            var withEndDateActive = itemsArray.filter(function (item) {
+              return item.end_date != "" && item.reminder_set;
+            });
+            var withEndDateInactive = itemsArray.filter(function (item) {
+              return item.end_date != "" && !item.reminder_set;
+            });
+            withEndDateActive.sort(function (a, b) {
+              return new Date(a.end_date) - new Date(b.end_date);
+            });
+            withEndDateInactive.sort(function (a, b) {
+              return new Date(a.end_date) - new Date(b.end_date);
+            });
+            itemsArray = withEndDateActive.concat(withEndDateInactive, noEndDate);
+            break;
+          }
+        case "alphabetically-a-z":
+          {
+            itemsArray.sort(function (a, b) {
+              var nameA = a.task.toLowerCase(),
+                  nameB = b.task.toLowerCase();
+              if (nameA < nameB) return -1;
+              if (nameA > nameB) return 1;
+              return 0;
+            });
+            break;
+          }
+        case "alphabetically-z-a":
+          {
+            itemsArray.sort(function (a, b) {
+              var nameA = a.task.toLowerCase(),
+                  nameB = b.task.toLowerCase();
+              if (nameA < nameB) return 1;
+              if (nameA > nameB) return -1;
+              return 0;
+            });
+            break;
+          }
+        case "newest":
+          {
+            itemsArray.sort(function (a, b) {
+              return new Date(b.start_date) - new Date(a.start_date);
+            });
+            break;
+          }
+        case "oldest":
+          {
+            itemsArray.sort(function (a, b) {
+              return new Date(a.start_date) - new Date(b.start_date);
+            });
+            break;
+          }
 
+        default:
+          itemsArray;
+      }
       return itemsArray;
     }, _this.completeListLayout = function () {
       var currList = _this.getCurrentList();
@@ -2918,21 +3095,24 @@ var ToDosPage = function (_React$PureComponent) {
   return ToDosPage;
 }(_react2.default.PureComponent);
 
-// styled components
+// propTypes
 
 
-var expandsToDoOuter = (0, _styledComponents.keyframes)(["0%{width:60%;}100%{width:80%;}"]);
+ToDosPage.propTypes = {
+  handleFetchToDos: _propTypes2.default.func.isRequired,
+  user: _propTypes2.default.oneOfType([_propTypes2.default.object.isRequired, _propTypes2.default.string]),
+  lists: _propTypes2.default.oneOfType([_propTypes2.default.object.isRequired, _propTypes2.default.string]),
+  activeList: _propTypes2.default.string.isRequired
+
+  // styled components
+};var expandsToDoOuter = (0, _styledComponents.keyframes)(["0%{width:60%;}100%{width:80%;}"]);
 
 var compressToDoOuter = (0, _styledComponents.keyframes)(["0%{width:80%;}100%{width:60%;}"]);
-
-var expandsToDoOuterMobile = (0, _styledComponents.keyframes)(["0%{width:80%;}100%{width:90%;}"]);
-
-var compressToDoOuterMobile = (0, _styledComponents.keyframes)(["0%{width:90%;}100%{width:80%;}"]);
 
 var StyledContainer = (0, _styledComponents2.default)("div").withConfig({
   displayName: "ToDosPage__StyledContainer",
   componentId: "sc-1ip8zbh-0"
-})(["width:60%;margin:30px auto;position:relative;transition:all 0.25s ease;&.expanded{animation:", " 0.25s ease forwards;}&.compressed{animation:", " 0.25s ease forwards;}@media (", "){width:90%;&.expanded{animation:none;}&.compressed{animation:none;}}h2{text-transform:capitalize;font-size:2em;margin-bottom:20px;}"], expandsToDoOuter, compressToDoOuter, _globalStyles.mobileBreakpoint);
+})(["width:60%;margin:30px auto;position:relative;transition:all 0.25s ease;@media (", "){margin:10px auto;}&.expanded{animation:", " 0.25s ease forwards;}&.compressed{animation:", " 0.25s ease forwards;}@media (", "){width:90%;&.expanded{animation:none;}&.compressed{animation:none;}}h2{text-transform:capitalize;font-size:2em;margin-bottom:20px;}"], _globalStyles.mobileBreakpoint, expandsToDoOuter, compressToDoOuter, _globalStyles.mobileBreakpoint);
 
 var mapStateToProps = function mapStateToProps(_ref2) {
   var lists = _ref2.lists,
@@ -2947,9 +3127,6 @@ var mapStateToProps = function mapStateToProps(_ref2) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    handleSelectList: function handleSelectList(listId) {
-      dispatch((0, _selectList2.default)(listId));
-    },
     handleFetchToDos: function handleFetchToDos(userId) {
       dispatch((0, _fetchToDos.fetchToDos)(userId));
     }
@@ -2957,7 +3134,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(ToDosPage);
-},{"react":"..\\node_modules\\react\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","react-redux":"..\\node_modules\\react-redux\\es\\index.js","../redux/actionCreators/fetchToDos":"redux\\actionCreators\\fetchToDos.js","../redux/actionCreators/selectList":"redux\\actionCreators\\selectList.js","./basics/Loading":"components\\basics\\Loading.jsx","./Notification":"components\\Notification.jsx","./ToDos":"components\\ToDos.jsx","./ListsManager":"components\\ListsManager.jsx","./NoToDos":"components\\NoToDos.jsx","../assets/globalStyles":"assets\\globalStyles.js"}],"..\\node_modules\\parcel-bundler\\src\\builtins\\hmr-runtime.js":[function(require,module,exports) {
+},{"react":"..\\node_modules\\react\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","react-redux":"..\\node_modules\\react-redux\\es\\index.js","prop-types":"..\\node_modules\\prop-types\\index.js","../assets/globalStyles":"assets\\globalStyles.js","../redux/actionCreators/fetchToDos":"redux\\actionCreators\\fetchToDos.js","./basics/Loading":"components\\basics\\Loading.jsx","./Notification":"components\\Notification.jsx","./ToDos":"components\\ToDos.jsx","./ListsManager":"components\\ListsManager.jsx","./NoToDos":"components\\NoToDos.jsx"}],"..\\node_modules\\parcel-bundler\\src\\builtins\\hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -2986,7 +3163,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '59901' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '58985' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 

@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import PropTypes from 'prop-types';
 
 import { colors, mobileBreakpoint } from "../assets/globalStyles";
 
@@ -23,6 +24,15 @@ class Header extends React.PureComponent {
       </StyledContainer>
     );
   }
+}
+
+// propTypes
+Header.propTypes = {
+  user: PropTypes.oneOfType([
+    PropTypes.object.isRequired,
+    PropTypes.string,
+  ]),
+  userLogout: PropTypes.func.isRequired
 }
 
 // styled components

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { lighten } from "polished";
+import PropTypes from 'prop-types';
 
 import { colors } from "../../assets/globalStyles";
 
@@ -21,6 +22,17 @@ export class Button extends React.PureComponent {
       </React.Fragment>
     );
   }
+}
+
+// propTypes
+Button.propTypes = {
+  clickBehavior: PropTypes.func.isRequired,
+  text: PropTypes.string.isRequired,
+  icon: PropTypes.string,
+  mainColor: PropTypes.string,
+  primary: PropTypes.bool,
+  secondary: PropTypes.bool,
+  danger: PropTypes.bool,
 }
 
 // styled components

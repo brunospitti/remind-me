@@ -2,13 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import Datetime from "react-datetime";
+import { rgba } from "polished";
+import PropTypes from 'prop-types';
 
 import { colors } from "../assets/globalStyles";
 
 import { currTime, dateCalendarTransformation } from "../assets/helpers";
 
 import { Button } from "./basics/Button";
-import { rgba } from "polished";
 
 class DateTimePicker extends React.PureComponent {
   state = {
@@ -92,6 +93,13 @@ class DateTimePicker extends React.PureComponent {
       </React.Fragment>
     );
   }
+}
+
+// propTypes
+DateTimePicker.propTypes = {
+  defaultEndDate: PropTypes.string.isRequired,
+  getNewDate: PropTypes.func.isRequired,
+  mainColor: PropTypes.string
 }
 
 // styled components

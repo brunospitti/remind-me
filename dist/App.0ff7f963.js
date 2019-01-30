@@ -24901,10 +24901,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 // 2. the action (info about what happened)
 
 function activeList() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "0";
   var action = arguments[1];
 
   switch (action.type) {
+    case "DELETE_LIST":
+      {
+        return action.nextListId;
+      }
+
+    case "ADD_LIST":
+      {
+        return action.newId;
+      }
+
     case "FETCH_TO_DOS":
       {
         var lists = _extends({}, action.lists);
@@ -24918,9 +24928,7 @@ function activeList() {
         }, {});
 
         if (lists != "loading" && Object.keys(lists).length > 0) {
-
-          if (action.activeList != 0) {
-
+          if (action.activeList != "0") {
             return action.activeList;
           } else {
             var listsArray = [];
@@ -24942,16 +24950,6 @@ function activeList() {
     case "CHANGE_ACTIVE_LIST":
       {
         return action.listId;
-      }
-
-    case "DELETE_LIST":
-      {
-        return action.nextListId;
-      }
-
-    case "ADD_LIST":
-      {
-        return action.newId;
       }
 
     default:
@@ -40529,7 +40527,52 @@ var global = arguments[3];
   (function() { return this })() || Function("return this")()
 );
 
-},{}],"..\\node_modules\\@firebase\\polyfill\\node_modules\\whatwg-fetch\\fetch.js":[function(require,module,exports) {
+},{}],"assets\\globalStyles.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.GlobalStyles = exports.priorityColors = exports.listColors = exports.colors = exports.mobileBreakpoint = undefined;
+
+var _templateObject = _taggedTemplateLiteral(["\n    // css reset\n\n    html, body, div, span, applet, object, iframe,\n    h1, h2, h3, h4, h5, h6, p, blockquote, pre,\n    a, abbr, acronym, address, big, cite, code,\n    del, dfn, em, img, ins, kbd, q, s, samp,\n    small, strike, strong, sub, sup, tt, var,\n    b, u, i, center,\n    dl, dt, dd, ol, ul, li,\n    fieldset, form, label, legend,\n    table, caption, tbody, tfoot, thead, tr, th, td,\n    article, aside, canvas, details, embed, \n    figure, figcaption, footer, header, hgroup, \n    menu, nav, output, ruby, section, summary,\n    time, mark, audio, video {\n        margin: 0;\n        padding: 0;\n        border: 0;\n        vertical-align: baseline;\n    }\n    /* HTML5 display-role reset for older browsers */\n    article, aside, details, figcaption, figure, \n    footer, header, hgroup, menu, nav, section {\n        display: block;\n    }\n    body {\n        line-height: 1;\n    }\n    ol, ul {\n        list-style: none;\n    }\n    blockquote, q {\n        quotes: none;\n    }\n    blockquote:before, blockquote:after,\n    q:before, q:after {\n        content: '';\n        content: none;\n    }\n    table {\n        border-collapse: collapse;\n        border-spacing: 0;\n    }\n    * {\n        box-sizing: border-box;\n        :focus{\n            outline: none;\n        }\n    }\n\n\n\n    // global styles\n\n    * {\n        font-family: -apple-system,BlinkMacSystemFont,'avenir next',avenir,'helvetica neue','segoe ui', helvetica,roboto,noto,arial,sans-serif;\n        font-size: 14px;\n        color: ", ";\n    }\n"], ["\n    // css reset\n\n    html, body, div, span, applet, object, iframe,\n    h1, h2, h3, h4, h5, h6, p, blockquote, pre,\n    a, abbr, acronym, address, big, cite, code,\n    del, dfn, em, img, ins, kbd, q, s, samp,\n    small, strike, strong, sub, sup, tt, var,\n    b, u, i, center,\n    dl, dt, dd, ol, ul, li,\n    fieldset, form, label, legend,\n    table, caption, tbody, tfoot, thead, tr, th, td,\n    article, aside, canvas, details, embed, \n    figure, figcaption, footer, header, hgroup, \n    menu, nav, output, ruby, section, summary,\n    time, mark, audio, video {\n        margin: 0;\n        padding: 0;\n        border: 0;\n        vertical-align: baseline;\n    }\n    /* HTML5 display-role reset for older browsers */\n    article, aside, details, figcaption, figure, \n    footer, header, hgroup, menu, nav, section {\n        display: block;\n    }\n    body {\n        line-height: 1;\n    }\n    ol, ul {\n        list-style: none;\n    }\n    blockquote, q {\n        quotes: none;\n    }\n    blockquote:before, blockquote:after,\n    q:before, q:after {\n        content: '';\n        content: none;\n    }\n    table {\n        border-collapse: collapse;\n        border-spacing: 0;\n    }\n    * {\n        box-sizing: border-box;\n        :focus{\n            outline: none;\n        }\n    }\n\n\n\n    // global styles\n\n    * {\n        font-family: -apple-system,BlinkMacSystemFont,'avenir next',avenir,'helvetica neue','segoe ui', helvetica,roboto,noto,arial,sans-serif;\n        font-size: 14px;\n        color: ", ";\n    }\n"]);
+
+var _styledComponents = require("styled-components");
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var mobileBreakpoint = exports.mobileBreakpoint = "max-width: 767px";
+
+var colors = exports.colors = {
+    primary: "#00b8a9",
+    secondary: "#ffde7d",
+    tertiary: "#f6416c",
+    complementary: "#6a7faf",
+    dark: "#333",
+    light: "#f7f7f7",
+    lightGrey: "#C1C1C1",
+    danger: "#FF6767"
+};
+
+var listColors = exports.listColors = {
+    blueGreen: "#84DCC6",
+    salmon: "#FFA69E",
+    red: "#FF686B",
+    purple: "#9881d0",
+    englishLavender: "#B5838D",
+    blue: "#247BA0",
+    pink: "#FF1654",
+    lightGrey: "#C1C1C1"
+};
+
+var priorityColors = exports.priorityColors = {
+    low: "#c9d5ff",
+    medium: "#a9e6bb",
+    high: "#FF686B"
+};
+
+var GlobalStyles = exports.GlobalStyles = (0, _styledComponents.createGlobalStyle)(_templateObject, colors.dark);
+},{"styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js"}],"..\\node_modules\\@firebase\\polyfill\\node_modules\\whatwg-fetch\\fetch.js":[function(require,module,exports) {
 (function(self) {
   'use strict';
 
@@ -64575,52 +64618,7 @@ var userFetch = exports.userFetch = function userFetch() {
     });
   };
 };
-},{"../../config/firebase":"config\\firebase.js"}],"assets\\globalStyles.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.GlobalStyles = exports.priorityColors = exports.listColors = exports.colors = exports.mobileBreakpoint = undefined;
-
-var _templateObject = _taggedTemplateLiteral(["\n    // css reset\n\n    html, body, div, span, applet, object, iframe,\n    h1, h2, h3, h4, h5, h6, p, blockquote, pre,\n    a, abbr, acronym, address, big, cite, code,\n    del, dfn, em, img, ins, kbd, q, s, samp,\n    small, strike, strong, sub, sup, tt, var,\n    b, u, i, center,\n    dl, dt, dd, ol, ul, li,\n    fieldset, form, label, legend,\n    table, caption, tbody, tfoot, thead, tr, th, td,\n    article, aside, canvas, details, embed, \n    figure, figcaption, footer, header, hgroup, \n    menu, nav, output, ruby, section, summary,\n    time, mark, audio, video {\n        margin: 0;\n        padding: 0;\n        border: 0;\n        vertical-align: baseline;\n    }\n    /* HTML5 display-role reset for older browsers */\n    article, aside, details, figcaption, figure, \n    footer, header, hgroup, menu, nav, section {\n        display: block;\n    }\n    body {\n        line-height: 1;\n    }\n    ol, ul {\n        list-style: none;\n    }\n    blockquote, q {\n        quotes: none;\n    }\n    blockquote:before, blockquote:after,\n    q:before, q:after {\n        content: '';\n        content: none;\n    }\n    table {\n        border-collapse: collapse;\n        border-spacing: 0;\n    }\n    * {\n        box-sizing: border-box;\n        :focus{\n            outline: none;\n        }\n    }\n\n\n\n    // global styles\n\n    * {\n        font-family: -apple-system,BlinkMacSystemFont,'avenir next',avenir,'helvetica neue','segoe ui', helvetica,roboto,noto,arial,sans-serif;\n        font-size: 14px;\n        color: ", ";\n    }\n"], ["\n    // css reset\n\n    html, body, div, span, applet, object, iframe,\n    h1, h2, h3, h4, h5, h6, p, blockquote, pre,\n    a, abbr, acronym, address, big, cite, code,\n    del, dfn, em, img, ins, kbd, q, s, samp,\n    small, strike, strong, sub, sup, tt, var,\n    b, u, i, center,\n    dl, dt, dd, ol, ul, li,\n    fieldset, form, label, legend,\n    table, caption, tbody, tfoot, thead, tr, th, td,\n    article, aside, canvas, details, embed, \n    figure, figcaption, footer, header, hgroup, \n    menu, nav, output, ruby, section, summary,\n    time, mark, audio, video {\n        margin: 0;\n        padding: 0;\n        border: 0;\n        vertical-align: baseline;\n    }\n    /* HTML5 display-role reset for older browsers */\n    article, aside, details, figcaption, figure, \n    footer, header, hgroup, menu, nav, section {\n        display: block;\n    }\n    body {\n        line-height: 1;\n    }\n    ol, ul {\n        list-style: none;\n    }\n    blockquote, q {\n        quotes: none;\n    }\n    blockquote:before, blockquote:after,\n    q:before, q:after {\n        content: '';\n        content: none;\n    }\n    table {\n        border-collapse: collapse;\n        border-spacing: 0;\n    }\n    * {\n        box-sizing: border-box;\n        :focus{\n            outline: none;\n        }\n    }\n\n\n\n    // global styles\n\n    * {\n        font-family: -apple-system,BlinkMacSystemFont,'avenir next',avenir,'helvetica neue','segoe ui', helvetica,roboto,noto,arial,sans-serif;\n        font-size: 14px;\n        color: ", ";\n    }\n"]);
-
-var _styledComponents = require("styled-components");
-
-function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-var mobileBreakpoint = exports.mobileBreakpoint = "max-width: 767px";
-
-var colors = exports.colors = {
-    primary: "#00b8a9",
-    secondary: "#ffde7d",
-    tertiary: "#f6416c",
-    complementary: "#6a7faf",
-    dark: "#333",
-    light: "#f7f7f7",
-    lightGrey: "#C1C1C1",
-    danger: "#FF6767"
-};
-
-var listColors = exports.listColors = {
-    blueGreen: "#84DCC6",
-    salmon: "#FFA69E",
-    red: "#FF686B",
-    purple: "#9881d0",
-    englishLavender: "#B5838D",
-    blue: "#247BA0",
-    pink: "#FF1654",
-    lightGrey: "#C1C1C1"
-};
-
-var priorityColors = exports.priorityColors = {
-    low: "#c9d5ff",
-    medium: "#a9e6bb",
-    high: "#FF686B"
-};
-
-var GlobalStyles = exports.GlobalStyles = (0, _styledComponents.createGlobalStyle)(_templateObject, colors.dark);
-},{"styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js"}],"components\\basics\\Loading.jsx":[function(require,module,exports) {
+},{"../../config/firebase":"config\\firebase.js"}],"components\\basics\\Loading.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -68626,6 +68624,10 @@ var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 var _polished = require("polished");
 
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _globalStyles = require("../../assets/globalStyles");
 
 var _button = require("../../hocs/button");
@@ -68666,10 +68668,20 @@ var Button = exports.Button = function (_React$PureComponent) {
   return Button;
 }(_react2.default.PureComponent);
 
-// styled components
+// propTypes
 
 
-var StyledButton = (0, _styledComponents2.default)("button").withConfig({
+Button.propTypes = {
+  clickBehavior: _propTypes2.default.func.isRequired,
+  text: _propTypes2.default.string.isRequired,
+  icon: _propTypes2.default.string,
+  mainColor: _propTypes2.default.string,
+  primary: _propTypes2.default.bool,
+  secondary: _propTypes2.default.bool,
+  danger: _propTypes2.default.bool
+
+  // styled components
+};var StyledButton = (0, _styledComponents2.default)("button").withConfig({
   displayName: "Button__StyledButton",
   componentId: "sc-180ubm7-0"
 })(["cursor:pointer;background:", ";border:0;padding:10px 30px;border-radius:3px;color:", ";margin:10px auto;transition:all 0.25s ease;&:hover{background:", ";}"], function (props) {
@@ -68682,7 +68694,7 @@ var StyledButtonIcon = (0, _styledComponents2.default)("button").withConfig({
   displayName: "Button__StyledButtonIcon",
   componentId: "sc-180ubm7-1"
 })(["background:transparent;cursor:pointer;border:0;padding:10px;margin:10px auto;svg{width:20px;height:20px;display:inline-block;margin-bottom:-6px;margin-left:10px;&#deleteIcon{opacity:0.4;transition:all 0.25s ease;&:hover{opacity:1;fill:", ";}}&#addIcon{opacity:0.7;transition:all 0.25s ease;&:hover{opacity:1;fill:", ";}}}"], _globalStyles.colors.danger, _globalStyles.colors.primary);
-},{"react":"..\\node_modules\\react\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","polished":"..\\node_modules\\polished\\dist\\polished.es.js","../../assets/globalStyles":"assets\\globalStyles.js","../../hocs/button":"hocs\\button.js"}],"components\\Header.jsx":[function(require,module,exports) {
+},{"react":"..\\node_modules\\react\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","polished":"..\\node_modules\\polished\\dist\\polished.es.js","prop-types":"..\\node_modules\\prop-types\\index.js","../../assets/globalStyles":"assets\\globalStyles.js","../../hocs/button":"hocs\\button.js"}],"components\\Header.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -68700,6 +68712,10 @@ var _reactRedux = require("react-redux");
 var _styledComponents = require("styled-components");
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _globalStyles = require("../assets/globalStyles");
 
@@ -68750,10 +68766,15 @@ var Header = function (_React$PureComponent) {
   return Header;
 }(_react2.default.PureComponent);
 
-// styled components
+// propTypes
 
 
-var StyledContainer = (0, _styledComponents2.default)("header").withConfig({
+Header.propTypes = {
+  user: _propTypes2.default.oneOfType([_propTypes2.default.object.isRequired, _propTypes2.default.string]),
+  userLogout: _propTypes2.default.func.isRequired
+
+  // styled components
+};var StyledContainer = (0, _styledComponents2.default)("header").withConfig({
   displayName: "Header__StyledContainer",
   componentId: "cgmgbs-0"
 })(["background:", ";border-bottom:1px solid ", ";position:sticky;top:0;z-index:10;padding:20px;"], _globalStyles.colors.light, _globalStyles.colors.primary);
@@ -68766,7 +68787,7 @@ var StyledH1 = (0, _styledComponents2.default)("h1").withConfig({
 var StyledButton = (0, _styledComponents2.default)(_Button.Button).withConfig({
   displayName: "Header__StyledButton",
   componentId: "cgmgbs-2"
-})(["float:right;margin:-5px 0 0;padding:0 15px 5px;font-size:1.3em;font-weight:600;color:", ";background-color:transparent;border-bottom:1px solid;border-radius:0;"], _globalStyles.colors.complementary);
+})(["float:right;margin:-5px 0 0;padding:0 15px 5px;font-size:1.3em;font-weight:600;color:", ";background-color:transparent;border-bottom:1px solid;border-radius:0;@media (", "){font-size:1em;margin-top:0;}"], _globalStyles.colors.complementary, _globalStyles.mobileBreakpoint);
 
 function mapStateToProps(_ref) {
   var user = _ref.user;
@@ -68775,7 +68796,7 @@ function mapStateToProps(_ref) {
 }
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, { userLogout: _userLogout.userLogout })(Header);
-},{"react":"..\\node_modules\\react\\index.js","react-redux":"..\\node_modules\\react-redux\\es\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","../assets/globalStyles":"assets\\globalStyles.js","../redux/actionCreators/userLogout":"redux\\actionCreators\\userLogout.js","./basics/Button":"components\\basics\\Button.jsx"}],"components\\Footer.jsx":[function(require,module,exports) {
+},{"react":"..\\node_modules\\react\\index.js","react-redux":"..\\node_modules\\react-redux\\es\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","prop-types":"..\\node_modules\\prop-types\\index.js","../assets/globalStyles":"assets\\globalStyles.js","../redux/actionCreators/userLogout":"redux\\actionCreators\\userLogout.js","./basics/Button":"components\\basics\\Button.jsx"}],"components\\Footer.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -68836,7 +68857,7 @@ var Footer = exports.Footer = function (_React$PureComponent) {
 var Container = (0, _styledComponents2.default)("header").withConfig({
   displayName: "Footer__Container",
   componentId: "sc-65nop6-0"
-})(["background-color:", ";position:fixed;width:100%;bottom:0;z-index:10;padding:20px;text-align:right;"], _globalStyles.colors.primary);
+})(["background-color:", ";position:fixed;width:100%;bottom:0;z-index:10;padding:20px;text-align:right;@media (", "){padding:10px 20px;}"], _globalStyles.colors.primary, _globalStyles.mobileBreakpoint);
 
 var OuterLink = (0, _styledComponents2.default)("a").withConfig({
   displayName: "Footer__OuterLink",
@@ -68974,6 +68995,12 @@ var _styledComponents = require("styled-components");
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _globalStyles = require("../assets/globalStyles");
+
 var _store = require("../redux/store");
 
 var _store2 = _interopRequireDefault(_store);
@@ -68989,8 +69016,6 @@ var _Header = require("./Header");
 var _Header2 = _interopRequireDefault(_Header);
 
 var _Footer = require("./Footer");
-
-var _globalStyles = require("../assets/globalStyles");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -69196,7 +69221,6 @@ require("regenerator-runtime/runtime");
 
 
 // Code splitting section
-
 var loading = function loading() {
   return _react2.default.createElement(_Loading2.default, null);
 };
@@ -69251,16 +69275,20 @@ var MainApp = function (_React$PureComponent) {
   return MainApp;
 }(_react2.default.PureComponent);
 
-// styled components
+// propTypes
 
 
-var StyledMaxWidth = (0, _styledComponents2.default)("div").withConfig({
+MainApp.propTypes = {
+  userFetch: _propTypes2.default.func.isRequired
+
+  // styled components
+};var StyledMaxWidth = (0, _styledComponents2.default)("div").withConfig({
   displayName: "MainApp__StyledMaxWidth",
   componentId: "sc-1wd3wij-0"
 })(["max-width:1300px;margin:0 auto;"]);
 
 exports.default = (0, _reactRedux.connect)(null, { userFetch: _userFetch.userFetch })(MainApp);
-},{"react":"..\\node_modules\\react\\index.js","@reach/router":"..\\node_modules\\@reach\\router\\es\\index.js","react-loadable":"..\\node_modules\\react-loadable\\lib\\index.js","react-redux":"..\\node_modules\\react-redux\\es\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","core-js/modules/es6.typed.array-buffer":"..\\node_modules\\core-js\\modules\\es6.typed.array-buffer.js","core-js/modules/es6.typed.int8-array":"..\\node_modules\\core-js\\modules\\es6.typed.int8-array.js","core-js/modules/es6.typed.uint8-array":"..\\node_modules\\core-js\\modules\\es6.typed.uint8-array.js","core-js/modules/es6.typed.uint8-clamped-array":"..\\node_modules\\core-js\\modules\\es6.typed.uint8-clamped-array.js","core-js/modules/es6.typed.int16-array":"..\\node_modules\\core-js\\modules\\es6.typed.int16-array.js","core-js/modules/es6.typed.uint16-array":"..\\node_modules\\core-js\\modules\\es6.typed.uint16-array.js","core-js/modules/es6.typed.int32-array":"..\\node_modules\\core-js\\modules\\es6.typed.int32-array.js","core-js/modules/es6.typed.uint32-array":"..\\node_modules\\core-js\\modules\\es6.typed.uint32-array.js","core-js/modules/es6.typed.float32-array":"..\\node_modules\\core-js\\modules\\es6.typed.float32-array.js","core-js/modules/es6.typed.float64-array":"..\\node_modules\\core-js\\modules\\es6.typed.float64-array.js","core-js/modules/es6.map":"..\\node_modules\\core-js\\modules\\es6.map.js","core-js/modules/es6.set":"..\\node_modules\\core-js\\modules\\es6.set.js","core-js/modules/es6.weak-map":"..\\node_modules\\core-js\\modules\\es6.weak-map.js","core-js/modules/es6.weak-set":"..\\node_modules\\core-js\\modules\\es6.weak-set.js","core-js/modules/es6.reflect.apply":"..\\node_modules\\core-js\\modules\\es6.reflect.apply.js","core-js/modules/es6.reflect.construct":"..\\node_modules\\core-js\\modules\\es6.reflect.construct.js","core-js/modules/es6.reflect.define-property":"..\\node_modules\\core-js\\modules\\es6.reflect.define-property.js","core-js/modules/es6.reflect.delete-property":"..\\node_modules\\core-js\\modules\\es6.reflect.delete-property.js","core-js/modules/es6.reflect.get":"..\\node_modules\\core-js\\modules\\es6.reflect.get.js","core-js/modules/es6.reflect.get-own-property-descriptor":"..\\node_modules\\core-js\\modules\\es6.reflect.get-own-property-descriptor.js","core-js/modules/es6.reflect.get-prototype-of":"..\\node_modules\\core-js\\modules\\es6.reflect.get-prototype-of.js","core-js/modules/es6.reflect.has":"..\\node_modules\\core-js\\modules\\es6.reflect.has.js","core-js/modules/es6.reflect.is-extensible":"..\\node_modules\\core-js\\modules\\es6.reflect.is-extensible.js","core-js/modules/es6.reflect.own-keys":"..\\node_modules\\core-js\\modules\\es6.reflect.own-keys.js","core-js/modules/es6.reflect.prevent-extensions":"..\\node_modules\\core-js\\modules\\es6.reflect.prevent-extensions.js","core-js/modules/es6.reflect.set":"..\\node_modules\\core-js\\modules\\es6.reflect.set.js","core-js/modules/es6.reflect.set-prototype-of":"..\\node_modules\\core-js\\modules\\es6.reflect.set-prototype-of.js","core-js/modules/es6.promise":"..\\node_modules\\core-js\\modules\\es6.promise.js","core-js/modules/es6.symbol":"..\\node_modules\\core-js\\modules\\es6.symbol.js","core-js/modules/es6.object.freeze":"..\\node_modules\\core-js\\modules\\es6.object.freeze.js","core-js/modules/es6.object.seal":"..\\node_modules\\core-js\\modules\\es6.object.seal.js","core-js/modules/es6.object.prevent-extensions":"..\\node_modules\\core-js\\modules\\es6.object.prevent-extensions.js","core-js/modules/es6.object.is-frozen":"..\\node_modules\\core-js\\modules\\es6.object.is-frozen.js","core-js/modules/es6.object.is-sealed":"..\\node_modules\\core-js\\modules\\es6.object.is-sealed.js","core-js/modules/es6.object.is-extensible":"..\\node_modules\\core-js\\modules\\es6.object.is-extensible.js","core-js/modules/es6.object.get-own-property-descriptor":"..\\node_modules\\core-js\\modules\\es6.object.get-own-property-descriptor.js","core-js/modules/es6.object.get-prototype-of":"..\\node_modules\\core-js\\modules\\es6.object.get-prototype-of.js","core-js/modules/es6.object.keys":"..\\node_modules\\core-js\\modules\\es6.object.keys.js","core-js/modules/es6.object.get-own-property-names":"..\\node_modules\\core-js\\modules\\es6.object.get-own-property-names.js","core-js/modules/es6.object.assign":"..\\node_modules\\core-js\\modules\\es6.object.assign.js","core-js/modules/es6.object.is":"..\\node_modules\\core-js\\modules\\es6.object.is.js","core-js/modules/es6.object.set-prototype-of":"..\\node_modules\\core-js\\modules\\es6.object.set-prototype-of.js","core-js/modules/es6.function.name":"..\\node_modules\\core-js\\modules\\es6.function.name.js","core-js/modules/es6.string.raw":"..\\node_modules\\core-js\\modules\\es6.string.raw.js","core-js/modules/es6.string.from-code-point":"..\\node_modules\\core-js\\modules\\es6.string.from-code-point.js","core-js/modules/es6.string.code-point-at":"..\\node_modules\\core-js\\modules\\es6.string.code-point-at.js","core-js/modules/es6.string.repeat":"..\\node_modules\\core-js\\modules\\es6.string.repeat.js","core-js/modules/es6.string.starts-with":"..\\node_modules\\core-js\\modules\\es6.string.starts-with.js","core-js/modules/es6.string.ends-with":"..\\node_modules\\core-js\\modules\\es6.string.ends-with.js","core-js/modules/es6.string.includes":"..\\node_modules\\core-js\\modules\\es6.string.includes.js","core-js/modules/es6.regexp.flags":"..\\node_modules\\core-js\\modules\\es6.regexp.flags.js","core-js/modules/es6.regexp.match":"..\\node_modules\\core-js\\modules\\es6.regexp.match.js","core-js/modules/es6.regexp.replace":"..\\node_modules\\core-js\\modules\\es6.regexp.replace.js","core-js/modules/es6.regexp.split":"..\\node_modules\\core-js\\modules\\es6.regexp.split.js","core-js/modules/es6.regexp.search":"..\\node_modules\\core-js\\modules\\es6.regexp.search.js","core-js/modules/es6.array.from":"..\\node_modules\\core-js\\modules\\es6.array.from.js","core-js/modules/es6.array.of":"..\\node_modules\\core-js\\modules\\es6.array.of.js","core-js/modules/es6.array.copy-within":"..\\node_modules\\core-js\\modules\\es6.array.copy-within.js","core-js/modules/es6.array.find":"..\\node_modules\\core-js\\modules\\es6.array.find.js","core-js/modules/es6.array.find-index":"..\\node_modules\\core-js\\modules\\es6.array.find-index.js","core-js/modules/es6.array.fill":"..\\node_modules\\core-js\\modules\\es6.array.fill.js","core-js/modules/es6.array.iterator":"..\\node_modules\\core-js\\modules\\es6.array.iterator.js","core-js/modules/es6.number.is-finite":"..\\node_modules\\core-js\\modules\\es6.number.is-finite.js","core-js/modules/es6.number.is-integer":"..\\node_modules\\core-js\\modules\\es6.number.is-integer.js","core-js/modules/es6.number.is-safe-integer":"..\\node_modules\\core-js\\modules\\es6.number.is-safe-integer.js","core-js/modules/es6.number.is-nan":"..\\node_modules\\core-js\\modules\\es6.number.is-nan.js","core-js/modules/es6.number.epsilon":"..\\node_modules\\core-js\\modules\\es6.number.epsilon.js","core-js/modules/es6.number.min-safe-integer":"..\\node_modules\\core-js\\modules\\es6.number.min-safe-integer.js","core-js/modules/es6.number.max-safe-integer":"..\\node_modules\\core-js\\modules\\es6.number.max-safe-integer.js","core-js/modules/es6.math.acosh":"..\\node_modules\\core-js\\modules\\es6.math.acosh.js","core-js/modules/es6.math.asinh":"..\\node_modules\\core-js\\modules\\es6.math.asinh.js","core-js/modules/es6.math.atanh":"..\\node_modules\\core-js\\modules\\es6.math.atanh.js","core-js/modules/es6.math.cbrt":"..\\node_modules\\core-js\\modules\\es6.math.cbrt.js","core-js/modules/es6.math.clz32":"..\\node_modules\\core-js\\modules\\es6.math.clz32.js","core-js/modules/es6.math.cosh":"..\\node_modules\\core-js\\modules\\es6.math.cosh.js","core-js/modules/es6.math.expm1":"..\\node_modules\\core-js\\modules\\es6.math.expm1.js","core-js/modules/es6.math.fround":"..\\node_modules\\core-js\\modules\\es6.math.fround.js","core-js/modules/es6.math.hypot":"..\\node_modules\\core-js\\modules\\es6.math.hypot.js","core-js/modules/es6.math.imul":"..\\node_modules\\core-js\\modules\\es6.math.imul.js","core-js/modules/es6.math.log1p":"..\\node_modules\\core-js\\modules\\es6.math.log1p.js","core-js/modules/es6.math.log10":"..\\node_modules\\core-js\\modules\\es6.math.log10.js","core-js/modules/es6.math.log2":"..\\node_modules\\core-js\\modules\\es6.math.log2.js","core-js/modules/es6.math.sign":"..\\node_modules\\core-js\\modules\\es6.math.sign.js","core-js/modules/es6.math.sinh":"..\\node_modules\\core-js\\modules\\es6.math.sinh.js","core-js/modules/es6.math.tanh":"..\\node_modules\\core-js\\modules\\es6.math.tanh.js","core-js/modules/es6.math.trunc":"..\\node_modules\\core-js\\modules\\es6.math.trunc.js","core-js/modules/es7.array.includes":"..\\node_modules\\core-js\\modules\\es7.array.includes.js","core-js/modules/es7.object.values":"..\\node_modules\\core-js\\modules\\es7.object.values.js","core-js/modules/es7.object.entries":"..\\node_modules\\core-js\\modules\\es7.object.entries.js","core-js/modules/es7.object.get-own-property-descriptors":"..\\node_modules\\core-js\\modules\\es7.object.get-own-property-descriptors.js","core-js/modules/es7.string.pad-start":"..\\node_modules\\core-js\\modules\\es7.string.pad-start.js","core-js/modules/es7.string.pad-end":"..\\node_modules\\core-js\\modules\\es7.string.pad-end.js","core-js/modules/web.timers":"..\\node_modules\\core-js\\modules\\web.timers.js","core-js/modules/web.immediate":"..\\node_modules\\core-js\\modules\\web.immediate.js","core-js/modules/web.dom.iterable":"..\\node_modules\\core-js\\modules\\web.dom.iterable.js","regenerator-runtime/runtime":"..\\node_modules\\regenerator-runtime\\runtime.js","../redux/store":"redux\\store.js","../redux/actionCreators/userFetch":"redux\\actionCreators\\userFetch.js","./basics/Loading":"components\\basics\\Loading.jsx","./Header":"components\\Header.jsx","./Footer":"components\\Footer.jsx","../assets/globalStyles":"assets\\globalStyles.js","_bundle_loader":"..\\node_modules\\parcel-bundler\\src\\builtins\\bundle-loader.js","../pages/HomePage":[["HomePage.377fbbb0.js","pages\\HomePage.jsx"],"HomePage.377fbbb0.map","pages\\HomePage.jsx"]}],"components\\App.jsx":[function(require,module,exports) {
+},{"react":"..\\node_modules\\react\\index.js","@reach/router":"..\\node_modules\\@reach\\router\\es\\index.js","react-loadable":"..\\node_modules\\react-loadable\\lib\\index.js","react-redux":"..\\node_modules\\react-redux\\es\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","core-js/modules/es6.typed.array-buffer":"..\\node_modules\\core-js\\modules\\es6.typed.array-buffer.js","core-js/modules/es6.typed.int8-array":"..\\node_modules\\core-js\\modules\\es6.typed.int8-array.js","core-js/modules/es6.typed.uint8-array":"..\\node_modules\\core-js\\modules\\es6.typed.uint8-array.js","core-js/modules/es6.typed.uint8-clamped-array":"..\\node_modules\\core-js\\modules\\es6.typed.uint8-clamped-array.js","core-js/modules/es6.typed.int16-array":"..\\node_modules\\core-js\\modules\\es6.typed.int16-array.js","core-js/modules/es6.typed.uint16-array":"..\\node_modules\\core-js\\modules\\es6.typed.uint16-array.js","core-js/modules/es6.typed.int32-array":"..\\node_modules\\core-js\\modules\\es6.typed.int32-array.js","core-js/modules/es6.typed.uint32-array":"..\\node_modules\\core-js\\modules\\es6.typed.uint32-array.js","core-js/modules/es6.typed.float32-array":"..\\node_modules\\core-js\\modules\\es6.typed.float32-array.js","core-js/modules/es6.typed.float64-array":"..\\node_modules\\core-js\\modules\\es6.typed.float64-array.js","core-js/modules/es6.map":"..\\node_modules\\core-js\\modules\\es6.map.js","core-js/modules/es6.set":"..\\node_modules\\core-js\\modules\\es6.set.js","core-js/modules/es6.weak-map":"..\\node_modules\\core-js\\modules\\es6.weak-map.js","core-js/modules/es6.weak-set":"..\\node_modules\\core-js\\modules\\es6.weak-set.js","core-js/modules/es6.reflect.apply":"..\\node_modules\\core-js\\modules\\es6.reflect.apply.js","core-js/modules/es6.reflect.construct":"..\\node_modules\\core-js\\modules\\es6.reflect.construct.js","core-js/modules/es6.reflect.define-property":"..\\node_modules\\core-js\\modules\\es6.reflect.define-property.js","core-js/modules/es6.reflect.delete-property":"..\\node_modules\\core-js\\modules\\es6.reflect.delete-property.js","core-js/modules/es6.reflect.get":"..\\node_modules\\core-js\\modules\\es6.reflect.get.js","core-js/modules/es6.reflect.get-own-property-descriptor":"..\\node_modules\\core-js\\modules\\es6.reflect.get-own-property-descriptor.js","core-js/modules/es6.reflect.get-prototype-of":"..\\node_modules\\core-js\\modules\\es6.reflect.get-prototype-of.js","core-js/modules/es6.reflect.has":"..\\node_modules\\core-js\\modules\\es6.reflect.has.js","core-js/modules/es6.reflect.is-extensible":"..\\node_modules\\core-js\\modules\\es6.reflect.is-extensible.js","core-js/modules/es6.reflect.own-keys":"..\\node_modules\\core-js\\modules\\es6.reflect.own-keys.js","core-js/modules/es6.reflect.prevent-extensions":"..\\node_modules\\core-js\\modules\\es6.reflect.prevent-extensions.js","core-js/modules/es6.reflect.set":"..\\node_modules\\core-js\\modules\\es6.reflect.set.js","core-js/modules/es6.reflect.set-prototype-of":"..\\node_modules\\core-js\\modules\\es6.reflect.set-prototype-of.js","core-js/modules/es6.promise":"..\\node_modules\\core-js\\modules\\es6.promise.js","core-js/modules/es6.symbol":"..\\node_modules\\core-js\\modules\\es6.symbol.js","core-js/modules/es6.object.freeze":"..\\node_modules\\core-js\\modules\\es6.object.freeze.js","core-js/modules/es6.object.seal":"..\\node_modules\\core-js\\modules\\es6.object.seal.js","core-js/modules/es6.object.prevent-extensions":"..\\node_modules\\core-js\\modules\\es6.object.prevent-extensions.js","core-js/modules/es6.object.is-frozen":"..\\node_modules\\core-js\\modules\\es6.object.is-frozen.js","core-js/modules/es6.object.is-sealed":"..\\node_modules\\core-js\\modules\\es6.object.is-sealed.js","core-js/modules/es6.object.is-extensible":"..\\node_modules\\core-js\\modules\\es6.object.is-extensible.js","core-js/modules/es6.object.get-own-property-descriptor":"..\\node_modules\\core-js\\modules\\es6.object.get-own-property-descriptor.js","core-js/modules/es6.object.get-prototype-of":"..\\node_modules\\core-js\\modules\\es6.object.get-prototype-of.js","core-js/modules/es6.object.keys":"..\\node_modules\\core-js\\modules\\es6.object.keys.js","core-js/modules/es6.object.get-own-property-names":"..\\node_modules\\core-js\\modules\\es6.object.get-own-property-names.js","core-js/modules/es6.object.assign":"..\\node_modules\\core-js\\modules\\es6.object.assign.js","core-js/modules/es6.object.is":"..\\node_modules\\core-js\\modules\\es6.object.is.js","core-js/modules/es6.object.set-prototype-of":"..\\node_modules\\core-js\\modules\\es6.object.set-prototype-of.js","core-js/modules/es6.function.name":"..\\node_modules\\core-js\\modules\\es6.function.name.js","core-js/modules/es6.string.raw":"..\\node_modules\\core-js\\modules\\es6.string.raw.js","core-js/modules/es6.string.from-code-point":"..\\node_modules\\core-js\\modules\\es6.string.from-code-point.js","core-js/modules/es6.string.code-point-at":"..\\node_modules\\core-js\\modules\\es6.string.code-point-at.js","core-js/modules/es6.string.repeat":"..\\node_modules\\core-js\\modules\\es6.string.repeat.js","core-js/modules/es6.string.starts-with":"..\\node_modules\\core-js\\modules\\es6.string.starts-with.js","core-js/modules/es6.string.ends-with":"..\\node_modules\\core-js\\modules\\es6.string.ends-with.js","core-js/modules/es6.string.includes":"..\\node_modules\\core-js\\modules\\es6.string.includes.js","core-js/modules/es6.regexp.flags":"..\\node_modules\\core-js\\modules\\es6.regexp.flags.js","core-js/modules/es6.regexp.match":"..\\node_modules\\core-js\\modules\\es6.regexp.match.js","core-js/modules/es6.regexp.replace":"..\\node_modules\\core-js\\modules\\es6.regexp.replace.js","core-js/modules/es6.regexp.split":"..\\node_modules\\core-js\\modules\\es6.regexp.split.js","core-js/modules/es6.regexp.search":"..\\node_modules\\core-js\\modules\\es6.regexp.search.js","core-js/modules/es6.array.from":"..\\node_modules\\core-js\\modules\\es6.array.from.js","core-js/modules/es6.array.of":"..\\node_modules\\core-js\\modules\\es6.array.of.js","core-js/modules/es6.array.copy-within":"..\\node_modules\\core-js\\modules\\es6.array.copy-within.js","core-js/modules/es6.array.find":"..\\node_modules\\core-js\\modules\\es6.array.find.js","core-js/modules/es6.array.find-index":"..\\node_modules\\core-js\\modules\\es6.array.find-index.js","core-js/modules/es6.array.fill":"..\\node_modules\\core-js\\modules\\es6.array.fill.js","core-js/modules/es6.array.iterator":"..\\node_modules\\core-js\\modules\\es6.array.iterator.js","core-js/modules/es6.number.is-finite":"..\\node_modules\\core-js\\modules\\es6.number.is-finite.js","core-js/modules/es6.number.is-integer":"..\\node_modules\\core-js\\modules\\es6.number.is-integer.js","core-js/modules/es6.number.is-safe-integer":"..\\node_modules\\core-js\\modules\\es6.number.is-safe-integer.js","core-js/modules/es6.number.is-nan":"..\\node_modules\\core-js\\modules\\es6.number.is-nan.js","core-js/modules/es6.number.epsilon":"..\\node_modules\\core-js\\modules\\es6.number.epsilon.js","core-js/modules/es6.number.min-safe-integer":"..\\node_modules\\core-js\\modules\\es6.number.min-safe-integer.js","core-js/modules/es6.number.max-safe-integer":"..\\node_modules\\core-js\\modules\\es6.number.max-safe-integer.js","core-js/modules/es6.math.acosh":"..\\node_modules\\core-js\\modules\\es6.math.acosh.js","core-js/modules/es6.math.asinh":"..\\node_modules\\core-js\\modules\\es6.math.asinh.js","core-js/modules/es6.math.atanh":"..\\node_modules\\core-js\\modules\\es6.math.atanh.js","core-js/modules/es6.math.cbrt":"..\\node_modules\\core-js\\modules\\es6.math.cbrt.js","core-js/modules/es6.math.clz32":"..\\node_modules\\core-js\\modules\\es6.math.clz32.js","core-js/modules/es6.math.cosh":"..\\node_modules\\core-js\\modules\\es6.math.cosh.js","core-js/modules/es6.math.expm1":"..\\node_modules\\core-js\\modules\\es6.math.expm1.js","core-js/modules/es6.math.fround":"..\\node_modules\\core-js\\modules\\es6.math.fround.js","core-js/modules/es6.math.hypot":"..\\node_modules\\core-js\\modules\\es6.math.hypot.js","core-js/modules/es6.math.imul":"..\\node_modules\\core-js\\modules\\es6.math.imul.js","core-js/modules/es6.math.log1p":"..\\node_modules\\core-js\\modules\\es6.math.log1p.js","core-js/modules/es6.math.log10":"..\\node_modules\\core-js\\modules\\es6.math.log10.js","core-js/modules/es6.math.log2":"..\\node_modules\\core-js\\modules\\es6.math.log2.js","core-js/modules/es6.math.sign":"..\\node_modules\\core-js\\modules\\es6.math.sign.js","core-js/modules/es6.math.sinh":"..\\node_modules\\core-js\\modules\\es6.math.sinh.js","core-js/modules/es6.math.tanh":"..\\node_modules\\core-js\\modules\\es6.math.tanh.js","core-js/modules/es6.math.trunc":"..\\node_modules\\core-js\\modules\\es6.math.trunc.js","core-js/modules/es7.array.includes":"..\\node_modules\\core-js\\modules\\es7.array.includes.js","core-js/modules/es7.object.values":"..\\node_modules\\core-js\\modules\\es7.object.values.js","core-js/modules/es7.object.entries":"..\\node_modules\\core-js\\modules\\es7.object.entries.js","core-js/modules/es7.object.get-own-property-descriptors":"..\\node_modules\\core-js\\modules\\es7.object.get-own-property-descriptors.js","core-js/modules/es7.string.pad-start":"..\\node_modules\\core-js\\modules\\es7.string.pad-start.js","core-js/modules/es7.string.pad-end":"..\\node_modules\\core-js\\modules\\es7.string.pad-end.js","core-js/modules/web.timers":"..\\node_modules\\core-js\\modules\\web.timers.js","core-js/modules/web.immediate":"..\\node_modules\\core-js\\modules\\web.immediate.js","core-js/modules/web.dom.iterable":"..\\node_modules\\core-js\\modules\\web.dom.iterable.js","regenerator-runtime/runtime":"..\\node_modules\\regenerator-runtime\\runtime.js","prop-types":"..\\node_modules\\prop-types\\index.js","../assets/globalStyles":"assets\\globalStyles.js","../redux/store":"redux\\store.js","../redux/actionCreators/userFetch":"redux\\actionCreators\\userFetch.js","./basics/Loading":"components\\basics\\Loading.jsx","./Header":"components\\Header.jsx","./Footer":"components\\Footer.jsx","_bundle_loader":"..\\node_modules\\parcel-bundler\\src\\builtins\\bundle-loader.js","../pages/HomePage":[["HomePage.377fbbb0.js","pages\\HomePage.jsx"],"HomePage.377fbbb0.map","pages\\HomePage.jsx"]}],"components\\App.jsx":[function(require,module,exports) {
 "use strict";
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -69342,7 +69370,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '59901' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '58985' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 

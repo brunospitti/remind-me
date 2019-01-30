@@ -1,16 +1,17 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
 import { connect } from "react-redux";
+import PropTypes from 'prop-types';
+
+import { mobileBreakpoint } from "../assets/globalStyles";
 
 import { fetchToDos } from "../redux/actionCreators/fetchToDos";
-import selectList from "../redux/actionCreators/selectList";
 
 import Loading from "./basics/Loading";
 import Notification from "./Notification";
 import ToDos from "./ToDos";
 import ListsManager from "./ListsManager";
 import NoToDos from "./NoToDos";
-import { mobileBreakpoint } from "../assets/globalStyles";
 
 class ToDosPage extends React.PureComponent {
   state = {
@@ -200,6 +201,20 @@ class ToDosPage extends React.PureComponent {
   }
 }
 
+// propTypes
+ToDosPage.propTypes = {
+  handleFetchToDos: PropTypes.func.isRequired,
+  user: PropTypes.oneOfType([
+    PropTypes.object.isRequired,
+    PropTypes.string,
+  ]),
+  lists: PropTypes.oneOfType([
+    PropTypes.object.isRequired,
+    PropTypes.string,
+  ]),
+  activeList: PropTypes.string.isRequired
+}
+
 // styled components
 const expandsToDoOuter = keyframes`
   0% {
@@ -256,9 +271,6 @@ const mapStateToProps = ({ lists, activeList, user }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  handleSelectList(listId) {
-    dispatch(selectList(listId));
-  },
   handleFetchToDos(userId) {
     dispatch(fetchToDos(userId));
   }

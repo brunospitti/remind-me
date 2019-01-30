@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { lighten } from "polished";
+import PropTypes from 'prop-types';
 
 import { colors, mobileBreakpoint } from "../assets/globalStyles";
 
@@ -18,6 +19,11 @@ export default class SignIn extends React.PureComponent {
       </StyledContainer>
     );
   }
+}
+
+// propTypes
+SignIn.propTypes = {
+  userLogin: PropTypes.func.isRequired
 }
 
 // styles with emotion

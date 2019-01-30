@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
+import PropTypes from 'prop-types';
 
 import { addItem } from "../redux/actionCreators/addItem";
 
@@ -39,6 +40,13 @@ class AddItem extends React.PureComponent {
       </form>
     );
   }
+}
+
+// propTypes
+AddItem.propTypes = {
+  handleAddItem: PropTypes.func.isRequired,
+  listId: PropTypes.string.isRequired,
+  completeListLayout: PropTypes.func.isRequired
 }
 
 // styled components

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { lighten } from "polished";
+import PropTypes from 'prop-types';
 
 import { colors, mobileBreakpoint } from "../../assets/globalStyles";
 
@@ -23,6 +24,12 @@ export default class Sort extends React.PureComponent {
       </StyledSortBy>
     );
   }
+}
+
+// propTypes
+Sort.propTypes = {
+  sortBy: PropTypes.string.isRequired,
+  handleSortByChange: PropTypes.func.isRequired
 }
 
 // styled components

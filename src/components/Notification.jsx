@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import PropTypes from 'prop-types';
 
 import { colors, mobileBreakpoint } from "../assets/globalStyles";
 
@@ -141,6 +142,17 @@ class Notification extends React.PureComponent {
       </React.Fragment>
     );
   }
+}
+
+// propTypes
+Notification.propTypes = {
+  lists: PropTypes.oneOfType([
+    PropTypes.object.isRequired,
+    PropTypes.string,
+  ]),
+  handleCheckItem: PropTypes.func.isRequired,
+  handleEditItemEndDate: PropTypes.func.isRequired,
+  handleIgnoreReminderItem: PropTypes.func.isRequired
 }
 
 // styled components

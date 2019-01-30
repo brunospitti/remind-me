@@ -137,6 +137,10 @@ var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 var _polished = require("polished");
 
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _globalStyles = require("../assets/globalStyles");
 
 var _Button = require("./basics/Button");
@@ -180,20 +184,24 @@ var SignIn = function (_React$PureComponent) {
   return SignIn;
 }(_react2.default.PureComponent);
 
-// styles with emotion
+// propTypes
 
 
 exports.default = SignIn;
-var StyledContainer = (0, _styledComponents2.default)("div").withConfig({
+SignIn.propTypes = {
+  userLogin: _propTypes2.default.func.isRequired
+
+  // styles with emotion
+};var StyledContainer = (0, _styledComponents2.default)("div").withConfig({
   displayName: "SignIn__StyledContainer",
   componentId: "dg22th-0"
-})(["width:60%;height:55vh;margin:30px auto;position:relative;padding:0 20px;border-radius:3px;box-shadow:1px 1px 4px ", ";background:", ";text-align:center;padding-top:15vh;h2{text-transform:capitalize;font-size:2em;margin-bottom:20px;display:inline-block;vertical-align:bottom;}"], _globalStyles.colors.lightGrey, (0, _polished.lighten)(0.025, _globalStyles.colors.light));
+})(["width:60%;height:55vh;margin:30px auto;position:relative;padding:15vh 20px 0;border-radius:3px;box-shadow:1px 1px 4px ", ";background:", ";text-align:center;@media (", "){width:90%;padding:15vh 10px 0;}h2{text-transform:capitalize;font-size:2em;margin-bottom:20px;display:inline-block;vertical-align:bottom;}"], _globalStyles.colors.lightGrey, (0, _polished.lighten)(0.025, _globalStyles.colors.light), _globalStyles.mobileBreakpoint);
 
 var StyledButton = (0, _styledComponents2.default)(_Button.Button).withConfig({
   displayName: "SignIn__StyledButton",
   componentId: "dg22th-1"
-})(["display:block;width:300px;padding:20px 30px 20px 80px;margin-top:3vh;font-size:1.3em;background:#4081ec;border:1px solid #4081ec;position:relative;transition:all 0.25s ease;&:before{content:url(\"data:image/svg+xml;charset=UTF-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path d='M113.47 309.408L95.648 375.94l-65.139 1.378C11.042 341.211 0 299.9 0 256c0-42.451 10.324-82.483 28.624-117.732h.014L86.63 148.9l25.404 57.644c-5.317 15.501-8.215 32.141-8.215 49.456.002 18.792 3.406 36.797 9.651 53.408z' fill='#fbbb00'/><path d='M507.527 208.176C510.467 223.662 512 239.655 512 256c0 18.328-1.927 36.206-5.598 53.451-12.462 58.683-45.025 109.925-90.134 146.187l-.014-.014-73.044-3.727-10.338-64.535c29.932-17.554 53.324-45.025 65.646-77.911h-136.89V208.176h245.899z' fill='#518ef8'/><path d='M416.253 455.624l.014.014C372.396 490.901 316.666 512 256 512c-97.491 0-182.252-54.491-225.491-134.681l82.961-67.91c21.619 57.698 77.278 98.771 142.53 98.771 28.047 0 54.323-7.582 76.87-20.818l83.383 68.262z' fill='#28b446'/><path d='M419.404 58.936l-82.933 67.896C313.136 112.246 285.552 103.82 256 103.82c-66.729 0-123.429 42.957-143.965 102.724l-83.397-68.276h-.014C71.23 56.123 157.06 0 256 0c62.115 0 119.068 22.126 163.404 58.936z' fill='#f14336'/></svg>\");position:absolute;left:0;top:0;width:35px;height:35px;padding:15px;background:white;}&:hover{background:", ";border:1px solid ", ";}"], (0, _polished.lighten)(0.08, "#4081ec"), (0, _polished.lighten)(0.08, "#4081ec"));
-},{"react":"..\\node_modules\\react\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","polished":"..\\node_modules\\polished\\dist\\polished.es.js","../assets/globalStyles":"assets\\globalStyles.js","./basics/Button":"components\\basics\\Button.jsx"}],"pages\\HomePage.jsx":[function(require,module,exports) {
+})(["display:block;width:300px;padding:20px 30px 20px 80px;margin-top:3vh;font-size:1.3em;background:#4081ec;border:1px solid #4081ec;position:relative;transition:all 0.25s ease;@media (", "){width:100%;padding-right:20px;}&:before{content:url(\"data:image/svg+xml;charset=UTF-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path d='M113.47 309.408L95.648 375.94l-65.139 1.378C11.042 341.211 0 299.9 0 256c0-42.451 10.324-82.483 28.624-117.732h.014L86.63 148.9l25.404 57.644c-5.317 15.501-8.215 32.141-8.215 49.456.002 18.792 3.406 36.797 9.651 53.408z' fill='#fbbb00'/><path d='M507.527 208.176C510.467 223.662 512 239.655 512 256c0 18.328-1.927 36.206-5.598 53.451-12.462 58.683-45.025 109.925-90.134 146.187l-.014-.014-73.044-3.727-10.338-64.535c29.932-17.554 53.324-45.025 65.646-77.911h-136.89V208.176h245.899z' fill='#518ef8'/><path d='M416.253 455.624l.014.014C372.396 490.901 316.666 512 256 512c-97.491 0-182.252-54.491-225.491-134.681l82.961-67.91c21.619 57.698 77.278 98.771 142.53 98.771 28.047 0 54.323-7.582 76.87-20.818l83.383 68.262z' fill='#28b446'/><path d='M419.404 58.936l-82.933 67.896C313.136 112.246 285.552 103.82 256 103.82c-66.729 0-123.429 42.957-143.965 102.724l-83.397-68.276h-.014C71.23 56.123 157.06 0 256 0c62.115 0 119.068 22.126 163.404 58.936z' fill='#f14336'/></svg>\");position:absolute;left:0;top:0;width:35px;height:35px;padding:15px;background:white;}&:hover{background:", ";border:1px solid ", ";}"], _globalStyles.mobileBreakpoint, (0, _polished.lighten)(0.08, "#4081ec"), (0, _polished.lighten)(0.08, "#4081ec"));
+},{"react":"..\\node_modules\\react\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","polished":"..\\node_modules\\polished\\dist\\polished.es.js","prop-types":"..\\node_modules\\prop-types\\index.js","../assets/globalStyles":"assets\\globalStyles.js","./basics/Button":"components\\basics\\Button.jsx"}],"pages\\HomePage.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -208,13 +216,13 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = require("react-redux");
 
-var _propTypes = require("prop-types");
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
 var _reactLoadable = require("react-loadable");
 
 var _reactLoadable2 = _interopRequireDefault(_reactLoadable);
+
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _userLogin = require("../redux/actionCreators/userLogin");
 
@@ -287,19 +295,26 @@ var HomePage = function (_React$PureComponent) {
   return HomePage;
 }(_react2.default.PureComponent);
 
-// styled components
+// propTypes
+
 
 HomePage.contextTypes = {
   router: _propTypes2.default.object
 };
-function mapStateToProps(_ref2) {
+HomePage.propTypes = {
+  user: _propTypes2.default.oneOfType([_propTypes2.default.object.isRequired, _propTypes2.default.string]),
+  userLogin: _propTypes2.default.func.isRequired
+
+  // styled components
+
+};function mapStateToProps(_ref2) {
   var user = _ref2.user;
 
   return { user: user };
 }
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, { userLogin: _userLogin.userLogin })(HomePage);
-},{"react":"..\\node_modules\\react\\index.js","react-redux":"..\\node_modules\\react-redux\\es\\index.js","prop-types":"..\\node_modules\\prop-types\\index.js","react-loadable":"..\\node_modules\\react-loadable\\lib\\index.js","../redux/actionCreators/userLogin":"redux\\actionCreators\\userLogin.js","../components/basics/Loading":"components\\basics\\Loading.jsx","../components/SignIn":"components\\SignIn.jsx","_bundle_loader":"..\\node_modules\\parcel-bundler\\src\\builtins\\bundle-loader.js","../components/ToDosPage":[["ToDosPage.6586c092.js","components\\ToDosPage.jsx"],"ToDosPage.6586c092.map",["notification.d4c4adb8.mp3","assets\\audio\\notification.mp3"],"components\\ToDosPage.jsx"]}],"..\\node_modules\\parcel-bundler\\src\\builtins\\hmr-runtime.js":[function(require,module,exports) {
+},{"react":"..\\node_modules\\react\\index.js","react-redux":"..\\node_modules\\react-redux\\es\\index.js","react-loadable":"..\\node_modules\\react-loadable\\lib\\index.js","prop-types":"..\\node_modules\\prop-types\\index.js","../redux/actionCreators/userLogin":"redux\\actionCreators\\userLogin.js","../components/basics/Loading":"components\\basics\\Loading.jsx","../components/SignIn":"components\\SignIn.jsx","_bundle_loader":"..\\node_modules\\parcel-bundler\\src\\builtins\\bundle-loader.js","../components/ToDosPage":[["ToDosPage.6586c092.js","components\\ToDosPage.jsx"],"ToDosPage.6586c092.map",["notification.d4c4adb8.mp3","assets\\audio\\notification.mp3"],"components\\ToDosPage.jsx"]}],"..\\node_modules\\parcel-bundler\\src\\builtins\\hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -328,7 +343,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '59901' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '58985' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 

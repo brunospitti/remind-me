@@ -3,6 +3,7 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { lighten } from "polished";
+import PropTypes from 'prop-types';
 
 import { colors, mobileBreakpoint } from "../assets/globalStyles";
 import EditIcon from "../assets/icons/edit.svg";
@@ -13,8 +14,8 @@ import { deleteItem } from "../redux/actionCreators/deleteItem";
 import PrioritySelector from "./basics/PrioritySelector";
 import { changeItemPriorityColor } from "../redux/actionCreators/changeItemPriorityColor";
 
-import SingleToDoDetailsEdit from "./SingleToDoDetailsEdit";
 import { Button } from "./basics/Button";
+import SingleToDoDetailsEdit from "./SingleToDoDetailsEdit";
 
 class SingleToDoDetails extends React.PureComponent {
   deleteItem = (itemToDelete, listId) => {
@@ -49,9 +50,7 @@ class SingleToDoDetails extends React.PureComponent {
           <SingleToDoDetailsEdit
             task={this.props.task}
             showDetailsFunc={this.props.showDetailsFunc}
-            itemListDetails={this.props.itemListDetails}
             mainColor={this.props.mainColor}
-            showToDoOptionsFunc={this.props.showToDoOptionsFunc}
             listId={this.props.listId}
           />
         </ul>
@@ -78,6 +77,17 @@ class SingleToDoDetails extends React.PureComponent {
       </StyledDetailsContainer>
     );
   }
+}
+
+// propTypes
+SingleToDoDetails.propTypes = {
+  closeDetails: PropTypes.func.isRequired,
+  handleDeleteItem: PropTypes.func.isRequired,
+  completeListLayout: PropTypes.func.isRequired,
+  task: PropTypes.object.isRequired,
+  listId: PropTypes.string.isRequired,
+  showDetailsFunc: PropTypes.func.isRequired,
+  mainColor: PropTypes.string
 }
 
 // styled components

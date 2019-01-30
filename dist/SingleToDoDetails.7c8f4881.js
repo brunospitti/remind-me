@@ -2293,36 +2293,22 @@ var global = arguments[3];
     function createDate (y, m, d, h, M, s, ms) {
         // can't just apply() to create a date:
         // https://stackoverflow.com/q/181348
-        var date;
-        // the date constructor remaps years 0-99 to 1900-1999
-        if (y < 100 && y >= 0) {
-            // preserve leap years using a full 400 year cycle, then reset
-            date = new Date(y + 400, m, d, h, M, s, ms);
-            if (isFinite(date.getFullYear())) {
-                date.setFullYear(y);
-            }
-        } else {
-            date = new Date(y, m, d, h, M, s, ms);
-        }
+        var date = new Date(y, m, d, h, M, s, ms);
 
+        // the date constructor remaps years 0-99 to 1900-1999
+        if (y < 100 && y >= 0 && isFinite(date.getFullYear())) {
+            date.setFullYear(y);
+        }
         return date;
     }
 
     function createUTCDate (y) {
-        var date;
-        // the Date.UTC function remaps years 0-99 to 1900-1999
-        if (y < 100 && y >= 0) {
-            var args = Array.prototype.slice.call(arguments);
-            // preserve leap years using a full 400 year cycle, then reset
-            args[0] = y + 400;
-            date = new Date(Date.UTC.apply(null, args));
-            if (isFinite(date.getUTCFullYear())) {
-                date.setUTCFullYear(y);
-            }
-        } else {
-            date = new Date(Date.UTC.apply(null, arguments));
-        }
+        var date = new Date(Date.UTC.apply(null, arguments));
 
+        // the Date.UTC function remaps years 0-99 to 1900-1999
+        if (y < 100 && y >= 0 && isFinite(date.getUTCFullYear())) {
+            date.setUTCFullYear(y);
+        }
         return date;
     }
 
@@ -2533,28 +2519,25 @@ var global = arguments[3];
     }
 
     // LOCALES
-    function shiftWeekdays (ws, n) {
-        return ws.slice(n, 7).concat(ws.slice(0, n));
-    }
 
     var defaultLocaleWeekdays = 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_');
     function localeWeekdays (m, format) {
-        var weekdays = isArray(this._weekdays) ? this._weekdays :
-            this._weekdays[(m && m !== true && this._weekdays.isFormat.test(format)) ? 'format' : 'standalone'];
-        return (m === true) ? shiftWeekdays(weekdays, this._week.dow)
-            : (m) ? weekdays[m.day()] : weekdays;
+        if (!m) {
+            return isArray(this._weekdays) ? this._weekdays :
+                this._weekdays['standalone'];
+        }
+        return isArray(this._weekdays) ? this._weekdays[m.day()] :
+            this._weekdays[this._weekdays.isFormat.test(format) ? 'format' : 'standalone'][m.day()];
     }
 
     var defaultLocaleWeekdaysShort = 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_');
     function localeWeekdaysShort (m) {
-        return (m === true) ? shiftWeekdays(this._weekdaysShort, this._week.dow)
-            : (m) ? this._weekdaysShort[m.day()] : this._weekdaysShort;
+        return (m) ? this._weekdaysShort[m.day()] : this._weekdaysShort;
     }
 
     var defaultLocaleWeekdaysMin = 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_');
     function localeWeekdaysMin (m) {
-        return (m === true) ? shiftWeekdays(this._weekdaysMin, this._week.dow)
-            : (m) ? this._weekdaysMin[m.day()] : this._weekdaysMin;
+        return (m) ? this._weekdaysMin[m.day()] : this._weekdaysMin;
     }
 
     function handleStrictParse$1(weekdayName, format, strict) {
@@ -4249,7 +4232,7 @@ var global = arguments[3];
     }
 
     function positiveMomentsDifference(base, other) {
-        var res = {};
+        var res = {milliseconds: 0, months: 0};
 
         res.months = other.month() - base.month() +
             (other.year() - base.year()) * 12;
@@ -4587,130 +4570,62 @@ var global = arguments[3];
         return this._locale;
     }
 
-    var MS_PER_SECOND = 1000;
-    var MS_PER_MINUTE = 60 * MS_PER_SECOND;
-    var MS_PER_HOUR = 60 * MS_PER_MINUTE;
-    var MS_PER_400_YEARS = (365 * 400 + 97) * 24 * MS_PER_HOUR;
-
-    // actual modulo - handles negative numbers (for dates before 1970):
-    function mod$1(dividend, divisor) {
-        return (dividend % divisor + divisor) % divisor;
-    }
-
-    function localStartOfDate(y, m, d) {
-        // the date constructor remaps years 0-99 to 1900-1999
-        if (y < 100 && y >= 0) {
-            // preserve leap years using a full 400 year cycle, then reset
-            return new Date(y + 400, m, d) - MS_PER_400_YEARS;
-        } else {
-            return new Date(y, m, d).valueOf();
-        }
-    }
-
-    function utcStartOfDate(y, m, d) {
-        // Date.UTC remaps years 0-99 to 1900-1999
-        if (y < 100 && y >= 0) {
-            // preserve leap years using a full 400 year cycle, then reset
-            return Date.UTC(y + 400, m, d) - MS_PER_400_YEARS;
-        } else {
-            return Date.UTC(y, m, d);
-        }
-    }
-
     function startOf (units) {
-        var time;
         units = normalizeUnits(units);
-        if (units === undefined || units === 'millisecond' || !this.isValid()) {
-            return this;
-        }
-
-        var startOfDate = this._isUTC ? utcStartOfDate : localStartOfDate;
-
+        // the following switch intentionally omits break keywords
+        // to utilize falling through the cases.
         switch (units) {
             case 'year':
-                time = startOfDate(this.year(), 0, 1);
-                break;
+                this.month(0);
+                /* falls through */
             case 'quarter':
-                time = startOfDate(this.year(), this.month() - this.month() % 3, 1);
-                break;
             case 'month':
-                time = startOfDate(this.year(), this.month(), 1);
-                break;
+                this.date(1);
+                /* falls through */
             case 'week':
-                time = startOfDate(this.year(), this.month(), this.date() - this.weekday());
-                break;
             case 'isoWeek':
-                time = startOfDate(this.year(), this.month(), this.date() - (this.isoWeekday() - 1));
-                break;
             case 'day':
             case 'date':
-                time = startOfDate(this.year(), this.month(), this.date());
-                break;
+                this.hours(0);
+                /* falls through */
             case 'hour':
-                time = this._d.valueOf();
-                time -= mod$1(time + (this._isUTC ? 0 : this.utcOffset() * MS_PER_MINUTE), MS_PER_HOUR);
-                break;
+                this.minutes(0);
+                /* falls through */
             case 'minute':
-                time = this._d.valueOf();
-                time -= mod$1(time, MS_PER_MINUTE);
-                break;
+                this.seconds(0);
+                /* falls through */
             case 'second':
-                time = this._d.valueOf();
-                time -= mod$1(time, MS_PER_SECOND);
-                break;
+                this.milliseconds(0);
         }
 
-        this._d.setTime(time);
-        hooks.updateOffset(this, true);
+        // weeks are a special case
+        if (units === 'week') {
+            this.weekday(0);
+        }
+        if (units === 'isoWeek') {
+            this.isoWeekday(1);
+        }
+
+        // quarters are also special
+        if (units === 'quarter') {
+            this.month(Math.floor(this.month() / 3) * 3);
+        }
+
         return this;
     }
 
     function endOf (units) {
-        var time;
         units = normalizeUnits(units);
-        if (units === undefined || units === 'millisecond' || !this.isValid()) {
+        if (units === undefined || units === 'millisecond') {
             return this;
         }
 
-        var startOfDate = this._isUTC ? utcStartOfDate : localStartOfDate;
-
-        switch (units) {
-            case 'year':
-                time = startOfDate(this.year() + 1, 0, 1) - 1;
-                break;
-            case 'quarter':
-                time = startOfDate(this.year(), this.month() - this.month() % 3 + 3, 1) - 1;
-                break;
-            case 'month':
-                time = startOfDate(this.year(), this.month() + 1, 1) - 1;
-                break;
-            case 'week':
-                time = startOfDate(this.year(), this.month(), this.date() - this.weekday() + 7) - 1;
-                break;
-            case 'isoWeek':
-                time = startOfDate(this.year(), this.month(), this.date() - (this.isoWeekday() - 1) + 7) - 1;
-                break;
-            case 'day':
-            case 'date':
-                time = startOfDate(this.year(), this.month(), this.date() + 1) - 1;
-                break;
-            case 'hour':
-                time = this._d.valueOf();
-                time += MS_PER_HOUR - mod$1(time + (this._isUTC ? 0 : this.utcOffset() * MS_PER_MINUTE), MS_PER_HOUR) - 1;
-                break;
-            case 'minute':
-                time = this._d.valueOf();
-                time += MS_PER_MINUTE - mod$1(time, MS_PER_MINUTE) - 1;
-                break;
-            case 'second':
-                time = this._d.valueOf();
-                time += MS_PER_SECOND - mod$1(time, MS_PER_SECOND) - 1;
-                break;
+        // 'date' is an alias for 'day', so it should be considered as such.
+        if (units === 'date') {
+            units = 'day';
         }
 
-        this._d.setTime(time);
-        hooks.updateOffset(this, true);
-        return this;
+        return this.startOf(units).add(1, (units === 'isoWeek' ? 'week' : units)).subtract(1, 'ms');
     }
 
     function valueOf () {
@@ -5416,14 +5331,10 @@ var global = arguments[3];
 
         units = normalizeUnits(units);
 
-        if (units === 'month' || units === 'quarter' || units === 'year') {
-            days = this._days + milliseconds / 864e5;
+        if (units === 'month' || units === 'year') {
+            days   = this._days   + milliseconds / 864e5;
             months = this._months + daysToMonths(days);
-            switch (units) {
-                case 'month':   return months;
-                case 'quarter': return months / 3;
-                case 'year':    return months / 12;
-            }
+            return units === 'month' ? months : months / 12;
         } else {
             // handle milliseconds separately because of floating point math errors (issue #1867)
             days = this._days + Math.round(monthsToDays(this._months));
@@ -5466,7 +5377,6 @@ var global = arguments[3];
     var asDays         = makeAs('d');
     var asWeeks        = makeAs('w');
     var asMonths       = makeAs('M');
-    var asQuarters     = makeAs('Q');
     var asYears        = makeAs('y');
 
     function clone$1 () {
@@ -5658,7 +5568,6 @@ var global = arguments[3];
     proto$2.asDays         = asDays;
     proto$2.asWeeks        = asWeeks;
     proto$2.asMonths       = asMonths;
-    proto$2.asQuarters     = asQuarters;
     proto$2.asYears        = asYears;
     proto$2.valueOf        = valueOf$1;
     proto$2._bubble        = bubble;
@@ -5703,7 +5612,7 @@ var global = arguments[3];
     // Side effect imports
 
 
-    hooks.version = '2.24.0';
+    hooks.version = '2.23.0';
 
     setHookCallback(createLocal);
 
@@ -7275,13 +7184,17 @@ var _reactDatetime = require("react-datetime");
 
 var _reactDatetime2 = _interopRequireDefault(_reactDatetime);
 
+var _polished = require("polished");
+
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _globalStyles = require("../assets/globalStyles");
 
 var _helpers = require("../assets/helpers");
 
 var _Button = require("./basics/Button");
-
-var _polished = require("polished");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -7334,9 +7247,11 @@ var DateTimePicker = function (_React$PureComponent) {
             null,
             !_this.state.showRealCalendar ? _react2.default.createElement(
               StyledFakeInput,
-              { onClick: function onClick() {
+              {
+                onClick: function onClick() {
                   return _this.setState({ showRealCalendar: true });
-                } },
+                }
+              },
               _this.props.defaultEndDate != "" ? (0, _helpers.dateCalendarTransformation)(_this.props.defaultEndDate) : "pick a date and time"
             ) : _react2.default.createElement("input", _extends({}, props, { autoFocus: true })),
             _react2.default.createElement(_Button.Button, {
@@ -7381,10 +7296,16 @@ var DateTimePicker = function (_React$PureComponent) {
   return DateTimePicker;
 }(_react2.default.PureComponent);
 
-// styled components
+// propTypes
 
 
-var StyledFakeInput = (0, _styledComponents2.default)("div").withConfig({
+DateTimePicker.propTypes = {
+  defaultEndDate: _propTypes2.default.string.isRequired,
+  getNewDate: _propTypes2.default.func.isRequired,
+  mainColor: _propTypes2.default.string
+
+  // styled components
+};var StyledFakeInput = (0, _styledComponents2.default)("div").withConfig({
   displayName: "DateTimePicker__StyledFakeInput",
   componentId: "sc-1ac2mb7-0"
 })(["border:none;display:inline-block;cursor:pointer;width:calc(100% - 25px);padding:7px 0;margin-top:6px;"]);
@@ -7406,7 +7327,7 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(DateTimePicker);
-},{"react":"..\\node_modules\\react\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","react-redux":"..\\node_modules\\react-redux\\es\\index.js","react-datetime":"..\\node_modules\\react-datetime\\DateTime.js","../assets/globalStyles":"assets\\globalStyles.js","../assets/helpers":"assets\\helpers.js","./basics/Button":"components\\basics\\Button.jsx","polished":"..\\node_modules\\polished\\dist\\polished.es.js"}],"components\\SingleToDoDetailsEdit.jsx":[function(require,module,exports) {
+},{"react":"..\\node_modules\\react\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","react-redux":"..\\node_modules\\react-redux\\es\\index.js","react-datetime":"..\\node_modules\\react-datetime\\DateTime.js","polished":"..\\node_modules\\polished\\dist\\polished.es.js","prop-types":"..\\node_modules\\prop-types\\index.js","../assets/globalStyles":"assets\\globalStyles.js","../assets/helpers":"assets\\helpers.js","./basics/Button":"components\\basics\\Button.jsx"}],"components\\SingleToDoDetailsEdit.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -7424,6 +7345,10 @@ var _reactRedux = require("react-redux");
 var _styledComponents = require("styled-components");
 
 var _styledComponents2 = _interopRequireDefault(_styledComponents);
+
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 var _globalStyles = require("../assets/globalStyles");
 
@@ -7526,10 +7451,19 @@ var SingleToDoDetailsEdit = function (_React$PureComponent) {
   return SingleToDoDetailsEdit;
 }(_react2.default.PureComponent);
 
-// styled components
+// propTypes
 
 
-var StyledH4 = (0, _styledComponents2.default)("h4").withConfig({
+SingleToDoDetailsEdit.propTypes = {
+  handleEditItemName: _propTypes2.default.func.isRequired,
+  listId: _propTypes2.default.string.isRequired,
+  task: _propTypes2.default.object.isRequired,
+  showDetailsFunc: _propTypes2.default.func.isRequired,
+  handleEditItemNotes: _propTypes2.default.func.isRequired,
+  mainColor: _propTypes2.default.string
+
+  // styled components
+};var StyledH4 = (0, _styledComponents2.default)("h4").withConfig({
   displayName: "SingleToDoDetailsEdit__StyledH4",
   componentId: "sc-1tg0g6o-0"
 })(["margin:15px 0 5px;"]);
@@ -7566,7 +7500,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(SingleToDoDetailsEdit);
-},{"react":"..\\node_modules\\react\\index.js","react-redux":"..\\node_modules\\react-redux\\es\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","../assets/globalStyles":"assets\\globalStyles.js","../redux/actionCreators/editItemName":"redux\\actionCreators\\editItemName.js","../redux/actionCreators/editItemNotes":"redux\\actionCreators\\editItemNotes.js","../redux/actionCreators/editItemEndDate":"redux\\actionCreators\\editItemEndDate.js","./basics/DivThanInput":"components\\basics\\DivThanInput.jsx","./DateTimePicker":"components\\DateTimePicker.jsx"}],"components\\SingleToDoDetails.jsx":[function(require,module,exports) {
+},{"react":"..\\node_modules\\react\\index.js","react-redux":"..\\node_modules\\react-redux\\es\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","prop-types":"..\\node_modules\\prop-types\\index.js","../assets/globalStyles":"assets\\globalStyles.js","../redux/actionCreators/editItemName":"redux\\actionCreators\\editItemName.js","../redux/actionCreators/editItemNotes":"redux\\actionCreators\\editItemNotes.js","../redux/actionCreators/editItemEndDate":"redux\\actionCreators\\editItemEndDate.js","./basics/DivThanInput":"components\\basics\\DivThanInput.jsx","./DateTimePicker":"components\\DateTimePicker.jsx"}],"components\\SingleToDoDetails.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -7587,6 +7521,10 @@ var _styledComponents2 = _interopRequireDefault(_styledComponents);
 
 var _polished = require("polished");
 
+var _propTypes = require("prop-types");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _globalStyles = require("../assets/globalStyles");
 
 var _edit = require("../assets/icons/edit.svg");
@@ -7603,11 +7541,11 @@ var _PrioritySelector2 = _interopRequireDefault(_PrioritySelector);
 
 var _changeItemPriorityColor = require("../redux/actionCreators/changeItemPriorityColor");
 
+var _Button = require("./basics/Button");
+
 var _SingleToDoDetailsEdit = require("./SingleToDoDetailsEdit");
 
 var _SingleToDoDetailsEdit2 = _interopRequireDefault(_SingleToDoDetailsEdit);
-
-var _Button = require("./basics/Button");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -7673,9 +7611,7 @@ var SingleToDoDetails = function (_React$PureComponent) {
           _react2.default.createElement(_SingleToDoDetailsEdit2.default, {
             task: this.props.task,
             showDetailsFunc: this.props.showDetailsFunc,
-            itemListDetails: this.props.itemListDetails,
             mainColor: this.props.mainColor,
-            showToDoOptionsFunc: this.props.showToDoOptionsFunc,
             listId: this.props.listId
           })
         ),
@@ -7715,13 +7651,23 @@ var SingleToDoDetails = function (_React$PureComponent) {
   return SingleToDoDetails;
 }(_react2.default.PureComponent);
 
-// styled components
+// propTypes
 
 
-var StyledDetailsContainer = (0, _styledComponents2.default)("div").withConfig({
+SingleToDoDetails.propTypes = {
+  closeDetails: _propTypes2.default.func.isRequired,
+  handleDeleteItem: _propTypes2.default.func.isRequired,
+  completeListLayout: _propTypes2.default.func.isRequired,
+  task: _propTypes2.default.object.isRequired,
+  listId: _propTypes2.default.string.isRequired,
+  showDetailsFunc: _propTypes2.default.func.isRequired,
+  mainColor: _propTypes2.default.string
+
+  // styled components
+};var StyledDetailsContainer = (0, _styledComponents2.default)("div").withConfig({
   displayName: "SingleToDoDetails__StyledDetailsContainer",
   componentId: "gcj76f-0"
-})(["height:100%;width:45%;position:absolute;padding:20px;right:5px;bottom:0;background:white;box-shadow:-1px 2px 4px ", ";@media (", "){width:100%;}&.active{width:40%;}> button{position:absolute;bottom:20px;}li#single-ToDo{div{padding-left:0;}div + div{padding-left:15px;}}&.checked{.header-container,ul,> div{opacity:0.5;}}"], _globalStyles.colors.lightGrey, _globalStyles.mobileBreakpoint);
+})(["height:100%;width:45%;position:absolute;padding:20px;right:5px;bottom:0;background:white;box-shadow:-1px 2px 4px ", ";@media (", "){width:100%;right:0;padding:10px;top:-100px;height:500px;}&.active{width:40%;}> button{position:absolute;bottom:20px;}li#single-ToDo{div{padding-left:0;}div + div{padding-left:15px;}}&.checked{.header-container,ul,> div{opacity:0.5;}}"], _globalStyles.colors.lightGrey, _globalStyles.mobileBreakpoint);
 
 var StyledEditIcon = (0, _styledComponents2.default)(_edit2.default).withConfig({
   displayName: "SingleToDoDetails__StyledEditIcon",
@@ -7738,7 +7684,7 @@ var StyledH3 = (0, _styledComponents2.default)("h3").withConfig({
 var StyledFooter = (0, _styledComponents2.default)("div").withConfig({
   displayName: "SingleToDoDetails__StyledFooter",
   componentId: "gcj76f-3"
-})(["position:absolute;bottom:0;background:", ";width:100%;left:0;button{background:", ";margin:0;padding:20px;transition:0.25s all ease;&:hover{background:", ";}svg{margin-left:0;&#collapseIcon{transform:rotate(180deg);}}}div{width:calc(100% - 120px);text-align:center;}button:last-child{svg{&:hover{opacity:0.4 !important;fill:black !important;}}}.footer-item{display:inline-block;}"], (0, _polished.lighten)(0.225, _globalStyles.colors.lightGrey), (0, _polished.lighten)(0.2, _globalStyles.colors.lightGrey), (0, _polished.lighten)(0.15, _globalStyles.colors.lightGrey));
+})(["position:absolute;bottom:0;background:", ";width:100%;left:0;button{background:", ";margin:0;padding:20px;transition:0.25s all ease;&:hover{background:", ";}svg{margin-left:0;&#collapseIcon{transform:rotate(180deg);}}}div{width:calc(100% - 120px);text-align:center;}button:last-child{svg{&:hover{opacity:0.4 !important;fill:black !important;}}}.footer-item{display:inline-block;b{@media (", "){display:block;margin-bottom:5px;}}}"], (0, _polished.lighten)(0.225, _globalStyles.colors.lightGrey), (0, _polished.lighten)(0.2, _globalStyles.colors.lightGrey), (0, _polished.lighten)(0.15, _globalStyles.colors.lightGrey), _globalStyles.mobileBreakpoint);
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
@@ -7752,7 +7698,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(SingleToDoDetails);
-},{"react":"..\\node_modules\\react\\index.js","react-redux":"..\\node_modules\\react-redux\\es\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","polished":"..\\node_modules\\polished\\dist\\polished.es.js","../assets/globalStyles":"assets\\globalStyles.js","../assets/icons/edit.svg":"assets\\icons\\edit.svg","../assets/helpers":"assets\\helpers.js","../redux/actionCreators/deleteItem":"redux\\actionCreators\\deleteItem.js","./basics/PrioritySelector":"components\\basics\\PrioritySelector.jsx","../redux/actionCreators/changeItemPriorityColor":"redux\\actionCreators\\changeItemPriorityColor.js","./SingleToDoDetailsEdit":"components\\SingleToDoDetailsEdit.jsx","./basics/Button":"components\\basics\\Button.jsx"}],"..\\node_modules\\parcel-bundler\\src\\builtins\\hmr-runtime.js":[function(require,module,exports) {
+},{"react":"..\\node_modules\\react\\index.js","react-redux":"..\\node_modules\\react-redux\\es\\index.js","styled-components":"..\\node_modules\\styled-components\\dist\\styled-components.esm.js","polished":"..\\node_modules\\polished\\dist\\polished.es.js","prop-types":"..\\node_modules\\prop-types\\index.js","../assets/globalStyles":"assets\\globalStyles.js","../assets/icons/edit.svg":"assets\\icons\\edit.svg","../assets/helpers":"assets\\helpers.js","../redux/actionCreators/deleteItem":"redux\\actionCreators\\deleteItem.js","./basics/PrioritySelector":"components\\basics\\PrioritySelector.jsx","../redux/actionCreators/changeItemPriorityColor":"redux\\actionCreators\\changeItemPriorityColor.js","./basics/Button":"components\\basics\\Button.jsx","./SingleToDoDetailsEdit":"components\\SingleToDoDetailsEdit.jsx"}],"..\\node_modules\\parcel-bundler\\src\\builtins\\hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -7781,7 +7727,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '59901' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '58985' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 

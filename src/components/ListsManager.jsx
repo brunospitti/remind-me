@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { lighten } from "polished";
+import PropTypes from 'prop-types';
 
 import { colors, mobileBreakpoint } from "../assets/globalStyles";
 
@@ -66,6 +67,18 @@ class ListsManager extends React.PureComponent {
       </React.Fragment>
     );
   }
+}
+
+// propTypes
+ListsManager.propTypes = {
+  handleSelectList: PropTypes.func.isRequired,
+  completeListLayout: PropTypes.func.isRequired,
+  lists: PropTypes.oneOfType([
+    PropTypes.object.isRequired,
+    PropTypes.string,
+  ]),
+  handleColorChange: PropTypes.func.isRequired,
+  handleAddList: PropTypes.func.isRequired
 }
 
 // styled components
