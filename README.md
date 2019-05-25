@@ -1,3 +1,1 @@
-Remind me app
-
-Using react, redux, firebase, styled-components and loadable
+Remind me web app based on Microsoft’s To-do with multiple lists capability, sort list items by different aspects of each item, add reminder with notification-in-app, change priority and add notes to each item.
